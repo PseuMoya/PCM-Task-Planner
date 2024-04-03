@@ -80,7 +80,7 @@
     <?php 
      }else if($user_role == 2){
 
-      ?>
+    ?>
           <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-nav-custom">

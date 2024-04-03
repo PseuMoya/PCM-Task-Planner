@@ -7,16 +7,17 @@
 
 **Employee Login Details** 
 
-Username: perry123
-Password: perry123
+Username: logan
+Password: password
 
-
+Username: christine
+Password: password
 
 
 **Admin Login Details**
 
 Username: admin
-Password: codeowa
+Password: codeastro
 
 
 NOTE: after creating new account for the employees, you'll get a random generated

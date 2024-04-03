@@ -10,7 +10,7 @@ class Admin_Class
         $host_name='localhost';
 		$user_name='root';
 		$password='';
-		$db_name='taskplanner';
+		$db_name='etmsh';
 
 		try{
 			$connection=new PDO("mysql:host={$host_name}; dbname={$db_name}", $user_name,  $password);
@@ -143,6 +143,7 @@ class Admin_Class
 			$sqlEmail = "SELECT email FROM tbl_admin WHERE email = '$user_email' ";
 			$query_result_for_email = $this->manage_all_info($sqlEmail);
 			$total_email = $query_result_for_email->rowCount();
+			$user_position = $this->test_form_input_data($data['position']);
 
 			$sqlUsername = "SELECT username FROM tbl_admin WHERE username = '$user_username' ";
 			$query_result_for_username = $this->manage_all_info($sqlUsername);
@@ -161,14 +162,15 @@ class Admin_Class
             	return $message;
 
 			}else{
-				$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, username, email, password, temp_password, user_role) VALUES (:x, :y, :z, :a, :b, :c) ");
-
+				$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, username, email, password, temp_password, user_role, position) VALUES (:x, :y, :z, :a, :b, :c, :d) ");
 				$add_user->bindparam(':x', $user_fullname);
 				$add_user->bindparam(':y', $user_username);
 				$add_user->bindparam(':z', $user_email);
 				$add_user->bindparam(':a', $user_password);
 				$add_user->bindparam(':b', $temp_password);
 				$add_user->bindparam(':c', $user_role);
+				$add_user->bindparam(':d', $user_position);
+
 
 				$add_user->execute();
 			}
@@ -186,12 +188,15 @@ class Admin_Class
 		$user_fullname  = $this->test_form_input_data($data['em_fullname']);
 		$user_username = $this->test_form_input_data($data['em_username']);
 		$user_email = $this->test_form_input_data($data['em_email']);
+		$user_position = $this->test_form_input_data($data['position']); // Add this line
+
 		try{
-			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x, username = :y, email = :z WHERE user_id = :id ");
+			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x, username = :y, email = :z, position = :p WHERE user_id = :id "); // Modify this line
 
 			$update_user->bindparam(':x', $user_fullname);
 			$update_user->bindparam(':y', $user_username);
 			$update_user->bindparam(':z', $user_email);
+			$update_user->bindparam(':p', $user_position); // Add this line
 			$update_user->bindparam(':id', $id);
 			
 			$update_user->execute();

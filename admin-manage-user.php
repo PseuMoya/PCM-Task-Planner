@@ -39,7 +39,11 @@ if(isset($_POST['add_new_employee'])){
   $error = $obj_admin->add_new_user($_POST);
 }
 
+
+
 ?>
+
+
 
 
 
@@ -82,8 +86,22 @@ if(isset($_POST['add_new_employee'])){
                       <input type="email" placeholder="Enter Employee Email" name="em_email" class="form-control input-custom" required>
                     </div>
                   </div>
-                  
-                 
+          
+                  <div class="form-group">
+                      <label class="control-label col-sm-4">Position</label>
+                      <div class="col-sm-6">
+                          <select name="position" class="form-control input-custom" required>
+                              <option value="">Select Position...</option>
+                              <option value="IT Department">IT Department</option>
+                              <option value="Marketing">Marketing</option>
+                              <option value="Admin">Admin</option>
+                          </select>
+                      </div>
+                  </div>
+
+
+
+
                   
                   <div class="form-group">
                   </div>
@@ -139,6 +157,7 @@ if(isset($_POST['add_new_employee'])){
                   <th>Fullname</th>
                   <th>Email</th>
                   <th>Username</th>
+                  <th>Department</th>
                   <th>Temp Password</th>
                   <th>Details</th>
                 </tr>
@@ -160,6 +179,7 @@ if(isset($_POST['add_new_employee'])){
                   <td><?php echo $row['fullname']; ?></td>
                   <td><?php echo $row['email']; ?></td>
                   <td><?php echo $row['username']; ?></td>
+                  <td><?php echo $row['position'];?></td>
                   <td><?php echo $row['temp_password']; ?></td>
                   
                   <td><a title="Update Employee" href="update-employee.php?admin_id=<?php echo $row['user_id']; ?>"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;<a title="Delete" href="?delete_user=delete_user&admin_id=<?php echo $row['user_id']; ?>" onclick=" return check_delete();"><span class="glyphicon glyphicon-trash"></span></a></td>

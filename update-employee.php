@@ -76,6 +76,18 @@ include("include/sidebar.php");
                                 <input type="email" value="<?php echo $row['email']; ?>" placeholder="Enter employee email" name="em_email" class="form-control input-custom" required>
                               </div>
                             </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Position</label>
+                                <div class="col-sm-8">
+                                    <select name="position" class="form-control input-custom" required>
+                                        <option value="">Select Position...</option>
+                                        <option value="IT Department" <?php if($row['position'] == 'IT Department') echo 'selected'; ?>>IT Department</option>
+                                        <option value="Marketing" <?php if($row['position'] == 'Marketing') echo 'selected'; ?>>Marketing</option>
+                                        <option value="Admin" <?php if($row['position'] == 'Admin') echo 'selected'; ?>>Admin</option>
+                                    </select>
+                                </div>
+                            </div>
                       
                             <div class="form-group">
                             </div>
