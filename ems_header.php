@@ -1,7 +1,6 @@
-
 <div class="row">
-<div class="gap"></div>
-<div class="gap"></div>
+  <div class="gap"></div>
+  <div class="gap"></div>
   <div class="col-md-12">
 
     <div class="well">

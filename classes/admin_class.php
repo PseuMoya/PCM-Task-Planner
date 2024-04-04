@@ -2,12 +2,11 @@
 
 class Admin_Class
 {	
-
-/* -------------------------set_database_connection_using_PDO---------------------- */
+	public $db;
 
 	public function __construct()
 	{ 
-        $host_name='localhost';
+		$host_name='localhost';
 		$user_name='root';
 		$password='';
 		$db_name='etmsh';
@@ -16,8 +15,12 @@ class Admin_Class
 			$connection=new PDO("mysql:host={$host_name}; dbname={$db_name}", $user_name,  $password);
 			$this->db = $connection; // connection established
 		} catch (PDOException $message ) {
-			echo $message->getMessage();
+			throw new Exception($message->getMessage());
 		}
+	}
+
+	public function getDb() {
+		return $this->db;
 	}
 
 /* ---------------------- test_form_input_data ----------------------------------- */
@@ -51,7 +54,7 @@ class Admin_Class
 	            $_SESSION['temp_password'] = $userRow['temp_password'];
 
           		if($userRow['temp_password'] == null){
-	                header('Location: task-info.php');
+	                header('Location: dashboard.php');
           		}else{
           			header('Location: changePasswordForEmployee.php');
           		}
@@ -132,54 +135,66 @@ class Admin_Class
 
 /*----------- add_new_user--------------*/
 
-	public function add_new_user($data){
-		$user_fullname  = $this->test_form_input_data($data['em_fullname']);
-		$user_username = $this->test_form_input_data($data['em_username']);
-		$user_email = $this->test_form_input_data($data['em_email']);
-		$temp_password = rand(000000001,10000000);
-		$user_password = $this->test_form_input_data(md5($temp_password));
-		$user_role = 2;
-		try{
-			$sqlEmail = "SELECT email FROM tbl_admin WHERE email = '$user_email' ";
-			$query_result_for_email = $this->manage_all_info($sqlEmail);
-			$total_email = $query_result_for_email->rowCount();
-			$user_position = $this->test_form_input_data($data['position']);
+public function add_new_user($data){
+	$user_fullname  = $this->test_form_input_data($data['em_fullname']);
+	$user_username = $this->test_form_input_data($data['em_username']);
+	$user_email = $this->test_form_input_data($data['em_email']);
+	$temp_password = rand(000000001,10000000);
+	$user_password = $this->test_form_input_data(md5($temp_password));
+	$user_role = 2;
+	$user_position = $this->test_form_input_data($data['position']);
 
-			$sqlUsername = "SELECT username FROM tbl_admin WHERE username = '$user_username' ";
-			$query_result_for_username = $this->manage_all_info($sqlUsername);
-			$total_username = $query_result_for_username->rowCount();
+	// Process image upload
+	$target_dir = "uploads/";
+	$default_image = "uploads/default-img.png"; // Path to your default image
 
-			if($total_email != 0 && $total_username != 0){
-				$message = "Email and Password both are already taken";
-            	return $message;
-
-			}elseif($total_username != 0){
-				$message = "Username Already Taken";
-            	return $message;
-
-			}elseif($total_email != 0){
-				$message = "Email Already Taken";
-            	return $message;
-
-			}else{
-				$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, username, email, password, temp_password, user_role, position) VALUES (:x, :y, :z, :a, :b, :c, :d) ");
-				$add_user->bindparam(':x', $user_fullname);
-				$add_user->bindparam(':y', $user_username);
-				$add_user->bindparam(':z', $user_email);
-				$add_user->bindparam(':a', $user_password);
-				$add_user->bindparam(':b', $temp_password);
-				$add_user->bindparam(':c', $user_role);
-				$add_user->bindparam(':d', $user_position);
-
-
-				$add_user->execute();
-			}
-
-
-		}catch (PDOException $e) {
-			echo $e->getMessage();
-		}
+	if(!empty($_FILES["profileimg"]["name"])) {
+		$target_file = $target_dir . basename($_FILES["profileimg"]["name"]);
+		move_uploaded_file($_FILES["profileimg"]["tmp_name"], $target_file);
+	} else {
+		$target_file = $default_image;
 	}
+
+	try{
+		$sqlEmail = "SELECT email FROM tbl_admin WHERE email = '$user_email' ";
+		$query_result_for_email = $this->manage_all_info($sqlEmail);
+		$total_email = $query_result_for_email->rowCount();
+
+		$sqlUsername = "SELECT username FROM tbl_admin WHERE username = '$user_username' ";
+		$query_result_for_username = $this->manage_all_info($sqlUsername);
+		$total_username = $query_result_for_username->rowCount();
+
+		if($total_email != 0 && $total_username != 0){
+			$message = "Email and Password both are already taken";
+			return $message;
+
+		}elseif($total_username != 0){
+			$message = "Username Already Taken";
+			return $message;
+
+		}elseif($total_email != 0){
+			$message = "Email Already Taken";
+			return $message;
+
+		}else{
+			$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, username, email, password, temp_password, user_role, position, profileimg) VALUES (:x, :y, :z, :a, :b, :c, :d, :e) ");
+			$add_user->bindparam(':x', $user_fullname);
+			$add_user->bindparam(':y', $user_username);
+			$add_user->bindparam(':z', $user_email);
+			$add_user->bindparam(':a', $user_password);
+			$add_user->bindparam(':b', $temp_password);
+			$add_user->bindparam(':c', $user_role);
+			$add_user->bindparam(':d', $user_position);
+			$add_user->bindparam(':e', $target_file);
+
+			$add_user->execute();
+		}
+
+
+	}catch (PDOException $e) {
+		echo $e->getMessage();
+	}
+}
 
 
 /* ---------update_user_data----------*/
@@ -188,15 +203,21 @@ class Admin_Class
 		$user_fullname  = $this->test_form_input_data($data['em_fullname']);
 		$user_username = $this->test_form_input_data($data['em_username']);
 		$user_email = $this->test_form_input_data($data['em_email']);
-		$user_position = $this->test_form_input_data($data['position']); // Add this line
+		$user_position = $this->test_form_input_data($data['position']);
+
+		// Process image upload
+		$target_dir = "uploads/";
+		$target_file = $target_dir . basename($_FILES["profileimg"]["name"]);
+		move_uploaded_file($_FILES["profileimg"]["tmp_name"], $target_file);
 
 		try{
-			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x, username = :y, email = :z, position = :p WHERE user_id = :id "); // Modify this line
+			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x, username = :y, email = :z, position = :p, profileimg = :e WHERE user_id = :id ");
 
 			$update_user->bindparam(':x', $user_fullname);
 			$update_user->bindparam(':y', $user_username);
 			$update_user->bindparam(':z', $user_email);
-			$update_user->bindparam(':p', $user_position); // Add this line
+			$update_user->bindparam(':p', $user_position);
+			$update_user->bindparam(':e', $target_file); // Add this line
 			$update_user->bindparam(':id', $id);
 			
 			$update_user->execute();
@@ -208,7 +229,6 @@ class Admin_Class
 			echo $e->getMessage();
 		}
 	}
-
 
 /* ------------update_admin_data-------------------- */
 
@@ -346,94 +366,94 @@ class Admin_Class
 	}
 
 
-		public function update_task_info($data, $task_id, $user_role){
-			$task_title  = $this->test_form_input_data($data['task_title']);
-			$task_description = $this->test_form_input_data($data['task_description']);
-			$t_start_time = $this->test_form_input_data($data['t_start_time']);
-			$t_end_time = $this->test_form_input_data($data['t_end_time']);
-			$status = $this->test_form_input_data($data['status']);
-
-			if($user_role == 1){
-				$assign_to = $this->test_form_input_data($data['assign_to']);
-			}else{
-				$sql = "SELECT * FROM task_info WHERE task_id='$task_id' ";
-				$info = $this->manage_all_info($sql);
-				$row = $info->fetch(PDO::FETCH_ASSOC);
-				$assign_to = $row['t_user_id'];
-
-			}
-
-			try{
-				$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c WHERE task_id = :id ");
-
-				$update_task->bindparam(':x', $task_title);
-				$update_task->bindparam(':y', $task_description);
-				$update_task->bindparam(':z', $t_start_time);
-				$update_task->bindparam(':a', $t_end_time);
-				$update_task->bindparam(':b', $assign_to);
-				$update_task->bindparam(':c', $status);
-				$update_task->bindparam(':id', $task_id);
-
-				$update_task->execute();
-
-				$_SESSION['Task_msg'] = 'Task Update Successfully';
-
-				header('Location: task-info.php');
-			}catch (PDOException $e) {
-				echo $e->getMessage();
-			}
-
-		}
-
-
-	/* =================Attendance Related===================== */
-	public function add_punch_in($data){
-		// data insert 
-		$date = new DateTime('now', new DateTimeZone('Asia/Dhaka'));
- 		
-		$user_id  = $this->test_form_input_data($data['user_id']);
-		$punch_in_time = $date->format('d-m-Y H:i:s');
-
-		try{
-			$add_attendance = $this->db->prepare("INSERT INTO attendance_info (atn_user_id, in_time) VALUES ('$user_id', '$punch_in_time') ");
-			$add_attendance->execute();
-
-			header('Location: attendance-info.php');
-
-		}catch (PDOException $e) {
-			echo $e->getMessage();
-		}
-	}
-
-
-	public function add_punch_out($data){
-		$date = new DateTime('now', new DateTimeZone('Asia/Dhaka'));
-		$punch_out_time = $date->format('d-m-Y H:i:s');
-		$punch_in_time  = $this->test_form_input_data($data['punch_in_time']);
-
-		$dteStart = new DateTime($punch_in_time);
-        $dteEnd   = new DateTime($punch_out_time);
-        $dteDiff  = $dteStart->diff($dteEnd);
-        $total_duration = $dteDiff->format("%H:%I:%S");
-
-		$attendance_id  = $this->test_form_input_data($data['aten_id']);
-
-		try{
-			$update_user = $this->db->prepare("UPDATE attendance_info SET out_time = :x, total_duration = :y WHERE aten_id = :id ");
-
-			$update_user->bindparam(':x', $punch_out_time);
-			$update_user->bindparam(':y', $total_duration);
-			$update_user->bindparam(':id', $attendance_id);
-			
-			$update_user->execute();
-
-			header('Location: attendance-info.php');
-		}catch (PDOException $e) {
-			echo $e->getMessage();
-		}
-
-	}
-
+	public function update_task_info($data, $task_id, $user_role) 
+    { 
+        $task_title = $this->test_form_input_data($data['task_title']); 
+        $task_description = $this->test_form_input_data($data['task_description']); 
+        $t_start_time = $this->test_form_input_data($data['t_start_time']); 
+        $t_end_time = $this->test_form_input_data($data['t_end_time']); 
+        $status = $this->test_form_input_data($data['status']); 
+        $current_datetime = new DateTime('now'); 
+ 
+        if ($user_role == 1) { 
+            $assign_to = $this->test_form_input_data($data['assign_to']); 
+        } else { 
+            $sql = "SELECT * FROM task_info WHERE task_id='$task_id' "; 
+            $info = $this->manage_all_info($sql); 
+            $row = $info->fetch(PDO::FETCH_ASSOC); 
+            $assign_to = $row['t_user_id']; 
+        } 
+ 
+        try { 
+            $update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c WHERE task_id = :id "); 
+            $update_task->bindparam(':x', $task_title); 
+            $update_task->bindparam(':y', $task_description); 
+            $update_task->bindparam(':z', $t_start_time); 
+            $update_task->bindparam(':a', $t_end_time); 
+            $update_task->bindparam(':b', $assign_to); 
+            $update_task->bindparam(':c', $status); 
+            $update_task->bindparam(':id', $task_id); 
+            $update_task->execute(); 
+ 
+            $formatted_t_end_datetime = new DateTime($t_end_time); 
+            if ($current_datetime > $formatted_t_end_datetime) { 
+                $updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE task_id = :id "); 
+                $updatetaskstatus->bindparam(':id', $task_id); 
+                $updatetaskstatus->execute(); 
+            } 
+            $_SESSION['Task_msg'] = 'Task Updated Successfully'; 
+ 
+            header('Location: task-info.php'); 
+        } catch (PDOException $e) { 
+            echo $e->getMessage(); 
+        } 
+    } 
+ 
+ 
+ 
+    /* =================Attendance Related===================== */ 
+    public function add_punch_in($data) 
+    { 
+ 
+        $user_id  = $this->test_form_input_data($data['user_id']); 
+ 
+        try { 
+            $add_attendance = $this->db->prepare("INSERT INTO attendance_info (atn_user_id, in_time) VALUES ('$user_id',NOW()) "); 
+            $add_attendance->execute(); 
+ 
+            header('Location: attendance-info.php'); 
+        } catch (PDOException $e) { 
+            echo $e->getMessage(); 
+        } 
+    } 
+ 
+ 
+    public function add_punch_out($data) 
+    { 
+        $date = new DateTime('now', new DateTimeZone('Asia/Manila')); 
+        $punch_out_time = $date->format('d-m-Y H:i:s'); 
+        $punch_in_time  = $this->test_form_input_data($data['punch_in_time']); 
+ 
+        $dteStart = new DateTime($punch_in_time); 
+        $dteEnd   = new DateTime($punch_out_time); 
+        $dteDiff  = $dteStart->diff($dteEnd); 
+        $total_duration = $dteDiff->format("%H:%I:%S"); 
+ 
+        $attendance_id  = $this->test_form_input_data($data['aten_id']); 
+ 
+        try { 
+            $update_user = $this->db->prepare("UPDATE attendance_info SET out_time = NOW(), total_duration = :y WHERE aten_id = :id "); 
+ 
+            $update_user->bindparam(':y', $total_duration); 
+            $update_user->bindparam(':id', $attendance_id); 
+ 
+            $update_user->execute(); 
+ 
+            header('Location: attendance-info.php'); 
+        } catch (PDOException $e) { 
+            echo $e->getMessage(); 
+        } 
+    }
 
 
 	/* --------------------delete_data_by_this_method--------------*/

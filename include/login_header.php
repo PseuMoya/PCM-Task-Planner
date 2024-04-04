@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Employee time Management</title>
+  <title>Task Management</title>
+  
+  <!--FAVICON-->
+  <link rel="icon" type="image/png" href="assets/logo-fr.png"/>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">

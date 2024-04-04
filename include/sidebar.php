@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Employee Task Management System</title>
+  <title>Task Management</title>
+  
+  <!--FAVICON-->
+  <link rel="icon" type="image/png" href="assets/logo-fr.png"/>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -15,6 +18,7 @@
   <script src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
   <script src="assets/bootstrap-datepicker/js/datepicker-custom.js"></script>
   <script type="text/javascript">
+    
     
     /* delete function confirmation  */
     function check_delete() {
@@ -32,9 +36,8 @@
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
-
-
     }
+
     .navbar-brand{
       display: flex;
       justify-content: center;
@@ -71,14 +74,15 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-nav-custom">
-        <li <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><a href="task-info.php">Task Mangement<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tasks" ></span></a></li>
-        <li <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><a href="attendance-info.php">Attendance <span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-calendar"></span></a></li>
-        <li <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><a href="manage-admin.php">Administration<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+        <li <?php if($page_name == "Dasboard" ){echo "class=\"active\"";} ?>><a href="dashboard.php">Dashboard<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home" ></span></a></li>
+        <li <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><a href="task-info.php">Report<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tasks" ></span></a></li>
+        <li <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><a href="attendance-info.php">Intern Lists <span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>        
+        <li <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><a href="admin-manage-user.php">Administration<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
         <li ><a href="?logout=logout">Logout<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
       </ul>
     </div>
-    <?php 
-     }else if($user_role == 2){
+    <?php   
+    }else if($user_role == 2){
 
     ?>
           <!-- Collect the nav links, forms, and other content for toggling -->
