@@ -4,7 +4,14 @@
 :root {
     --main-bg-color: #F9F8FF;
     --panel-color: #FFFFFF;
-    --text-color: #82808F;
+    --border-color: #E6E4F0;
+    --text-color: #56555c;
+    --lighter-text-color: #82808F;
+    --accent-color: #ffd600;
+    --primary-font: Plus Jakarta Sans;
+
+    // sidebar
+    --sidebar-width: 250px;
 }
 
 * {
@@ -19,7 +26,7 @@
 body {
     background: var(--main-bg-color);
     color: var(--text-color);
-    font-family: Plus Jakarta Sans;
+    font-family: var(--primary-font);
 }
 
 .sidebar {
@@ -29,7 +36,7 @@ body {
     position: fixed;
     
     padding: 1em;
-    width: 250px;
+    width: var(--sidebar-width);
     height: 100%;
     background-color: var(--panel-color);
     z-index: 1;
@@ -48,7 +55,7 @@ body {
             text-align: start;
             // color of the word Planner
             span {
-                color: #ffd600;;
+                color: var(--accent-color);
             }
         }
     }
@@ -58,6 +65,47 @@ body {
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
+
+        ul:nth-child(2) {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px;
+
+            .h-wrapper {
+                align-items: center;
+
+                img {
+                    width: 50px;
+                    border-radius: 5px;
+                }
+                
+                .v-wrapper {
+                    gap: 0;
+
+                    :nth-child(1) {
+                        color: var(--text-color);
+                        font-weight: 500;
+                    }
+
+                    :nth-child(2) {
+                        color: var(--lighter-text-color);
+                        font-size: 14px;
+                    }
+                }
+            }
+            
+            a {
+                --red-accent-color: 173, 98, 98;
+                border-radius: 5px;
+                background-color: rgba(var(--red-accent-color), 0.15);
+                color: rgb(var(--red-accent-color));
+            }
+
+            a:hover:not(.active) {
+                --red-accent-color: 173, 98, 98;
+                background-color: rgba(var(--red-accent-color), 0.25);
+            }
+        }
 
         ul {
             display: flex;
@@ -82,7 +130,7 @@ body {
                 }
 
                 a.active {
-                    background-color: #ffd600;
+                    background-color: var(--accent-color);
                     color: black;
                 }
 
@@ -96,5 +144,185 @@ body {
 
 .content {
     padding: 1em;
-    margin-left: 250px;
+    margin-left: var(--sidebar-width);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    button {
+        padding: 1em;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .card {
+        padding: 1em;
+        border: 1px solid var(--border-color);
+        background-color: var(--panel-color);
+        border-radius: 15px;
+    }
+    .table-container {
+        overflow-x: auto;
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            width: 100%;
+            font-weight: 500;
+
+            thead {
+                tr {
+                    th {
+                        padding: 0.5em;
+                        padding-top: 0;
+                        text-align: start;
+                        color: var(--text-color);
+                        font-weight: 550;
+                        border-bottom: 1px solid var(--border-color);
+                    }
+                }
+            }
+
+            tbody {
+                color: var(--lighter-text-color);
+                
+                tr:nth-child(even){
+                    background-color: #f9f9f9;
+                }
+                tr:last-child td {
+                    padding-bottom: 0px;
+                }
+                tr {
+                    margin: 2em;
+                    border-top: 1px solid var(--border-color);
+                    
+                    td {
+                        padding: 0.5em;
+                    }
+                    
+                    td .actions {
+                        display: flex;
+                        gap: 0.5rem;
+                        
+                        a {
+                            color: var(--lighter-text-color);
+                        }
+
+                        a:hover {
+                            color: var(--text-color);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
+.status-indicator {
+    color: #ffffffd2;
+    font-weight: 500;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+.status-indicator.in-progress {
+    background-color: #ffb82e;
+}
+    
+.status-indicator.completed {
+    background-color: #36d000;
+}
+
+.status-indicator.incomplete {
+    background-color: #d63502;
+}
+
+#openModal {
+    background-color: var(--accent-color);
+    font-family: var(--primary-font);
+    border-radius: 6px;
+}
+
+// MODAL
+#modalBG {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    // display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    
+    .assign-task-modal {
+        background-color: var(--panel-color);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 1.5em;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        height: -webkit-fit-content;
+        height: -moz-fit-content;
+        height: fit-content;
+        margin: 1em;
+
+        label {
+            font-weight: 550;
+        }
+        
+        input, textarea, select{
+            font-family: var(--primary-font);
+            padding: 10px;
+            border-radius: 3px;
+            color: var(--lighter-text-color);
+            border: 1px solid var(--lighter-text-color);
+        }
+
+        textarea {
+            height: 100px; 
+            max-height: 100px; 
+            resize: none;
+        }
+        
+        .btnSection {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            
+            button {
+                padding: 0.75em 1em;
+                border: none;
+                font-weight: 600;
+                cursor: pointer;
+                border-radius: 3px;
+                font-family: var(--primary-font);
+            }
+            
+            button:nth-child(1) {
+                background-color: #28a745;
+                color: white;
+            }
+        }
+    }
+}
+
+.h-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.v-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+

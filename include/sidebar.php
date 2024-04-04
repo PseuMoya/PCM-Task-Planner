@@ -25,9 +25,10 @@
           $user_role = $_SESSION['user_role'];
           if($user_role == 1){
         ?>
-        <li><a href="task-info.php" <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><i class="ri-list-check-3"></i>Task Management</a></li>
-        <!-- <li><a href="attendance-info.php" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-user-2-fill"></i>Attendance</a></li> -->
-        <li><a href="manage-admin.php" <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><i class="ri-group-fill"></i>User Management</a></li>
+        <li><a href="#"><i class="ri-dashboard-horizontal-fill"></i>Dashboard</a></li>
+        <li><a href="task-info.php" <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
+        <li><a href="#"><i class="ri-team-fill"></i>Intern List</a></li>
+        <li><a href="manage-admin.php" <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><i class="ri-admin-fill"></i>Administration</a></li>
         
         <!-- if user is intern -->
         <?php 
@@ -45,7 +46,14 @@
         ?>
       </ul>
       <ul>
-        <li><a href="?logout=logout">Logout</a></li>
+        <div class="h-wrapper">
+          <img src="placeholder_pic.jpeg" alt="" width="50px">
+          <div class="v-wrapper">
+              <p>Juan dela Cruz</p>
+              <span>STI - IT Department</span>
+          </div>
+        </div>
+        <li><a href="?logout=logout"><i class="ri-logout-box-r-line"></i>Logout</a></li>
       </ul>
     </div>
   </div>
