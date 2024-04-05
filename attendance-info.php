@@ -30,90 +30,89 @@ if (isset($_POST['add_punch_out'])) {
 }
 
 $page_name = "Attendance";
-include("include/sidebar.php");
+include("include/lib_links.php");
 ?>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="well well-custom">
-            <div class="row">
-                <div class="col-md-8 ">
-                    <div class="btn-group">
-                        <!-- Position filter dropdown -->
-                        <form method="get" role="form" action="">
-                            <select name="position" class="form-control">
-                                <option value="">All Positions</option>
-                                <?php foreach ($positions as $position) : ?>
-                                    <option value="<?php echo $position; ?>" <?php echo ($selected_position == $position) ? 'selected' : ''; ?>><?php echo $position; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <button type="submit" class="btn btn-primary">Filter</button>
-                        </form>
-                    </div>
-                </div>
+<body>
+    <div class="page">
+        <?php
+        include("include/sidebar.php");
+        ?>
+
+        <div class="content">
+            <h1>Intern Lists</h1>
+
+            <div class="btnSection">
+                <!-- Position filter dropdown -->
+                <form method="get" role="form" action="">
+                    <select name="position" class="form-control">
+                        <option value="">All Positions</option>
+                        <?php foreach ($positions as $position) : ?>
+                            <option value="<?php echo $position; ?>" <?php echo ($selected_position == $position) ? 'selected' : ''; ?>><?php echo $position; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </form>
             </div>
 
-            <center>
-                <h3>Intern Lists</h3>
-            </center>
-            <div class="gap"></div>
-            <div class="gap"></div>
-            <div class="table-responsive">
-                <table class="table table-condensed table-custom">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Profile</th>
-                            <th>Name</th>
-                            <th>Department</th>
-                            <th>Tasks</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        // Prepare SQL query based on selected position
-                        $sql = "SELECT * FROM tbl_admin WHERE position IS NOT NULL AND position <> ''";
-                        if (!empty($selected_position)) {
-                            $sql .= " AND position = '$selected_position'";
-                        }
-                        $sql .= " ORDER BY user_id DESC";
-
-                        $info = $obj_admin->manage_all_info($sql);
-                        $serial = 1;
-                        $num_row = $info->rowCount();
-                        if ($num_row == 0) {
-                            echo '<tr><td colspan="7">No Data found</td></tr>';
-                        }
-                        while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                            $user_id = $row['user_id'];
-                            $sql = "SELECT * FROM task_info WHERE t_user_id = $user_id";
-                            $task_info = $obj_admin->manage_all_info($sql);
-                            $task_num = $task_info->rowCount();
-                        ?>
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
                             <tr>
-                                <td><?php echo $serial++; ?></td>
-                                <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="50" height="50"></td>
-                                <td><?php echo $row['fullname']; ?></td>
-                                <td><?php echo $row['position']; ?></td>
-                                <td><?php echo $task_num; ?></td>
-                                <td>
-                                    <?php
-                                    if ($task_num == 0) {
-                                        echo '<span class="label label-danger">No Task</span>';
-                                    } else {
-                                        echo '<span class="label label-success">Task Assigned</span>';
-                                    }
-                                    ?>
-                                </td>
+                                <th>No.</th>
+                                <th>Profile</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Tasks</th>
+                                <th>Status</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Prepare SQL query based on selected position
+                            $sql = "SELECT * FROM tbl_admin WHERE position IS NOT NULL AND position <> ''";
+                            if (!empty($selected_position)) {
+                                $sql .= " AND position = '$selected_position'";
+                            }
+                            $sql .= " ORDER BY user_id DESC";
+
+                            $info = $obj_admin->manage_all_info($sql);
+                            $serial = 1;
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                            }
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                                $user_id = $row['user_id'];
+                                $sql = "SELECT * FROM task_info WHERE t_user_id = $user_id";
+                                $task_info = $obj_admin->manage_all_info($sql);
+                                $task_num = $task_info->rowCount();
+                            ?>
+                                <tr>
+                                    <td><?php echo $serial++; ?></td>
+                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="50" height="50"></td>
+                                    <td><?php echo $row['fullname']; ?></td>
+                                    <td><?php echo $row['position']; ?></td>
+                                    <td><?php echo $task_num; ?></td>
+                                    <td>
+                                        <?php
+                                        if ($task_num == 0) {
+                                            echo '<span class="label label-danger">No Task</span>';
+                                        } else {
+                                            echo '<span class="label label-success">Task Assigned</span>';
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>
 
 <?php
 include("include/footer.php");

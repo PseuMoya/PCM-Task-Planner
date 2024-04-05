@@ -27,44 +27,23 @@ if (isset($_POST['add_task_post'])) {
 }
 
 $page_name = "Task_Info";
-include("include/sidebar.php");
+include("include/lib_links.php");
 // include('ems_header.php');
 
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <title>Reports | TaskPlanner</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- bootstrap 🤮 -->
-    <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
-    <!-- <link rel="stylesheet" href="assets/css/bootstrap.theme.min.css"> -->
-    <link rel="stylesheet" href="assets/bootstrap-datepicker/css/datepicker.css">
-    <link rel="stylesheet" href="assets/bootstrap-datepicker/css/datepicker-custom.css">
-
-    <!-- <link rel="stylesheet" href="assets/css/custom.css"> -->
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <script src="assets/js/jquery.min.js"></script>
-    <!-- <script src="assets/js/bootstrap.min.js"></script> -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="assets/bootstrap-datepicker/js/datepicker-custom.js"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 
 <body>
     <form role="form" action="" method="post" autocomplete="off">
         <div id="modalBG">
-            <div class="assign-task-modal">
+            <div class="modal">
                 <div class="modalTitle">
                     <h2>New task</h2>
                 </div>

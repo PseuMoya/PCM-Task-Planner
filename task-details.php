@@ -22,7 +22,7 @@ if (isset($_POST['update_task_info'])) {
 }
 
 $page_name = "Edit Task";
-include("include/sidebar.php");
+include("include/lib_links.php");
 
 $sql = "SELECT a.*, b.fullname 
 FROM task_info a
@@ -37,76 +37,53 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+<div class="modal">
+	<div class="modalTitle">
+		<h2>Task details</h2>
+	</div>
+	
+	<div class="v-wrapper">
+		<label for="task_title">Task Title</label>
+		<p><?php echo $row['t_title']; ?></p>
+	</div>
+	
+	<div class="v-wrapper">
+		<label for="task_description">Task Description</label>
+		<p><?php echo $row['t_description']; ?></p>
+	</div>
 
+	<div class="h-wrapper" style="gap: 1em">
+		<div class="v-wrapper">
+			<label for="t_start_time">Start Time</label>
+			<p><?php echo $row['t_start_time']; ?></p>
+		</div>
 
-<div class="row">
-	<div class="col-md-12">
-		<div class="well well-custom">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<div class="well">
-						<h3 class="text-center bg-primary" style="padding: 7px;">Task Details </h3><br>
-
-						<div class="row">
-							<div class="col-md-12">
-
-								<div class="table-responsive">
-									<table class="table table-bordered table-single-product">
-										<tbody>
-											<tr>
-												<td>Task Title</td>
-												<td><?php echo $row['t_title']; ?></td>
-											</tr>
-											<tr>
-												<td>Description</td>
-												<td><?php echo $row['t_description']; ?></td>
-											</tr>
-											<tr>
-												<td>Start Time</td>
-												<td><?php echo $row['t_start_time']; ?></td>
-											</tr>
-											<tr>
-												<td>End Time</td>
-												<td><?php echo $row['t_end_time']; ?></td>
-											</tr>
-											<tr>
-												<td>Assign To</td>
-												<td><?php echo $row['fullname']; ?></td>
-											</tr>
-											<tr>
-												<td>Status</td>
-												<td><?php if ($row['status'] == 1) {
-														echo "In Progress";
-													} elseif ($row['status'] == 2) {
-														echo "Completed";
-													} else {
-														echo "Incomplete";
-													} ?></td>
-											</tr>
-
-										</tbody>
-									</table>
-								</div>
-
-								<div class="form-group">
-
-									<div class="col-sm-3">
-										<a title="Update Task" href="task-info.php"><span class="btn btn-success-custom btn-xs">Go Back</span></a>
-									</div>
-								</div>
-								</form>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
+		<div class="v-wrapper">
+			<label for="t_end_time">End Time</label>
+			<p><?php echo $row['t_end_time']; ?></p>
 		</div>
 	</div>
+
+	<div class="v-wrapper">
+		<label for="assign_to">Assigned to</label>
+		<p><?php echo $row['fullname']; ?></p>
+	</div>
+
+	<div class="v-wrapper">
+		<label for="status">Status</label>
+		<?php if ($row['status'] == 1) {
+			echo "<div class='status-indicator in-progress'>In Progress</div>";
+		} elseif ($row['status'] == 2) {
+			echo "<div class='status-indicator completed'>Completed</div>";
+		} else {
+			echo "<div class='status-indicator incomplete'>Incomplete</div>";
+		} ?>
+	</div>
+
+	<div class="btnSection">
+		<a href="task-info.php"><button>Go back</button></a>
+	</div>
 </div>
-
-
 <?php
 
 

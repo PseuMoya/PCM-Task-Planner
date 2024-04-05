@@ -34,6 +34,7 @@ if (isset($_GET['delete_user'])) {
 
 $page_name = "Admin";
 include("include/sidebar.php");
+include("include/lib_links.php");
 
 if (isset($_POST['add_new_employee'])) {
   $error = $obj_admin->add_new_user($_POST);

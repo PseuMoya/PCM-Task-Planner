@@ -34,7 +34,7 @@ if (isset($_GET['delete_user'])) {
 }
 
 $page_name = "Dashboard";
-include("include/sidebar.php");
+include("include/lib_links.php");
 
 
 ?>
@@ -43,110 +43,83 @@ include("include/sidebar.php");
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <style>
-        .dashboard {
-            display: flex;
-            align-items: center;
-            padding: 0px 20px;
-        }
-
-        .interns-container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .intern-box {
-            padding: 10px 20px;
-            background-color: white;
-            border-radius: 10px;
-            margin: 10px;
-        }
-    </style>
+    <title>Dashboard | TaskPlanner</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
+    <div class="page">
+        <?php
+        include("include/sidebar.php");
+        ?>
 
-    <div class="dashboard">
+        <div class="content">
+            <h1>Dashboard</h1>
 
-        <div class="interns-count">
-
-            <div class="interns-container">
-
-                <div class="intern-box">
-                    <h1>IT Department</h1>
-                    <p>
+            <div class="dash-cards">
+                <div class="card">
+                    <p>IT Department</p>
+                    <span class="how-many">
                         <?php
                         $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'IT Department'";
                         $info = $obj_admin->manage_all_info($sql);
                         $count = $info->rowCount();
                         echo $count;
                         ?>
-                    </p>
+                    </span>
                 </div>
 
-                <div class="intern-box">
-                    <h1>Hr Department</h1>
-                    <p>
+                <div class="card">
+                    <p>HR Department</p>
+                    <span class="how-many">
                         <?php
                         $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Hr'";
                         $info = $obj_admin->manage_all_info($sql);
                         $count = $info->rowCount();
                         echo $count;
                         ?>
-                    </p>
+                    </span>
                 </div>
 
-                <div class="intern-box">
-                    <h1>Marketing Department</h1>
-                    <p>
+                <div class="card">
+                    <p>Marketing Department</p>
+                    <span class="how-many">
                         <?php
                         $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Marketing'";
                         $info = $obj_admin->manage_all_info($sql);
                         $count = $info->rowCount();
                         echo $count;
                         ?>
-                    </p>
+                    </span>
                 </div>
 
-                <div class="intern-box">
-                    <h1>Admin Department</h1>
-                    <p>
+                <div class="card">
+                    <p>Admin Department</p>
+                    <span class="how-many">
                         <?php
                         $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Admin'";
                         $info = $obj_admin->manage_all_info($sql);
                         $count = $info->rowCount();
                         echo $count;
                         ?>
-                    </p>
+                    </span>
                 </div>
-
             </div>
 
-        </div>
-
-    </div>
-
-    <div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="well well-custom">
-                    <div class="gap"></div>
-                    <div class="table-responsive">
-                        <table class="table table-codensed table-custom">
-                            <h4>Task Report: <span>Ongoing</span></h4>
-                            <thead>
-                                <tr>
-                                    <th>Serial No.</th>
-                                    <th>Interns</th>
-                                    <th>task</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <?php
+            <div class="card">
+                <h3>Task Report: <span>Ongoing</span></h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Interns</th>
+                            <th>task</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <?php
                                 $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
                                 FROM task_info
                                 JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
@@ -157,92 +130,90 @@ include("include/sidebar.php");
                                 $serial  = 1;
                                 while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                                 ?>
-                                    <tr>
-                                        <td><?php echo $serial;
-                                            $serial++; ?></td>
-                                        <td><?php echo $row['fullname']; ?></td>
-                                        <td><?php echo $row['t_title']; ?></td>
-                                    </tr>
-                                <?php  } ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="gap"></div>
-                    <div class="table-responsive">
-                        <table class="table table-codensed table-custom">
-                            <h4>Task Report: <span>Pending</span></h4>
-                            <thead>
                                 <tr>
-                                    <th>Serial No.</th>
-                                    <th>Interns</th>
-                                    <th>task</th>
+                                    <td><?php echo $serial;
+                                        $serial++; ?></td>
+                                    <td><?php echo $row['fullname']; ?></td>
+                                    <td><?php echo $row['t_title']; ?></td>
                                 </tr>
-                            </thead>
-                            <tbody>
+                            <?php  } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                                <?php
+            <div class="card">
+                <h3>Task Report: <span>Pending</span></h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Interns</th>
+                            <th>task</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <?php
                                 $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
-                            FROM task_info
-                            JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
-                            WHERE task_info.status = 0;
-                            ";
-                                $info = $obj_admin->manage_all_info($sql);
+                                FROM task_info
+                                JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
+                                WHERE task_info.status = 0;
+                                ";
+                                    $info = $obj_admin->manage_all_info($sql);
 
-                                $serial  = 1;
-                                while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
+                                    $serial  = 1;
+                                    while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
                                     <tr>
                                         <td><?php echo $serial;
                                             $serial++; ?></td>
                                         <td><?php echo $row['fullname']; ?></td>
                                         <td><?php echo $row['t_title']; ?></td>
                                     </tr>
-                                <?php  } ?>
-                            </tbody>
-                        </table>
-                    </div>
+                            <?php  } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                    <div class="gap"></div>
-                    <div class="table-responsive">
-                        <table class="table table-codensed table-custom">
-                            <h4>Task Report: <span>Completed</span></h4>
-                            <thead>
-                                <tr>
-                                    <th>Serial No.</th>
-                                    <th>Interns</th>
-                                    <th>task</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <?php
+            <div class="card">
+                <h3>Task Report: <span>Completed</span></h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Interns</th>
+                            <th>task</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <?php
                                 $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname 
-                            FROM task_info 
-                            JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id 
-                            WHERE task_info.status = 2; 
-                            ";
-                                $info = $obj_admin->manage_all_info($sql);
+                                FROM task_info 
+                                JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id 
+                                WHERE task_info.status = 2; 
+                                ";
+                                    $info = $obj_admin->manage_all_info($sql);
 
-                                $serial  = 1;
-                                while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
+                                    $serial  = 1;
+                                    while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
                                     <tr>
                                         <td><?php echo $serial;
                                             $serial++; ?></td>
                                         <td><?php echo $row['fullname']; ?></td>
                                         <td><?php echo $row['t_title']; ?></td>
                                     </tr>
-                                <?php  } ?>
-                            </tbody>
-                        </table>
-                    </div>
+                            <?php  } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
     </div>
-
 
 </body>
 
