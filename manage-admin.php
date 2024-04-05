@@ -19,7 +19,7 @@ $page_name = "Admin";
 include("include/sidebar.php");
 
 ?>
-
+<link rel="stylesheet" href="assets/css/style.css">
 
 
 <div class="row">

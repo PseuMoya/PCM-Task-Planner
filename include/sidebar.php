@@ -1,112 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Task Management</title>
+<script type="text/javascript">
   
-  <!--FAVICON-->
-  <link rel="icon" type="image/png" href="assets/logo-fr.png"/>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/bootstrap.theme.min.css">
-  <link rel="stylesheet" href="assets/bootstrap-datepicker/css/datepicker.css">
-  <link rel="stylesheet" href="assets/bootstrap-datepicker/css/datepicker-custom.css">
-  <link rel="stylesheet" href="assets/css/custom.css">
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
-  <script src="assets/js/custom.js"></script>
-  <script src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-  <script src="assets/bootstrap-datepicker/js/datepicker-custom.js"></script>
-  <script type="text/javascript">
-    
-    
-    /* delete function confirmation  */
-    function check_delete() {
-      var check = confirm('Are you sure you want to delete this?');
-        if (check) {
-         
-            return true;
-        } else {
-            return false;
-      }
+  /* delete function confirmation  */
+  function check_delete() {
+    var check = confirm('Are you sure you want to delete this?');
+      if (check) {
+        
+          return true;
+      } else {
+          return false;
     }
-  </script>
-  <style>
-    .navbar-header{
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
+  }
+</script>
 
-    .navbar-brand{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 10px 0px !important;
-    }
-    .navbar-brand img{
-      width: 100px;
-      height: 100px;
-    }
-  </style>
-</head>
-<body>
-
-<nav class="navbar navbar-inverse sidebar navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="task-info.php">
-        <img src="assets/logo.png" alt="PCM">
-      </a>    
+  <div class="sidebar">
+    <div class="title">
+      <img src="logo.svg" alt="">
+      <p>Task<span>Planner</span></p>
     </div>
+    <div class="sidebar-wrapper">
+      <ul>
 
-    <?php
-    $user_role = $_SESSION['user_role'];
-     if($user_role == 1){
-    ?>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-nav-custom">
-        <li <?php if($page_name == "Dasboard" ){echo "class=\"active\"";} ?>><a href="dashboard.php">Dashboard<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home" ></span></a></li>
-        <li <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><a href="task-info.php">Report<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tasks" ></span></a></li>
-        <li <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><a href="attendance-info.php">Intern Lists <span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>        
-        <li <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><a href="admin-manage-user.php">Administration<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-        <li ><a href="?logout=logout">Logout<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
+        <!-- if user is admin -->
+        <?php
+          $user_role = $_SESSION['user_role'];
+          if($user_role == 1){
+        ?>
+        <li><a href="dashboard.php" <?php if($page_name == "Dasboard" ){echo "class=\"active\"";} ?>><i class="ri-dashboard-horizontal-fill"></i>Dashboard</a></li>
+        <li><a href="task-info.php" <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
+        <li><a href="attendance-info.php" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Attendance</a></li>
+        <li><a href="admin-manage-user.php" <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><i class="ri-admin-fill"></i>Administration</a></li>
+        
+        <!-- if user is intern -->
+        <?php 
+          }else if($user_role == 2){ 
+        ?>
+        <li><a href="task-info.php" <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
+        <li><a href="attendance-info.php" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Attendance</a></li>
+        
+        <!-- how tf does a user gain the role 1 or 2 -->
+        <?php
+          }else{
+            header('Location: index.php');
+          }
+        ?>
+      </ul>
+      <ul>
+        <div class="h-wrapper">
+          <img src="placeholder_pic.jpeg" alt="" width="50px">
+          <div class="v-wrapper">
+              <p>Juan dela Cruz</p>
+              <span>STI - IT Department</span>
+          </div>
+        </div>
+        <li><a href="?logout=logout"><i class="ri-logout-box-r-line"></i>Logout</a></li>
       </ul>
     </div>
-    <?php   
-    }else if($user_role == 2){
-
-    ?>
-          <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-nav-custom">
-        <li <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><a href="task-info.php">Task Mangement<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tasks"></span></a></li>
-        <li <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><a href="attendance-info.php">Attendance <span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-calendar"></span></a></li>
-        <li ><a href="?logout=logout">Logout<span style="font-size:16px; color:#d4ab3a;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span></a></li>
-      </ul>
-    </div>
-
-      <?php
-
-     }else{
-       header('Location: index.php');
-     }
-
-    ?>
-    
-
-
   </div>
-</nav>
-
-
-
-<div class="main">

@@ -57,3 +57,18 @@ request.onreadystatechange = function(response) {
     }
   }
 };
+
+document.addEventListener('DOMContentLoaded', function() {
+	// Get references to modal elements
+	var openModal = document.getElementById("openModal");
+	var modal = document.getElementById("modalBG");
+	var exitModal = document.getElementById("exitModal");
+
+	openModal.addEventListener("click", function () {
+		modal.style.display = "flex";
+	});
+
+	exitModal.addEventListener("click", function () {
+		modal.style.display = "none";
+	});
+});
