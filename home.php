@@ -14,6 +14,7 @@ if ($user_id == NULL || $security_key == NULL) {
 $user_role = $_SESSION['user_role'];
 
 
+
 if (isset($_GET['delete_task'])) {
   $action_id = $_GET['task_id'];
 
@@ -88,16 +89,15 @@ include("include/lib_links.php");
                             
                             if ($user_role == 1) {
                                 $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
-                                        FROM task_info a
-                                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                                        WHERE a.status = 0
+                                        FROM tbl_admin b
+                                        LEFT JOIN task_info a ON(a.t_user_id = b.user_id AND a.status = 0)
                                         GROUP BY b.fullname, b.profileimg
                                         ORDER BY b.fullname ASC";
                             } else {
                                 $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
-                                        FROM task_info a
-                                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                                        WHERE a.t_user_id = $user_id AND a.status = 0
+                                        FROM tbl_admin b
+                                        LEFT JOIN task_info a ON(a.t_user_id = b.user_id AND a.status = 0)
+                                        WHERE b.user_id = $user_id
                                         GROUP BY b.fullname, b.profileimg
                                         ORDER BY b.fullname ASC";
                             }
@@ -111,7 +111,8 @@ include("include/lib_links.php");
                             // Modify the PHP code that generates the table to display only one name and the count of pending tasks
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                                 <tr>
-                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="40px" height="40px"></td>                                    <td><?php echo $row['fullname']; ?></td>
+                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="40px" height="40px"></td>                                    
+                                    <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['pending_tasks']; ?></td>
                                 </tr>
                             <?php } ?>
