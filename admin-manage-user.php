@@ -6,37 +6,37 @@ $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
 $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
-  header('Location: index.php');
+    header('Location: index.php');
 }
 
 // check admin 
 $user_role = $_SESSION['user_role'];
 if ($user_role != 1) {
-  header('Location: task-info.php');
+    header('Location: task-info.php');
 }
 
 
 if (isset($_GET['delete_user'])) {
-  $action_id = $_GET['admin_id'];
+    $action_id = $_GET['admin_id'];
 
-  $task_sql = "DELETE FROM task_info WHERE t_user_id = $action_id";
-  $delete_task = $obj_admin->db->prepare($task_sql);
-  $delete_task->execute();
+    $task_sql = "DELETE FROM task_info WHERE t_user_id = $action_id";
+    $delete_task = $obj_admin->db->prepare($task_sql);
+    $delete_task->execute();
 
-  $attendance_sql = "DELETE FROM attendance_info WHERE atn_user_id = $action_id";
-  $delete_attendance = $obj_admin->db->prepare($attendance_sql);
-  $delete_attendance->execute();
+    $attendance_sql = "DELETE FROM attendance_info WHERE atn_user_id = $action_id";
+    $delete_attendance = $obj_admin->db->prepare($attendance_sql);
+    $delete_attendance->execute();
 
-  $sql = "DELETE FROM tbl_admin WHERE user_id = :id";
-  $sent_po = "admin-manage-user.php";
-  $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
+    $sql = "DELETE FROM tbl_admin WHERE user_id = :id";
+    $sent_po = "admin-manage-user.php";
+    $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
 }
 
 $page_name = "Admin";
 include("include/lib_links.php");
 
 if (isset($_POST['add_new_employee'])) {
-  $error = $obj_admin->add_new_user($_POST);
+    $error = $obj_admin->add_new_user($_POST);
 }
 
 
@@ -52,153 +52,134 @@ if (isset($_POST['add_new_employee'])) {
 <!--modal for employee add-->
 <!-- Modal -->
 
-<form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
-  <?php if (isset($error)) { ?>
-                <h5 class="alert alert-danger"><?php echo $error; ?></h5>
-              <?php } ?>
-  <div id="modalBG">
-    <div class="modal">
+<body>
+    <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
+        <div id="modalBG">
+            <div class="modal">
+                <?php if (isset($error)) { ?>
+                    <h5 class="alert alert-danger"><?php echo $error; ?></h5>
+                <?php } ?>
                 <div class="modalTitle">
-                    <h2>Edit Intern</h2>
+                    <h2>Add an Intern</h2>
                 </div>
 
                 <div class="v-wrapper">
-                  <label class="control-label col-sm-4">Fullname</label>
-                  <input type="text" placeholder="Enter Employee Name" name="em_fullname" list="expense" class="form-control" id="default" required>
+                    <label for="em_fullname">Full name</label>
+                    <input type="text" placeholder="e.g. Firstname M.I. Lastname" name="em_fullname" list="expense" class="form-control" id="default" required>
                 </div>
 
                 <div class="v-wrapper">
-                  <label class="control-label col-sm-4">Username</label>
-                  <input type="text" placeholder="Enter Employee username" name="em_username" class="form-control" required>
+                    <label for="em_username">Username</label>
+                    <input type="text" placeholder="Enter employee username" name="em_username" class="form-control" required>
                 </div>
 
                 <div class="v-wrapper">
-                  <label>Email</label>
-                    <input type="email" placeholder="Enter Employee Email" name="em_email" class="form-control" required>
+                    <label for="em_email">Email</label>
+                    <input type="email" placeholder="Enter employee email" name="em_email" class="form-control" required>
                 </div>
 
                 <div class="v-wrapper">
-                  <label>Position</label>
-                  <div class="col-sm-6">
-                    <select name="position" class="form-control input-custom" required>
-                      <option value="">Select Position...</option>
-                      <option value="IT Department">IT Department</option>
-                      <option value="Hr">Hr</option>
-                      <option value="Marketing">Marketing</option>
-                      <option value="Admin">Admin</option>
+                    <label for="position">Position</label>
+                    <select name="position" required>
+                        <option value="">Select Position...</option>
+                        <option value="IT Department">IT Department</option>
+                        <option value="Hr">Hr</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Admin">Admin</option>
                     </select>
-                  </div>
                 </div>
 
                 <div class="v-wrapper">
-                  <label>Profile Image</label>
-                  <input type="file" name="profileimg" class="form-control">
+                    <label for="profileimg">Profile Image</label>
+                    <input type="file" name="profileimg" class="form-control">
                 </div>
 
                 <div class="btnSection">
-                    <button type="submit" name="add_new_employee" class="btn btn-success-custom">Add Employee</button>
+                    <button type="submit" name="add_new_employee">Add Employee</button>
                     <button id="exitModal">Cancel</button>
                 </div>
-              </div>
-              </div>
+            </div>
+        </div>
     </form>
 
-
-<!--modal for employee add-->
-
-
-<div class="page">
+    <div class="page">
         <?php
         $page_name = "Admin";
         include("include/sidebar.php");
         // include('ems_header.php');
         ?>
-<div class="content">
-        <?php if (isset($error)) { ?>
-          <script type="text/javascript">
-            $('#modalBG').modal('show');
-          </script>
-        <?php } ?>
-        <?php if ($user_role == 1) { ?>
-          <div class="btn-group">
-            <button  id="openModal">Add New Employee</button>
-          </div>
-        <?php } ?>
 
-
-        <!-- <ul class="nav nav-tabs nav-justified nav-tabs-custom"> -->
-          <!-- <li><a href="manage-admin.php">Manage Admin</a></li> -->
-          <!-- <li class="active"><a href="admin-manage-user.php">Manage Employee</a></li> -->
-        <!-- </ul> -->
-
-        <div class="card">
-          <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Serial No.</th>
-                <th>Profile Image</th>
-                <th>Fullname</th>
-                <th>Email</th>
-                <th>Username</th>
-                <th>Department</th>
-                <th>Temp Password</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-
-              <?php
-              $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 ORDER BY user_id DESC";
-              $info = $obj_admin->manage_all_info($sql);
-              $serial  = 1;
-              $num_row = $info->rowCount();
-              if ($num_row == 0) {
-                echo '<tr><td colspan="7">No Data found</td></tr>';
-              }
-              while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-              ?>
-                <tr>
-                  <td><?php echo $serial;
-                      $serial++; ?></td>
-                  <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="50" height="50"></td>
-                  <td><?php echo $row['fullname']; ?></td>
-                  <td><?php echo $row['email']; ?></td>
-                  <td><?php echo $row['username']; ?></td>
-                  <td><?php echo $row['position']; ?></td>
-                  <td><?php echo $row['temp_password']; ?></td>
-
-                  <td>
-                    <div class="actions">
-
-                      <a title="Update Employee" href="update-employee.php?admin_id=<?php echo $row['user_id']; ?>">
-                      <i class="ri-folder-open-fill"></i></a>&nbsp;&nbsp;<a title="Delete" href="?delete_user=delete_user&admin_id=<?php echo $row['user_id']; ?>" onclick=" return check_delete();">
-                      <i class="ri-delete-bin-6-fill"></i></a>
-                      
+        <div class="content">
+            <h1>Administration</h1>
+                
+            <div class="btnSection">
+                <?php if ($user_role == 1) { ?>
+                    <div class="btn-group">
+                        <button id="openModal"><i class="ri-user-add-line"></i>Add New Employee</button>
                     </div>
-                  </td>
-                </tr>
+                <?php } ?>
+            </div>
 
+            <div class="card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Serial No.</th>
+                                <th>Profile Image</th>
+                                <th>Fullname</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Department</th>
+                                <th>Temp Password</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-        
+                            <?php
+                            $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 ORDER BY user_id DESC";
+                            $info = $obj_admin->manage_all_info($sql);
+                            $serial  = 1;
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                            }
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $serial;
+                                        $serial++; ?></td>
+                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></td>
+                                    <td><?php echo $row['fullname']; ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <td><?php echo $row['username']; ?></td>
+                                    <td><?php echo $row['position']; ?></td>
+                                    <td><?php echo $row['temp_password']; ?></td>
 
-              <?php  } ?>
-
-
-
-            </tbody>
-          </table>
+                                    <td>
+                                        <div class="actions">
+                                            <a title="Update Employee" href="update-employee.php?admin_id=<?php echo $row['user_id']; ?>">
+                                                <i class="ri-folder-open-fill"></i></a>&nbsp;&nbsp;<a title="Delete" href="?delete_user=delete_user&admin_id=<?php echo $row['user_id']; ?>" onclick=" return check_delete();">
+                                                <i class="ri-delete-bin-6-fill"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php  } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <?php
-  if (isset($_SESSION['update_user_pass'])) {
+    </div>
+</body>
+
+<?php
+if (isset($_SESSION['update_user_pass'])) {
 
     echo '<script>alert("Password updated successfully");</script>';
     unset($_SESSION['update_user_pass']);
-  }
-  include("include/footer.php");
+}
+include("include/footer.php");
 
-  ?>
+?>

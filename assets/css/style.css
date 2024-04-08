@@ -8,6 +8,7 @@
   --lighter-text-color: #82808F;
   --accent-color: #ffd600;
   --primary-font: Plus Jakarta Sans;
+  --even-table-color: 0, 0, 0;
   --sidebar-width: 250px;
 }
 
@@ -57,6 +58,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  gap: 10px;
 }
 .sidebar .sidebar-wrapper ul:nth-child(2) {
   border: 1px solid var(--border-color);
@@ -64,6 +66,8 @@ body {
   padding: 10px;
 }
 .sidebar .sidebar-wrapper ul:nth-child(2) .h-wrapper {
+  display: flex;
+  gap: 0.5rem;
   align-items: center;
 }
 .sidebar .sidebar-wrapper ul:nth-child(2) .h-wrapper img {
@@ -71,6 +75,9 @@ body {
   border-radius: 5px;
 }
 .sidebar .sidebar-wrapper ul:nth-child(2) .h-wrapper .v-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   gap: 0;
 }
 .sidebar .sidebar-wrapper ul:nth-child(2) .h-wrapper .v-wrapper :nth-child(1) {
@@ -95,6 +102,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: auto;
 }
 .sidebar .sidebar-wrapper ul li {
   display: flex;
@@ -126,11 +134,41 @@ body {
   flex-direction: column;
   gap: 1em;
 }
-.content button {
+.content .btnSection {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.content .btnSection form {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.content .btnSection form select {
   padding: 1em;
   border: none;
   font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
+  font-family: var(--primary-font);
+  border: 1px solid #E6E4F0;
+  background-color: #FAFAFA;
+}
+.content .btnSection form button {
+  padding: 1em;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-family: var(--primary-font);
+  border: 1px solid #E6E4F0;
+  background-color: white;
+}
+.content .btnSection form button i {
+  color: var(--accent-color);
 }
 .content .card {
   display: grid;
@@ -138,7 +176,7 @@ body {
   padding: 1em;
   border: 1px solid var(--border-color);
   background-color: var(--panel-color);
-  border-radius: 15px;
+  border-radius: 10px;
 }
 .content .table-container {
   overflow-x: auto;
@@ -161,14 +199,12 @@ body {
   color: var(--lighter-text-color);
 }
 .content .table-container table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-.content .table-container table tbody tr:last-child td {
-  padding-bottom: 0px;
+  background-color: rgba(var(--even-table-color), 0.025);
 }
 .content .table-container table tbody tr {
   margin: 2em;
   border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 .content .table-container table tbody tr td {
   padding: 0.5em;
@@ -183,34 +219,65 @@ body {
 .content .table-container table tbody tr td .actions a:hover {
   color: var(--text-color);
 }
+.content .table-container table tbody tr td .profile-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.content .table-container table tbody tr td .profile-name img {
+  aspect-ratio: 3/2;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+}
+.content .table-container table tbody tr img {
+  aspect-ratio: 3/2;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+}
 
 .status-indicator {
-  color: rgba(255, 255, 255, 0.8235294118);
   font-weight: 500;
   text-align: center;
   padding: 10px;
   font-size: 14px;
   border-radius: 6px;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
 
 .status-indicator.in-progress {
-  background-color: #ffb82e;
+  color: #ffb92e;
+  background-color: rgba(255, 185, 46, 0.1490196078);
 }
 
 .status-indicator.completed {
-  background-color: #36d000;
+  color: #69e83a;
+  background-color: rgba(105, 232, 58, 0.1490196078);
 }
 
 .status-indicator.incomplete {
-  background-color: #d63502;
+  color: #ad6262;
+  background-color: rgba(173, 98, 98, 0.1490196078);
 }
 
 #openModal {
+  padding: 1em;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
   background-color: var(--accent-color);
   font-family: var(--primary-font);
-  border-radius: 6px;
 }
 
 #modalBG {
@@ -229,11 +296,13 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 1.5em;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   display: flex;
   flex-direction: column;
   gap: 1em;
+  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   margin: 1em;
@@ -259,24 +328,22 @@ body {
   gap: 10px;
 }
 .modal .btnSection button {
-  padding: 0.75em 1em;
+  padding: 1em;
   border: none;
   font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
-  border-radius: 3px;
   font-family: var(--primary-font);
 }
 .modal .btnSection button:nth-child(1) {
   background-color: #28a745;
   color: white;
 }
-
-.h-wrapper {
+.modal .h-wrapper {
   display: flex;
   gap: 0.5rem;
 }
-
-.v-wrapper {
+.modal .v-wrapper {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -287,4 +354,30 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-auto-rows: minmax(auto, auto);
   gap: 1em;
-}/*# sourceMappingURL=style.css.map */
+}
+.dash-cards .card {
+  gap: 0;
+  overflow: hidden;
+}
+.dash-cards .card :nth-child(1) {
+  font-size: 18px;
+  font-weight: bold;
+}
+.dash-cards .card span.how-many {
+  color: var(--accent-color);
+  font-size: 48px;
+  font-weight: bolder;
+}
+.dash-cards .card i {
+  color: var(--accent-color);
+  position: relative;
+  opacity: 0.5;
+}
+.dash-cards .card i::before {
+  font-size: 100px;
+  position: absolute;
+  top: -75px;
+  right: -40px;
+}
+
+/*# sourceMappingURL=style.css.map */

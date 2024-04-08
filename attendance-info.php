@@ -33,6 +33,12 @@ $page_name = "Attendance";
 include("include/lib_links.php");
 ?>
 
+<head>
+    <title>Attendance | TaskPlanner</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
 <body>
     <div class="page">
         <?php
@@ -51,7 +57,7 @@ include("include/lib_links.php");
                             <option value="<?php echo $position; ?>" <?php echo ($selected_position == $position) ? 'selected' : ''; ?>><?php echo $position; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <button type="submit" class="btn btn-primary"><i class="ri-filter-2-line"></i>Filter</button>
                 </form>
             </div>
 
@@ -61,7 +67,6 @@ include("include/lib_links.php");
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Profile</th>
                                 <th>Name</th>
                                 <th>Department</th>
                                 <th>Tasks</th>
@@ -91,16 +96,15 @@ include("include/lib_links.php");
                             ?>
                                 <tr>
                                     <td><?php echo $serial++; ?></td>
-                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="50" height="50"></td>
-                                    <td><?php echo $row['fullname']; ?></td>
+                                    <td><div class="profile-name"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"><?php echo $row['fullname']; ?></div></td>
                                     <td><?php echo $row['position']; ?></td>
                                     <td><?php echo $task_num; ?></td>
                                     <td>
                                         <?php
                                         if ($task_num == 0) {
-                                            echo '<span class="label label-danger">No Task</span>';
+                                            echo "<div class='status-indicator incomplete'>No tasks currently</div>";
                                         } else {
-                                            echo '<span class="label label-success">Task Assigned</span>';
+                                            echo "<div class='status-indicator completed'>Task assigned</div>";
                                         }
                                         ?>
                                     </td>

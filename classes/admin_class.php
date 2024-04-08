@@ -9,7 +9,7 @@ class Admin_Class
 		$host_name='localhost';
 		$user_name='root';
 		$password='';
-		$db_name='etmsh';
+		$db_name='taskplanner';
 
 		try{
 			$connection=new PDO("mysql:host={$host_name}; dbname={$db_name}", $user_name,  $password);

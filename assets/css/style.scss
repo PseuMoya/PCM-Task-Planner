@@ -1,6 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
+@mixin button {
+    padding: 1em;
+    border: none;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@mixin btnSection {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+@mixin h-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+
+@mixin v-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+@mixin tableimg {
+    aspect-ratio: 3/2;
+    -o-object-fit: cover;
+       object-fit: cover;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+}
+
+
 :root {
     --main-bg-color: #F9F8FF;
     --panel-color: #FFFFFF;
@@ -9,6 +44,8 @@
     --lighter-text-color: #82808F;
     --accent-color: #ffd600;
     --primary-font: Plus Jakarta Sans;
+
+    --even-table-color: 0, 0, 0;
 
     // sidebar
     --sidebar-width: 250px;
@@ -65,6 +102,7 @@ body {
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
+        gap: 10px;
 
         ul:nth-child(2) {
             border: 1px solid var(--border-color);
@@ -72,6 +110,7 @@ body {
             padding: 10px;
 
             .h-wrapper {
+                @include h-wrapper;
                 align-items: center;
 
                 img {
@@ -80,6 +119,7 @@ body {
                 }
                 
                 .v-wrapper {
+                    @include v-wrapper;
                     gap: 0;
 
                     :nth-child(1) {
@@ -111,6 +151,7 @@ body {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            overflow-y: auto;
             
             li {
                 display: flex;
@@ -150,11 +191,32 @@ body {
     flex-direction: column;
     gap: 1em;
 
-    button {
-        padding: 1em;
-        border: none;
-        font-weight: 600;
-        cursor: pointer;
+    .btnSection{
+        @include btnSection;
+
+        form {
+            @include btnSection;
+            
+            select {
+                @include button;
+                font-family: var(--primary-font);
+                border: 1px solid #E6E4F0;
+                background-color: #FAFAFA;
+            }
+
+            button {
+                @include button;
+                @include h-wrapper;
+                align-items: center;
+                font-family: var(--primary-font);
+                border: 1px solid #E6E4F0;
+                background-color: white;
+
+                i {
+                    color: var(--accent-color);
+                }
+            }
+        }
     }
 
     .card {
@@ -163,7 +225,7 @@ body {
         padding: 1em;
         border: 1px solid var(--border-color);
         background-color: var(--panel-color);
-        border-radius: 15px;
+        border-radius: 10px;
     }
     .table-container {
         overflow-x: auto;
@@ -191,14 +253,12 @@ body {
                 color: var(--lighter-text-color);
                 
                 tr:nth-child(even){
-                    background-color: #f9f9f9;
-                }
-                tr:last-child td {
-                    padding-bottom: 0px;
+                    background-color: rgba(var(--even-table-color), 0.025);
                 }
                 tr {
                     margin: 2em;
                     border-top: 1px solid var(--border-color);
+                    border-bottom: 1px solid var(--border-color);
                     
                     td {
                         padding: 0.5em;
@@ -216,6 +276,20 @@ body {
                             color: var(--text-color);
                         }
                     }
+
+                    td .profile-name {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        img {
+                            @include tableimg;
+                        }
+                    }
+
+                    img {
+                        @include tableimg;
+                    }
                 }
             }
         }
@@ -223,7 +297,6 @@ body {
 }
 
 .status-indicator {
-    color: #ffffffd2;
     font-weight: 500;
     text-align: center;
     padding: 10px;
@@ -234,15 +307,18 @@ body {
     width: fit-content;
 }
 .status-indicator.in-progress {
-    background-color: #ffb82e;
+    color: #ffb92e;
+    background-color: #ffb92e26;
 }
     
 .status-indicator.completed {
-    background-color: #36d000;
+    color: #69e83a;
+    background-color: #69e83a26;
 }
 
 .status-indicator.incomplete {
-    background-color: #d63502;
+    color: #ad6262;
+    background-color: #ad626226;
 }
 
 
@@ -250,9 +326,11 @@ body {
 
 //button
 #openModal {
+    @include button;
+    @include h-wrapper;
+    align-items: center;
     background-color: var(--accent-color);
     font-family: var(--primary-font);
-    border-radius: 6px;
 }
 
 #modalBG {
@@ -302,16 +380,10 @@ body {
     }
     
     .btnSection {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
+        @include btnSection;
         
         button {
-            padding: 0.75em 1em;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 3px;
+            @include button;
             font-family: var(--primary-font);
         }
         
@@ -320,17 +392,14 @@ body {
             color: white;
         }
     }
-}
+    
+    .h-wrapper {
+        @include h-wrapper;
+    }
 
-.h-wrapper {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.v-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    .v-wrapper {
+        @include v-wrapper;
+    }
 }
 
 //DASHBOARD
@@ -339,4 +408,33 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-auto-rows: minmax(auto, auto);
     gap: 1em;
+
+    .card {
+        gap: 0;
+        overflow: hidden;
+        
+        :nth-child(1) {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        span.how-many {
+            color: var(--accent-color);
+            font-size: 48px;
+            font-weight: bolder;
+        }
+        
+        i {
+            color: var(--accent-color);
+            position: relative;
+            opacity: 0.5;
+        }
+        
+        i::before {
+            font-size: 100px;
+            position: absolute;
+            top: -75px;
+            right: -40px;
+        }
+    }
 }
