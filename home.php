@@ -34,6 +34,32 @@ include("include/lib_links.php");
 
 ?>
 
+<style>
+    .pending-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .pending-box h1 {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .pending-box button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .pending-card{
+        width: 350px;
+    }
+</style>
 
 <div class="page">
         <?php
@@ -95,41 +121,97 @@ include("include/lib_links.php");
                 </div>
             </div>
 
-            <!-- <div class="card">
-                <h3>Task Report: <span>Completed</span></h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Serial No.</th>
-                            <th>Interns</th>
-                            <th>task</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname 
-                                FROM task_info 
-                                JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id 
-                                WHERE task_info.status = 2; 
-                                ";
-                                    $info = $obj_admin->manage_all_info($sql);
 
-                                    $serial  = 1;
-                                    while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $serial;
-                                            $serial++; ?></td>
-                                        <td><?php echo $row['fullname']; ?></td>
-                                        <td><?php echo $row['t_title']; ?></td>
-                                    </tr>
-                            <?php  } ?>
+            
+            <div class="card pending-card">
+                <h3>Pending Tasks</h3>
+                <div class="table-container">
+                            <?php
+                            
+                            if ($user_role == 1) {
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
+                                        FROM task_info a
+                                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
+                                        WHERE a.status = 0
+                                        GROUP BY b.fullname, b.profileimg
+                                        ORDER BY b.fullname ASC";
+                            } else {
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
+                                        FROM task_info a
+                                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
+                                        WHERE a.t_user_id = $user_id AND a.status = 0
+                                        GROUP BY b.fullname, b.profileimg
+                                        ORDER BY b.fullname ASC";
+                            }
+                            
+                            $info = $obj_admin->manage_all_info($sql);
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                            }
+                            
+                            // Modify the PHP code that generates the table to display only one name and the count of pending tasks
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
+                                <div class="pending-box">
+                                    <h1><?php echo $row['pending_tasks']; ?></h1>
+                                    <a href="task-info.php">
+                                        <button>Go Now</button>
+                                    </a>
+                                </div>
+                            <?php } ?>
+                            
+                            
                         </tbody>
                     </table>
                 </div>
-            </div> -->
-        </div>
+            </div>
+
+
+            <div class="card pending-card">
+                <h3>Completed Tasks</h3>
+                <div class="table-container">
+                            <?php
+                            
+                            if ($user_role == 1) {
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
+                                        FROM task_info a
+                                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
+                                        WHERE a.status = 2
+                                        GROUP BY b.fullname, b.profileimg
+                                        ORDER BY b.fullname ASC";
+                            } else {
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
+                                        FROM task_info a
+                                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
+                                        WHERE a.t_user_id = $user_id AND a.status = 2
+                                        GROUP BY b.fullname, b.profileimg
+                                        ORDER BY b.fullname ASC";
+                            }
+                            
+                            $info = $obj_admin->manage_all_info($sql);
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                            }
+                            
+                            // Modify the PHP code that generates the table to display only one name and the count of pending tasks
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
+                                <div class="pending-box">
+                                    <h1><?php echo $row['pending_tasks']; ?></h1>
+                                    <a href="task-info.php">
+                                        <button>Go Now</button>
+                                    </a>
+                                </div>
+                            <?php } ?>
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+</div>
+
 
 
 </div>
