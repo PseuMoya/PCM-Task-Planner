@@ -51,6 +51,7 @@ include("include/lib_links.php");
                     <table>
                         <thead>
                         <tr>
+                            <th>Profile Image</th>
                             <th>Name: </th>
                             <th>Incomplete Task: </th>
                             <th></th>
@@ -60,18 +61,18 @@ include("include/lib_links.php");
                             <?php
                             
                             if ($user_role == 1) {
-                                $sql = "SELECT b.fullname, COUNT(a.task_id) as pending_tasks
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
                                         FROM task_info a
                                         INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
                                         WHERE a.status = 0
-                                        GROUP BY b.fullname
+                                        GROUP BY b.fullname, b.profileimg
                                         ORDER BY b.fullname ASC";
                             } else {
-                                $sql = "SELECT b.fullname, COUNT(a.task_id) as pending_tasks
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
                                         FROM task_info a
                                         INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
                                         WHERE a.t_user_id = $user_id AND a.status = 0
-                                        GROUP BY b.fullname
+                                        GROUP BY b.fullname, b.profileimg
                                         ORDER BY b.fullname ASC";
                             }
                             
@@ -84,7 +85,7 @@ include("include/lib_links.php");
                             // Modify the PHP code that generates the table to display only one name and the count of pending tasks
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                                 <tr>
-                                    <td><?php echo $row['fullname']; ?></td>
+                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="40px" height="40px"></td>                                    <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['pending_tasks']; ?></td>
                                 </tr>
                             <?php } ?>

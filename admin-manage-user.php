@@ -149,7 +149,7 @@ if (isset($_POST['add_new_employee'])) {
                                 <tr>
                                     <td><?php echo $serial;
                                         $serial++; ?></td>
-                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></td>
+                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="40px" height="40px"></td>                                    
                                     <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['username']; ?></td>
