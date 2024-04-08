@@ -68,6 +68,7 @@ include("include/lib_links.php");
                         echo $count;
                         ?>
                     </span>
+                    <i class="ri-macbook-line"></i>
                 </div>
 
                 <div class="card">
@@ -80,6 +81,7 @@ include("include/lib_links.php");
                         echo $count;
                         ?>
                     </span>
+                    <i class="ri-group-2-line"></i>
                 </div>
 
                 <div class="card">
@@ -92,6 +94,7 @@ include("include/lib_links.php");
                         echo $count;
                         ?>
                     </span>
+                    <i class="ri-store-2-line"></i>
                 </div>
 
                 <div class="card">
@@ -104,6 +107,7 @@ include("include/lib_links.php");
                         echo $count;
                         ?>
                     </span>
+                    <i class="ri-user-settings-line"></i>
                 </div>
             </div>
 
