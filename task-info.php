@@ -28,7 +28,6 @@ if (isset($_POST['add_task_post'])) {
 
 $page_name = "Task_Info";
 include("include/lib_links.php");
-// include('ems_header.php');
 
 
 ?>

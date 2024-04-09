@@ -67,6 +67,7 @@ include("include/lib_links.php");
                         <thead>
                             <tr>
                                 <th>No.</th>
+                                <th>Profile</th>
                                 <th>Name</th>
                                 <th>Department</th>
                                 <th>Tasks</th>
@@ -96,7 +97,8 @@ include("include/lib_links.php");
                             ?>
                                 <tr>
                                     <td><?php echo $serial++; ?></td>
-                                    <td><div class="profile-name"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"><?php echo $row['fullname']; ?></div></td>
+                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="40px" height="40px"></td>                                    
+                                    <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['position']; ?></td>
                                     <td><?php echo $task_num; ?></td>
                                     <td>
