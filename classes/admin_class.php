@@ -54,7 +54,7 @@ class Admin_Class
 	            $_SESSION['temp_password'] = $userRow['temp_password'];
 
           		if($userRow['temp_password'] == null){
-	                header('Location: dashboard.php');
+	                header('Location: dashboard');
           		}else{
           			header('Location: changePasswordForEmployee.php');
           		}
@@ -130,7 +130,7 @@ class Admin_Class
         unset($_SESSION['admin_name']);
         unset($_SESSION['security_key']);
         unset($_SESSION['user_role']);
-        header('Location: index.php');
+        header('Location: index');
     }
 
 /*----------- add_new_user--------------*/

@@ -42,7 +42,7 @@
         <!-- how tf does a user gain the role 1 or 2 -->
         <?php
           }else{
-            header('Location: index.php');
+            header('Location: index');
           }
         ?>
       </ul>
