@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 @mixin button {
+    font-family: var(--primary-font);
     padding: 1em;
     border: none;
     font-weight: 600;
@@ -35,6 +36,14 @@
     height: 30px;
 }
 
+@mixin card {
+    display: grid;
+    gap: 1em;
+    padding: 1em;
+    border: 1px solid var(--border-color);
+    background-color: var(--panel-color);
+    border-radius: 10px;
+}
 
 :root {
     --main-bg-color: #F9F8FF;
@@ -44,6 +53,8 @@
     --lighter-text-color: #82808F;
     --accent-color: #ffd600;
     --primary-font: Plus Jakarta Sans;
+
+    --vibrant-color: linear-gradient(135deg, #FFDF2B, #FF7A00);
 
     --even-table-color: 0, 0, 0;
 
@@ -163,7 +174,7 @@ body {
                     font-weight: 500;
                     border-radius: 10px;
                     color: #9896a3;
-                    padding: 1em;
+                    padding: 0.85rem 1em;
 
                     i {
                         margin-right: 10px;
@@ -208,7 +219,6 @@ body {
                 @include button;
                 @include h-wrapper;
                 align-items: center;
-                font-family: var(--primary-font);
                 border: 1px solid #E6E4F0;
                 background-color: white;
 
@@ -219,14 +229,34 @@ body {
         }
     }
 
-    .card {
-        display: grid;
-        gap: 1em;
-        padding: 1em;
-        border: 1px solid var(--border-color);
-        background-color: var(--panel-color);
-        border-radius: 10px;
+    .card.welcome {
+        @include card;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .v-wrapper {
+            @include v-wrapper;
+
+            span {
+                background: var(--vibrant-color);
+                -webkit-background-clip: text;
+                        background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        
     }
+
+    .card {
+        @include card;
+    }
+    
     .table-container {
         overflow-x: auto;
 
@@ -330,7 +360,6 @@ body {
     @include h-wrapper;
     align-items: center;
     background-color: var(--accent-color);
-    font-family: var(--primary-font);
 }
 
 #modalBG {
@@ -384,7 +413,6 @@ body {
         
         button {
             @include button;
-            font-family: var(--primary-font);
         }
         
         button:nth-child(1) {
@@ -410,6 +438,7 @@ body {
     gap: 1em;
 
     .card {
+        @include card;
         gap: 0;
         overflow: hidden;
         
@@ -422,6 +451,16 @@ body {
             color: var(--accent-color);
             font-size: 48px;
             font-weight: bolder;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+
+            button {
+                @include button;
+                padding: 10px 25px;
+                background-color: var(--accent-color);
+                font-size: 15px;
+            }
         }
         
         i {
