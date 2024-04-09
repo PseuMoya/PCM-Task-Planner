@@ -77,7 +77,7 @@ include("include/lib_links.php");
                         <h1>Welcome, <span><?php echo $row['fullname']; ?></span>!</h1>
                         <p>You have <?php echo $row['pending_tasks']; ?> pending task(s)</p>
                     </div>
-                    <img src="<?php echo $row['profileimg']; ?>" alt="Profile Image">
+                    <div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div>
                 <?php } ?>
             </div>
 
