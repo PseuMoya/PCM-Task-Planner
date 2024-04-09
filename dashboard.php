@@ -13,7 +13,7 @@ if ($user_id == NULL || $security_key == NULL) {
 // check admin 
 $user_role = $_SESSION['user_role'];
 if ($user_role != 1) {
-    header('Location: task-info.php');
+    header('Location: task-info');
 }
 
 
@@ -29,7 +29,7 @@ if (isset($_GET['delete_user'])) {
     $delete_attendance->execute();
 
     $sql = "DELETE FROM tbl_admin WHERE user_id = :id";
-    $sent_po = "admin-manage-user.php";
+    $sent_po = "admin-manage-user";
     $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
 }
 

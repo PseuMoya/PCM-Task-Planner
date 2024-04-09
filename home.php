@@ -19,7 +19,7 @@ if (isset($_GET['delete_task'])) {
     $action_id = $_GET['task_id'];
 
     $sql = "DELETE FROM task_info WHERE task_id = :id";
-    $sent_po = "task-info.php";
+    $sent_po = "task-info";
     $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
 }
 
@@ -112,7 +112,7 @@ include("include/lib_links.php");
                         while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
 
                             <?php echo $row['pending_tasks']; ?>
-                            <a href="task-info.php"><button>Go Now</button></a>
+                            <a href="task-info"><button>Go Now</button></a>
                         <?php } ?>
                     </span>
                 </div>
@@ -146,7 +146,7 @@ include("include/lib_links.php");
 
                         while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                             <?php echo $row['pending_tasks']; ?>
-                            <a href="task-info.php"><button>Go Now</button></a>
+                            <a href="task-info"><button>Go Now</button></a>
                         <?php } ?>
                     </span>
                 </div>

@@ -44,7 +44,7 @@ include("include/sidebar.php");
     <div class="well well-custom">
       <ul class="nav nav-tabs nav-justified nav-tabs-custom">
         <!-- <li class="active"><a href="manage-admin.php">Manage Admin</a></li> -->
-        <!-- <li><a href="admin-manage-user.php">Manage User</a></li> -->
+        <!-- <li><a href="admin-manage-user">Manage User</a></li> -->
       </ul>
       <div class="gap"></div>
       <div class="row">

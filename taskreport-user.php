@@ -18,7 +18,7 @@ if (isset($_GET['delete_task'])) {
   $action_id = $_GET['task_id'];
 
   $sql = "DELETE FROM task_info WHERE task_id = :id";
-  $sent_po = "task-info.php";
+  $sent_po = "task-info";
   $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
 }
 

@@ -81,7 +81,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 	</div>
 
 	<div class="btnSection">
-		<a href="task-info.php"><button>Go back</button></a>
+		<a href="task-info"><button>Go back</button></a>
 	</div>
 </div>
 <?php

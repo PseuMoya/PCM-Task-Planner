@@ -82,7 +82,7 @@ include("include/lib_links.php");
                         <?php while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                             <option value="<?php echo $row['user_id']; ?>"><?php echo $row['fullname']; ?></option>
                         <?php } ?>
-                        </select>
+                    </select>
                 </div>
 
                 <div class="btnSection">

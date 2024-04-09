@@ -13,7 +13,7 @@ if ($user_id == NULL || $security_key == NULL) {
 // check admin 
 $user_role = $_SESSION['user_role'];
 if ($user_role != 1) {
-    header('Location: home.php');
+    header('Location: home');
 }
 
 // Handle position filter
@@ -23,7 +23,7 @@ $positions = ['IT department', 'Admin', 'Marketing', 'HR'];
 if (isset($_GET['delete_attendance'])) {
     $action_id = $_GET['aten_id'];
     $sql = "DELETE FROM attendance_info WHERE aten_id = :id";
-    $sent_po = "attendance-info.php";
+    $sent_po = "attendance-info";
     $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
 }
 

@@ -26,18 +26,18 @@
           $user_role = $_SESSION['user_role'];
           if($user_role == 1){
         ?>
-        <li><a href="dashboard.php" <?php if($page_name == "Dashboard" ){echo "class=\"active\"";} ?>><i class="ri-dashboard-horizontal-fill"></i>Dashboard</a></li>
-        <li><a href="task-info.php" <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
-        <li><a href="attendance-info.php" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Attendance</a></li>
-        <li><a href="admin-manage-user.php" <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><i class="ri-admin-fill"></i>Administration</a></li>
+        <li><a href="dashboard" <?php if($page_name == "Dashboard" ){echo "class=\"active\"";} ?>><i class="ri-dashboard-horizontal-fill"></i>Dashboard</a></li>
+        <li><a href="task-info" <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
+        <li><a href="attendance-info" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Attendance</a></li>
+        <li><a href="admin-manage-user" <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><i class="ri-admin-fill"></i>Administration</a></li>
         
         <!-- if user is intern -->
         <?php 
           }else if($user_role == 2){ 
         ?>
-        <li><a href="home.php" <?php if($page_name == "Home" ){echo "class=\"active\"";} ?>><i class="fas fa-home"></i>Home</a></li>        
-        <li><a href="taskreport-user.php" <?php if($page_name == "TaskUser" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
-        <!-- <li><a href="attendance-info.php" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Attendance</a></li> -->
+        <li><a href="home" <?php if($page_name == "Home" ){echo "class=\"active\"";} ?>><i class="fas fa-home"></i>Home</a></li>        
+        <li><a href="taskreport-user" <?php if($page_name == "TaskUser" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
+        <!-- <li><a href="attendance-info" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Attendance</a></li> -->
         
         <!-- how tf does a user gain the role 1 or 2 -->
         <?php

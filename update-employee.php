@@ -13,7 +13,7 @@ if ($user_id == NULL || $security_key == NULL) {
 // check admin
 $user_role = $_SESSION['user_role'];
 if ($user_role != 1) {
-  header('Location: task-info.php');
+  header('Location: task-info');
 }
 
 $admin_id = $_GET['admin_id'];
