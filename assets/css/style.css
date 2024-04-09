@@ -8,6 +8,7 @@
   --lighter-text-color: #82808F;
   --accent-color: #ffd600;
   --primary-font: Plus Jakarta Sans;
+  --vibrant-color: linear-gradient(135deg, #FFDF2B, #FF7A00);
   --even-table-color: 0, 0, 0;
   --sidebar-width: 250px;
 }
@@ -114,7 +115,7 @@ body {
   font-weight: 500;
   border-radius: 10px;
   color: #9896a3;
-  padding: 1em;
+  padding: 0.85rem 1em;
 }
 .sidebar .sidebar-wrapper ul li a i {
   margin-right: 10px;
@@ -145,6 +146,7 @@ body {
   gap: 10px;
 }
 .content .btnSection form select {
+  font-family: var(--primary-font);
   padding: 1em;
   border: none;
   font-weight: 600;
@@ -155,6 +157,7 @@ body {
   background-color: #FAFAFA;
 }
 .content .btnSection form button {
+  font-family: var(--primary-font);
   padding: 1em;
   border: none;
   font-weight: 600;
@@ -163,12 +166,37 @@ body {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  font-family: var(--primary-font);
   border: 1px solid #E6E4F0;
   background-color: white;
 }
 .content .btnSection form button i {
   color: var(--accent-color);
+}
+.content .card.welcome {
+  display: grid;
+  gap: 1em;
+  padding: 1em;
+  border: 1px solid var(--border-color);
+  background-color: var(--panel-color);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.content .card.welcome .v-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.content .card.welcome .v-wrapper span {
+  background: var(--vibrant-color);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.content .card.welcome img {
+  max-width: 100px;
+  max-height: 100px;
 }
 .content .card {
   display: grid;
@@ -268,6 +296,7 @@ body {
 }
 
 #openModal {
+  font-family: var(--primary-font);
   padding: 1em;
   border: none;
   font-weight: 600;
@@ -277,7 +306,6 @@ body {
   gap: 0.5rem;
   align-items: center;
   background-color: var(--accent-color);
-  font-family: var(--primary-font);
 }
 
 #modalBG {
@@ -328,12 +356,12 @@ body {
   gap: 10px;
 }
 .modal .btnSection button {
+  font-family: var(--primary-font);
   padding: 1em;
   border: none;
   font-weight: 600;
   border-radius: 10px;
   cursor: pointer;
-  font-family: var(--primary-font);
 }
 .modal .btnSection button:nth-child(1) {
   background-color: #28a745;
@@ -356,6 +384,12 @@ body {
   gap: 1em;
 }
 .dash-cards .card {
+  display: grid;
+  gap: 1em;
+  padding: 1em;
+  border: 1px solid var(--border-color);
+  background-color: var(--panel-color);
+  border-radius: 10px;
   gap: 0;
   overflow: hidden;
 }
@@ -367,6 +401,20 @@ body {
   color: var(--accent-color);
   font-size: 48px;
   font-weight: bolder;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.dash-cards .card span.how-many button {
+  font-family: var(--primary-font);
+  padding: 1em;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px 25px;
+  background-color: var(--accent-color);
+  font-size: 15px;
 }
 .dash-cards .card i {
   color: var(--accent-color);
