@@ -105,7 +105,7 @@ include("include/lib_links.php");
                             $info = $obj_admin->manage_all_info($sql);
                             $num_row = $info->rowCount();
                             if ($num_row == 0) {
-                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                                echo '<tr><td colspan="7">0</td></tr>';
                             }
                             
                             // Modify the PHP code that generates the table to display only one name and the count of pending tasks
@@ -148,7 +148,7 @@ include("include/lib_links.php");
                             $info = $obj_admin->manage_all_info($sql);
                             $num_row = $info->rowCount();
                             if ($num_row == 0) {
-                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                                echo '<tr><td colspan="7">0</td></tr>';
                             }
                             
                             // Modify the PHP code that generates the table to display only one name and the count of pending tasks
@@ -192,7 +192,7 @@ include("include/lib_links.php");
                             $info = $obj_admin->manage_all_info($sql);
                             $num_row = $info->rowCount();
                             if ($num_row == 0) {
-                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                                echo '<tr><td colspan="7">0</td></tr>';
                             }
                             
                             // Modify the PHP code that generates the table to display only one name and the count of pending tasks
