@@ -103,13 +103,13 @@ include("include/lib_links.php");
         <div class="content">
             <h1>Reports</h1>
             
-            <div class="btnSection">
-                <?php if($user_role == 1){ ?>
+            <?php if($user_role == 1){ ?>
+                <div class="btnSection">
                     <div class="btn-group">
                       <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
                     </div>
-                <?php } ?>
-            </div>
+                </div>
+            <?php } ?>
             
             <div class="card">
                 <div class="table-container">

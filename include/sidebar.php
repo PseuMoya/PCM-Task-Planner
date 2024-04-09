@@ -58,7 +58,7 @@
      
         while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
           <div class="h-wrapper">
-            <img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="50px" height="50px">
+            <div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div>
             <div class="v-wrapper">
               <p><?php echo $row['fullname']; ?></p>
               <span><?php echo $row['position']; ?></span>
