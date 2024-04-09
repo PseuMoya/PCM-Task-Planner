@@ -10,6 +10,12 @@ if ($user_id == NULL || $security_key == NULL) {
     header('Location: index.php');
 }
 
+// check admin 
+$user_role = $_SESSION['user_role'];
+if ($user_role != 1) {
+    header('Location: home.php');
+}
+
 // Handle position filter
 $selected_position = isset($_GET['position']) ? $_GET['position'] : '';
 $positions = ['IT department', 'Admin', 'Marketing', 'HR'];
