@@ -21,6 +21,8 @@ if (isset($_POST['update_current_employee'])) {
     $obj_admin->update_user_data($_POST, $user_id);
 }
 
+
+
 $page_name = "User_Profile";
 include("include/lib_links.php");
 

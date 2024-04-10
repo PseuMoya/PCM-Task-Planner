@@ -39,15 +39,15 @@
         <li><a href="userprofile-info.php" <?php if($page_name == "User_Profile" ){echo "class=\"active\"";} ?>><i class="ri-admin-fill"></i>User Profile</a></li>
 
         <!-- how tf does a user gain the role 1 or 2 -->
-      <?php
-      } else {
-        header('Location: index.php');
-      }
-      ?>
-    </ul>
-    <ul>
-      <?php
-      $sql = "SELECT b.fullname, b.profileimg, b.position
+        <?php
+          }else{
+            header('Location: index');
+          }
+        ?>
+      </ul>
+      <ul>
+      <?php              
+        $sql = "SELECT b.fullname, b.profileimg, b.position
           FROM tbl_admin b
           WHERE b.user_id = $user_id
           ORDER BY b.fullname ASC";
