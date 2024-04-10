@@ -7,7 +7,7 @@ $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
 $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
-	header('Location: index.php');
+	header('Location: index');
 }
 
 // check admin
@@ -81,7 +81,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 	</div>
 
 	<div class="btnSection">
-		<a href="task-info.php"><button>Go back</button></a>
+		<a href="task-info"><button>Go back</button></a>
 	</div>
 </div>
 <?php

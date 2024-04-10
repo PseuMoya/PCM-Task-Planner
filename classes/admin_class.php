@@ -55,7 +55,7 @@ class Admin_Class
 				$_SESSION['temp_password'] = $userRow['temp_password'];
 
 				if ($userRow['temp_password'] == null) {
-					header('Location: dashboard.php');
+					header('Location: dashboard');
 				} else {
 					header('Location: changePasswordForEmployee.php');
 				}
@@ -124,7 +124,7 @@ class Admin_Class
 		unset($_SESSION['admin_name']);
 		unset($_SESSION['security_key']);
 		unset($_SESSION['user_role']);
-		header('Location: index.php');
+		header('Location: index');
 	}
 
 	/*----------- add_new_user--------------*/
@@ -262,11 +262,18 @@ class Admin_Class
 
 	public function update_user_password($data, $id)
 	{
-		$current_employee_password  = $this->test_form_input_data(md5($data['current_employee_password']));
-		$getcurrentPass = "SELECT password FROM tbl_admin WHERE user_id = $id ";
-		if ($getcurrentPass === $current_employee_password) {
-			$new_employee_password  = $this->test_form_input_data(md5($data['new_employee_password']));
-			$confirm_employee_password  = $this->test_form_input_data(md5($data['confirm_employee_password']));
+		$current_employee_password = $this->test_form_input_data(md5($data['current_employee_password']));
+
+		// Fetch current password from the database
+		$getcurrentPass = $this->db->prepare("SELECT password FROM tbl_admin WHERE user_id = :id");
+		$getcurrentPass->execute(array(':id' => $id));
+		$row = $getcurrentPass->fetch(PDO::FETCH_ASSOC);
+		$stored_password = $row['password'];
+
+		if ($stored_password === $current_employee_password) {
+			$new_employee_password = $this->test_form_input_data(md5($data['new_employee_password']));
+			$confirm_employee_password = $this->test_form_input_data(md5($data['confirm_employee_password']));
+
 			if ($new_employee_password === $confirm_employee_password) {
 				try {
 					$update_user_password = $this->db->prepare("UPDATE tbl_admin SET password = :x WHERE user_id = :id ");
@@ -282,13 +289,12 @@ class Admin_Class
 					echo $e->getMessage();
 				}
 			} else {
-				echo "Wrong combination of password";
+				echo "New passwords do not match.";
 			}
 		} else {
-			echo "Wrong current password";
+			echo "Incorrect current password.";
 		}
 	}
-
 
 
 

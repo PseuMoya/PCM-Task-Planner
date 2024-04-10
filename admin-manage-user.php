@@ -1,18 +1,19 @@
 <?php
 require 'authentication.php'; // admin authentication check 
 
+
 // auth check
 $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
 $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
-    header('Location: index.php');
+    header('Location: index');
 }
 
 // check admin 
 $user_role = $_SESSION['user_role'];
 if ($user_role != 1) {
-    header('Location: task-info.php');
+    header('Location: task-info');
 }
 
 
@@ -28,9 +29,10 @@ if (isset($_GET['delete_user'])) {
     $delete_attendance->execute();
 
     $sql = "DELETE FROM tbl_admin WHERE user_id = :id";
-    $sent_po = "admin-manage-user.php";
+    $sent_po = "admin-manage-user";
     $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
 }
+
 
 $page_name = "Admin";
 include("include/lib_links.php");
@@ -158,7 +160,7 @@ if (isset($_POST['add_new_employee'])) {
 
                                     <td>
                                         <div class="actions">
-                                            <a title="Update Employee" href="update-employee.php?admin_id=<?php echo $row['user_id']; ?>">
+                                            <a title="Update Employee" href="update-employee?admin_id=<?php echo $row['user_id']; ?>">
                                                 <i class="ri-folder-open-fill"></i></a>&nbsp;&nbsp;<a title="Delete" href="?delete_user=delete_user&admin_id=<?php echo $row['user_id']; ?>" onclick=" return check_delete();">
                                                 <i class="ri-delete-bin-6-fill"></i></a>
                                         </div>

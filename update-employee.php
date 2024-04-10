@@ -7,13 +7,13 @@ $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
 $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
-  header('Location: index.php');
+  header('Location: index');
 }
 
 // check admin
 $user_role = $_SESSION['user_role'];
 if ($user_role != 1) {
-  header('Location: task-info.php');
+  header('Location: task-info');
 }
 
 $admin_id = $_GET['admin_id'];
