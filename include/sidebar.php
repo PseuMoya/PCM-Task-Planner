@@ -42,7 +42,9 @@
       <?php
       } else if ($user_role == 2) {
       ?>
-        <li><a href="home.php" <?php if($page_name == "Home" ){echo "class=\"active\"";} ?>><i class="fas fa-home"></i>Home</a></li>    
+        <li><a href="home.php" <?php if ($page_name == "Home") {
+                                  echo "class=\"active\"";
+                                } ?>><i class="fas fa-home"></i>Home</a></li>
         <li><a href="task-info.php" <?php if ($page_name == "Task_Info") {
                                       echo "class=\"active\"";
                                     } ?>><i class="ri-file-text-fill"></i>Reports</a></li>
@@ -58,14 +60,25 @@
       ?>
     </ul>
     <ul>
-      <div class="h-wrapper">
-        <img src="placeholder_pic.jpeg" alt="" width="50px">
-        <div class="v-wrapper">
-          <p>Juan dela Cruz</p>
-          <span>STI - IT Department</span>
+      <?php
+      $sql = "SELECT b.fullname, b.profileimg, b.position
+          FROM tbl_admin b
+          WHERE b.user_id = $user_id
+          ORDER BY b.fullname ASC";
+
+      $info = $obj_admin->manage_all_info($sql);
+      $num_row = $info->rowCount();
+
+      while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
+        <div class="h-wrapper">
+          <div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div>
+          <div class="v-wrapper">
+            <p><?php echo $row['fullname']; ?></p>
+            <span><?php echo $row['position']; ?></span>
+          </div>
         </div>
-      </div>
-      <li><a href="?logout=logout"><i class="ri-logout-box-r-line"></i>Logout</a></li>
+        <li><a href="?logout=logout"><i class="ri-logout-box-r-line"></i>Logout</a></li>
+      <?php } ?>
     </ul>
   </div>
 </div>
