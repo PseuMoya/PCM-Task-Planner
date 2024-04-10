@@ -10,6 +10,7 @@
     }
   }
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <div class="sidebar">
   <div class="title">
@@ -41,15 +42,13 @@
       <?php
       } else if ($user_role == 2) {
       ?>
+        <li><a href="home.php" <?php if($page_name == "Home" ){echo "class=\"active\"";} ?>><i class="fas fa-home"></i>Home</a></li>    
         <li><a href="task-info.php" <?php if ($page_name == "Task_Info") {
                                       echo "class=\"active\"";
                                     } ?>><i class="ri-file-text-fill"></i>Reports</a></li>
-        <li><a href="attendance-info.php" <?php if ($page_name == "Attendance") {
-                                            echo "class=\"active\"";
-                                          } ?>><i class="ri-team-fill"></i>Attendance</a></li>
         <li><a href="userprofile-info.php" <?php if ($page_name == "User_Profile") {
                                               echo "class=\"active\"";
-                                            } ?>><i class="ri-team-fill"></i>User_Profile</a></li>
+                                            } ?>><i class="ri-team-fill"></i>User Profile</a></li>
 
         <!-- how tf does a user gain the role 1 or 2 -->
       <?php

@@ -26,7 +26,7 @@ if (isset($_POST['add_task_post'])) {
   $obj_admin->add_new_task($_POST);
 }
 
-$page_name = "Task_Info";
+$page_name = "TaskUser";
 include("include/lib_links.php");
 
 
@@ -34,7 +34,7 @@ include("include/lib_links.php");
 
 
 <head>
-    <title>Reports | TaskPlanner</title>
+    <title>Report | TaskUser</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -95,7 +95,7 @@ include("include/lib_links.php");
 
     <div class="page">
         <?php
-        $page_name = "Task_Info";
+        $page_name = "TaskUser";
         include("include/sidebar.php");
         // include('ems_header.php');
         ?>
@@ -105,9 +105,7 @@ include("include/lib_links.php");
             
             <?php if($user_role == 1){ ?>
                 <div class="btnSection">
-                    <div class="btn-group">
                       <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
-                    </div>
                 </div>
             <?php } ?>
             
@@ -150,7 +148,7 @@ include("include/lib_links.php");
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                                 <tr>
                                     <!-- <td><?php echo $serial;
-                                                $serial++; ?></td> -->
+                                    $serial++; ?></td> -->
                                     <td><?php echo $row['t_title']; ?></td>
                                     <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['t_start_time']; ?></td>
@@ -182,10 +180,7 @@ include("include/lib_links.php");
                 </div>
             </div>
         </div>
-        <!-- include the sidebar -->
-        <?php
-        include("include/footer.php");
-        ?>
+      
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

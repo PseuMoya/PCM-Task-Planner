@@ -10,6 +10,12 @@ if ($user_id == NULL || $security_key == NULL) {
     header('Location: index.php');
 }
 
+// check admin 
+$user_role = $_SESSION['user_role'];
+if ($user_role != 1) {
+    header('Location: home.php');
+}
+
 // Handle position filter
 $selected_position = isset($_GET['position']) ? $_GET['position'] : '';
 $positions = ['IT department', 'Admin', 'Marketing', 'HR'];
@@ -46,7 +52,7 @@ include("include/lib_links.php");
         ?>
 
         <div class="content">
-            <h1>Intern Lists</h1>
+            <h1>Intern List</h1>
 
             <div class="btnSection">
                 <!-- Position filter dropdown -->
@@ -96,7 +102,7 @@ include("include/lib_links.php");
                             ?>
                                 <tr>
                                     <td><?php echo $serial++; ?></td>
-                                    <td><div class="profile-name"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"><?php echo $row['fullname']; ?></div></td>
+                                    <td><div class="profile-name"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="40px" height="40px"><?php echo $row['fullname']; ?></div></td>
                                     <td><?php echo $row['position']; ?></td>
                                     <td><?php echo $task_num; ?></td>
                                     <td>
