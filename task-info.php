@@ -7,7 +7,7 @@ $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
 $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
-  header('Location: index.php');
+  header('Location: index');
 }
 
 // check admin
@@ -70,20 +70,46 @@ include("include/lib_links.php");
                 </div>
 
                 <div class="v-wrapper">
-                    <label for="assign_to">Assign to</label>
+                    <label for="position">Position</label>
                     <?php
-                    $sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_role = 2";
+                    $sql = "SELECT user_id, fullname, position FROM tbl_admin WHERE user_role = 2 ORDER BY position";
                     $info = $obj_admin->manage_all_info($sql);
+                    $data = [];
+                    while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                        $data[$row['position']][] = ['id' => $row['user_id'], 'name' => $row['fullname']];
+                    }
                     ?>
 
-                    <select class="form-control" name="assign_to" id="aassign_to" required>
-                        <option value="">Please select an intern...</option>
-
-                        <?php while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <option value="<?php echo $row['user_id']; ?>"><?php echo $row['fullname']; ?></option>
+                    <select class="form-control" name="position" id="position" required>
+                        <option value="">Please select a position...</option>
+                        <?php foreach (array_keys($data) as $position) { ?>
+                            <option value="<?php echo $position; ?>"><?php echo $position; ?></option>
                         <?php } ?>
-                        </select>
+                    </select>
+
+                    <label for="assign_to">Assign to</label>
+                    <select class="form-control" name="assign_to" id="assign_to" required>
+                        <option value="">Please select an intern...</option>
+                    </select>
                 </div>
+
+                <script>
+                    var data = <?php echo json_encode($data); ?>;
+                    document.getElementById('position').addEventListener('change', function() {
+                        var position = this.value;
+                        var assignTo = document.getElementById('assign_to');
+                        assignTo.innerHTML = '<option value="">Please select an intern...</option>';
+                        if (position in data) {
+                            data[position].forEach(function(item) {
+                                var option = document.createElement('option');
+                                option.value = item.id;
+                                option.text = item.name;
+                                assignTo.add(option);
+                            });
+                        }
+                    });
+                </script>
+
 
                 <div class="btnSection">
                     <button type="submit" name="add_task_post" class="btn btn-success-custom">Assign</button>
@@ -161,6 +187,8 @@ include("include/lib_links.php");
                                             echo "<div class='status-indicator in-progress'>In Progress</div>";
                                         } elseif ($row['status'] == 2) {
                                             echo "<div class='status-indicator completed'>Completed</div>";
+                                        }elseif ($row['status'] == 3) { 
+                                            echo "<div class='status-indicator failedtosub'>Failed to submit</div>"; 
                                         } else {
                                             echo "<div class='status-indicator incomplete'>Incomplete</div>";
                                         } ?>
@@ -168,7 +196,12 @@ include("include/lib_links.php");
 
                                     <td>
                                         <div class="actions">
-                                            <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a>
+                                            <?php 
+                                                if ($row['status'] != 3) { 
+                                                    echo "<a title='Update Task' href='edit-task.php?task_id=" . $row['task_id'] . "'><i class='ri-edit-2-fill'></i></a>"; 
+                                                } 
+                                            ?>
+                                            <!-- <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a> -->
                                             <a title="View" href="task-details.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-folder-open-fill"></i></a>
                                             <?php if ($user_role == 1) { ?>
                                                 <a title="Delete" href="?delete_task=delete_task&task_id=<?php echo $row['task_id']; ?>" onclick=" return check_delete();"><i class="ri-delete-bin-6-fill"></i></a>

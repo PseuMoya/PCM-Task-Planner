@@ -7,7 +7,7 @@ $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
 $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
-	header('Location: index.php');
+	header('Location: index');
 }
 
 // check admin
@@ -86,6 +86,11 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				<option value="0" <?php if ($row['status'] == 0) { ?>selected <?php } ?>>Incomplete</option>
 				<option value="1" <?php if ($row['status'] == 1) { ?>selected <?php } ?>>In Progress</option>
 				<option value="2" <?php if ($row['status'] == 2) { ?>selected <?php } ?>>Completed</option>
+
+				<?php if ($user_role != 2) { ?> 
+					<option value="3" <?php if ($row['status'] == 3) { ?> selected <?php } ?>>Failed to submit</option> 
+				<?php } ?>
+				
 			</select>
 		</div>
 

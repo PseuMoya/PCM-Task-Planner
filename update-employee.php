@@ -7,13 +7,13 @@ $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
 $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
-  header('Location: index.php');
+  header('Location: index');
 }
 
 // check admin
 $user_role = $_SESSION['user_role'];
 if ($user_role != 1) {
-  header('Location: task-info.php');
+  header('Location: task-info');
 }
 
 $admin_id = $_GET['admin_id'];
@@ -25,7 +25,7 @@ if (isset($_POST['update_current_employee'])) {
 
 if (isset($_POST['btn_user_password'])) {
 
-  $obj_admin->update_user_password($_POST, $admin_id);
+  $obj_admin->update_userbyadmin_password($_POST, $admin_id);
 }
 
 

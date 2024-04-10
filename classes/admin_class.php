@@ -35,6 +35,25 @@ class Admin_Class
 	}
 
 
+	/* ---------------------- CHANGE STATUS ----------------------------------- */
+
+	public function changeStatus() 
+	{ 
+		// Get the current datetime 
+		$current_datetime = new DateTime('now', new DateTimeZone('Asia/Manila')); 
+		$current_datetime_str = $current_datetime->format('Y-m-d H:i:s'); 
+		
+		$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE status IN (0, 1) AND STR_TO_DATE(t_end_time, '%Y-%m-%d %H:%i:%s') < :current_datetime"); 
+		$updatetaskstatus->bindParam(':current_datetime', $current_datetime_str); 
+		$updatetaskstatus->execute(); 
+		
+		if ($updatetaskstatus->errorCode() !== '00000') { 
+		$errorInfo = $updatetaskstatus->errorInfo(); 
+		echo "Error: " . $errorInfo[2]; 
+		} 
+	}
+
+
 	/* ---------------------- Admin Login Check ----------------------------------- */
 
 	public function admin_login_check($data)
@@ -54,10 +73,17 @@ class Admin_Class
 				$_SESSION['user_role'] = $userRow['user_role'];
 				$_SESSION['temp_password'] = $userRow['temp_password'];
 
+				$current_datetime = new DateTime('now'); 
+				$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE status IN (0, 1) AND t_end_time < :current_datetime"); 
+				$updatetaskstatus->bindParam(':current_datetime', $current_datetime->format('Y-m-d H:i:s')); 
+				$updatetaskstatus->execute();
+
 				if ($userRow['temp_password'] == null) {
-					header('Location: dashboard.php');
-				} else {
-					header('Location: changePasswordForEmployee.php');
+					if ($userRow['user_role'] == 1) {
+						header('Location: dashboard');
+					} else {
+						header('Location: home.php');
+					}
 				}
 			} else {
 				$message = 'Invalid user name or Password';
@@ -102,7 +128,7 @@ class Admin_Class
 					$_SESSION['user_role'] = $userRow['user_role'];
 					$_SESSION['temp_password'] = $userRow['temp_password'];
 
-					header('Location: task-info.php');
+					header('Location: home');
 				}
 			} catch (PDOException $e) {
 				echo $e->getMessage();
@@ -112,6 +138,29 @@ class Admin_Class
 			return $message;
 		}
 	}
+
+
+	/* ---------------------- user change password by admin Password Change ----------------------------------- */
+
+	public function update_userbyadmin_password($data, $id) 
+	{ 
+		$current_employee_password = $this->test_form_input_data(md5($data['employee_password'])); 
+		
+		
+		try { 
+		$update_user_password = $this->db->prepare("UPDATE tbl_admin SET password = :x WHERE user_id = :id "); 
+		
+		$update_user_password->bindparam(':x', $current_employee_password); 
+		$update_user_password->bindparam(':id', $id); 
+		
+		$update_user_password->execute(); 
+		
+		$_SESSION['update_user_pass'] = 'update_user_pass'; 
+		} catch (PDOException $e) { 
+		echo $e->getMessage(); 
+		} 
+	}
+	
 
 
 	/* -------------------- Admin Logout ----------------------------------- */
@@ -124,7 +173,7 @@ class Admin_Class
 		unset($_SESSION['admin_name']);
 		unset($_SESSION['security_key']);
 		unset($_SESSION['user_role']);
-		header('Location: index.php');
+		header('Location: index');
 	}
 
 	/*----------- add_new_user--------------*/
@@ -227,7 +276,7 @@ class Admin_Class
 
 			$_SESSION['update_user'] = 'update_user';
 
-			header('Location: admin-manage-user.php');
+			header("Location: " . $_SERVER['REQUEST_URI']);
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 		}
@@ -262,11 +311,18 @@ class Admin_Class
 
 	public function update_user_password($data, $id)
 	{
-		$current_employee_password  = $this->test_form_input_data(md5($data['current_employee_password']));
-		$getcurrentPass = "SELECT password FROM tbl_admin WHERE user_id = $id ";
-		if ($getcurrentPass === $current_employee_password) {
-			$new_employee_password  = $this->test_form_input_data(md5($data['new_employee_password']));
-			$confirm_employee_password  = $this->test_form_input_data(md5($data['confirm_employee_password']));
+		$current_employee_password = $this->test_form_input_data(md5($data['current_employee_password']));
+
+		// Fetch current password from the database
+		$getcurrentPass = $this->db->prepare("SELECT password FROM tbl_admin WHERE user_id = :id");
+		$getcurrentPass->execute(array(':id' => $id));
+		$row = $getcurrentPass->fetch(PDO::FETCH_ASSOC);
+		$stored_password = $row['password'];
+
+		if ($stored_password === $current_employee_password) {
+			$new_employee_password = $this->test_form_input_data(md5($data['new_employee_password']));
+			$confirm_employee_password = $this->test_form_input_data(md5($data['confirm_employee_password']));
+
 			if ($new_employee_password === $confirm_employee_password) {
 				try {
 					$update_user_password = $this->db->prepare("UPDATE tbl_admin SET password = :x WHERE user_id = :id ");
@@ -282,13 +338,12 @@ class Admin_Class
 					echo $e->getMessage();
 				}
 			} else {
-				echo "Wrong combination of password";
+				echo "New passwords do not match.";
 			}
 		} else {
-			echo "Wrong current password";
+			echo "Incorrect current password.";
 		}
 	}
-
 
 
 
@@ -397,6 +452,7 @@ class Admin_Class
 			$assign_to = $row['t_user_id'];
 		}
 
+
 		try {
 			$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c WHERE task_id = :id ");
 			$update_task->bindparam(':x', $task_title);
@@ -407,6 +463,15 @@ class Admin_Class
 			$update_task->bindparam(':c', $status);
 			$update_task->bindparam(':id', $task_id);
 			$update_task->execute();
+
+			if ($user_role == 2) { 
+				$formatted_t_end_datetime = new DateTime($t_end_time); 
+				if ($current_datetime > $formatted_t_end_datetime) { 
+					$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE task_id = :id "); 
+					$updatetaskstatus->bindparam(':id', $task_id); 
+					$updatetaskstatus->execute(); 
+				} 
+			}
 
 			$formatted_t_end_datetime = new DateTime($t_end_time);
 			if ($current_datetime > $formatted_t_end_datetime) {
