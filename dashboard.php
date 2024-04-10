@@ -119,7 +119,7 @@ include("include/lib_links.php");
                         <tr>
                             <th>Serial No.</th>
                             <th>Interns</th>
-                            <th>task</th>
+                            <th>Task</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -154,7 +154,7 @@ include("include/lib_links.php");
                         <tr>
                             <th>Serial No.</th>
                             <th>Interns</th>
-                            <th>task</th>
+                            <th>Task</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -189,7 +189,7 @@ include("include/lib_links.php");
                         <tr>
                             <th>Serial No.</th>
                             <th>Interns</th>
-                            <th>task</th>
+                            <th>Task</th>
                         </tr>
                         </thead>
                         <tbody>

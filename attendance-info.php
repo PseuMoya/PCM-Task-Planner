@@ -108,7 +108,7 @@ include("include/lib_links.php");
                                     <td>
                                         <?php
                                         if ($task_num == 0) {
-                                            echo "<div class='status-indicator incomplete'>No tasks currently</div>";
+                                            echo "<div class='status-indicator failedtosub'>No tasks currently</div>";
                                         } else {
                                             echo "<div class='status-indicator completed'>Task assigned</div>";
                                         }

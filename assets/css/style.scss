@@ -361,9 +361,9 @@ body {
     background-color: #69e83a26;
 }
 
-.status-indicator.incomplete {
-    color: #ad6262;
-    background-color: #ad626226;
+.status-indicator.failedtosub {
+    color: #b10000;
+    background-color: #b1000026;
 }
 
 
@@ -508,10 +508,3 @@ body {
         }
     }
 }
-
-
-
-.status-indicator.failedtosub { 
-    color: #1a1a1a; 
-    background-color: #fd000026 !important; 
-  }

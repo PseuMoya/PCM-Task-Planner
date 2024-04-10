@@ -147,9 +147,7 @@ if (isset($_POST['add_new_employee'])) {
                 </form>
 
                 <?php if ($user_role == 1) { ?>
-                    <div class="btn-group">
-                        <button id="openModal"><i class="ri-user-add-line"></i>Add New Employee</button>
-                    </div>
+                    <button id="openModal"><i class="ri-user-add-line"></i>Add New Employee</button>
                 <?php } ?>
             </div>
 
