@@ -28,8 +28,8 @@
         ?>
         <li><a href="dashboard" <?php if($page_name == "Dashboard" ){echo "class=\"active\"";} ?>><i class="ri-dashboard-horizontal-fill"></i>Dashboard</a></li>
         <li><a href="task-info" <?php if($page_name == "Task_Info" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
-        <li><a href="attendance-info" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Attendance</a></li>
-        <li><a href="admin-manage-user" <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><i class="ri-admin-fill"></i>Administration</a></li>
+        <li><a href="attendance-info" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Intern Lists</a></li>
+        <li><a href="admin-manage-user" <?php if($page_name == "Admin" ){echo "class=\"active\"";} ?>><i class="ri-admin-fill"></i>User Management</a></li>
         
         <!-- if user is intern -->
         <?php 

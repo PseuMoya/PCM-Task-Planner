@@ -1,4 +1,3 @@
-<!-- bootstrap 🤮 -->
 <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="assets/css/bootstrap.theme.min.css"> -->
 <link rel="stylesheet" href="assets/bootstrap-datepicker/css/datepicker.css">

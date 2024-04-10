@@ -55,9 +55,11 @@ class Admin_Class
 				$_SESSION['temp_password'] = $userRow['temp_password'];
 
 				if ($userRow['temp_password'] == null) {
-					header('Location: dashboard');
-				} else {
-					header('Location: changePasswordForEmployee.php');
+					if ($userRow['user_role'] == 1) {
+						header('Location: dashboard');
+					} else {
+						header('Location: home.php');
+					}
 				}
 			} else {
 				$message = 'Invalid user name or Password';
