@@ -161,6 +161,8 @@ include("include/lib_links.php");
                                             echo "<div class='status-indicator in-progress'>In Progress</div>";
                                         } elseif ($row['status'] == 2) {
                                             echo "<div class='status-indicator completed'>Completed</div>";
+                                        } elseif ($row['status'] == 3) { 
+                                            echo "<div class='status-indicator failedtosub'>Failed to submit</div>"; 
                                         } else {
                                             echo "<div class='status-indicator incomplete'>Incomplete</div>";
                                         } ?>

@@ -275,7 +275,6 @@ body {
   padding: 10px;
   font-size: 14px;
   border-radius: 6px;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -324,13 +323,11 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 1.5em;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   display: flex;
   flex-direction: column;
   gap: 1em;
-  height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
   margin: 1em;
@@ -428,4 +425,7 @@ body {
   right: -40px;
 }
 
-/*# sourceMappingURL=style.css.map */
+.status-indicator.failedtosub {
+  color: #1a1a1a;
+  background-color: rgba(253, 0, 0, 0.1490196078) !important;
+}/*# sourceMappingURL=style.css.map */

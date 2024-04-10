@@ -25,7 +25,7 @@ if (isset($_POST['update_current_employee'])) {
 
 if (isset($_POST['btn_user_password'])) {
 
-  $obj_admin->update_user_password($_POST, $admin_id);
+  $obj_admin->update_userbyadmin_password($_POST, $admin_id);
 }
 
 

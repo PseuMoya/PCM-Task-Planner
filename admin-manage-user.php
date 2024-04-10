@@ -224,7 +224,7 @@ if (isset($_POST['add_new_employee'])) {
 if (isset($_SESSION['update_user_pass'])) {
 
     // echo '<script>alert("Password updated successfully");</script>';
-    echo '<script>alert("index");</script>';
+    // echo '<script>alert("index");</script>';
 
     unset($_SESSION['update_user_pass']);
 }

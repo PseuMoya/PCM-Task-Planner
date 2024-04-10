@@ -187,6 +187,8 @@ include("include/lib_links.php");
                                             echo "<div class='status-indicator in-progress'>In Progress</div>";
                                         } elseif ($row['status'] == 2) {
                                             echo "<div class='status-indicator completed'>Completed</div>";
+                                        }elseif ($row['status'] == 3) { 
+                                            echo "<div class='status-indicator failedtosub'>Failed to submit</div>"; 
                                         } else {
                                             echo "<div class='status-indicator incomplete'>Incomplete</div>";
                                         } ?>
@@ -194,7 +196,12 @@ include("include/lib_links.php");
 
                                     <td>
                                         <div class="actions">
-                                            <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a>
+                                            <?php 
+                                                if ($row['status'] != 3) { 
+                                                    echo "<a title='Update Task' href='edit-task.php?task_id=" . $row['task_id'] . "'><i class='ri-edit-2-fill'></i></a>"; 
+                                                } 
+                                            ?>
+                                            <!-- <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a> -->
                                             <a title="View" href="task-details.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-folder-open-fill"></i></a>
                                             <?php if ($user_role == 1) { ?>
                                                 <a title="Delete" href="?delete_task=delete_task&task_id=<?php echo $row['task_id']; ?>" onclick=" return check_delete();"><i class="ri-delete-bin-6-fill"></i></a>
