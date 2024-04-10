@@ -70,20 +70,46 @@ include("include/lib_links.php");
                 </div>
 
                 <div class="v-wrapper">
-                    <label for="assign_to">Assign to</label>
+                    <label for="position">Position</label>
                     <?php
-                    $sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_role = 2";
+                    $sql = "SELECT user_id, fullname, position FROM tbl_admin WHERE user_role = 2 ORDER BY position";
                     $info = $obj_admin->manage_all_info($sql);
+                    $data = [];
+                    while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                        $data[$row['position']][] = ['id' => $row['user_id'], 'name' => $row['fullname']];
+                    }
                     ?>
 
-                    <select class="form-control" name="assign_to" id="aassign_to" required>
-                        <option value="">Please select an intern...</option>
-
-                        <?php while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <option value="<?php echo $row['user_id']; ?>"><?php echo $row['fullname']; ?></option>
+                    <select class="form-control" name="position" id="position" required>
+                        <option value="">Please select a position...</option>
+                        <?php foreach (array_keys($data) as $position) { ?>
+                            <option value="<?php echo $position; ?>"><?php echo $position; ?></option>
                         <?php } ?>
                     </select>
+
+                    <label for="assign_to">Assign to</label>
+                    <select class="form-control" name="assign_to" id="assign_to" required>
+                        <option value="">Please select an intern...</option>
+                    </select>
                 </div>
+
+                <script>
+                    var data = <?php echo json_encode($data); ?>;
+                    document.getElementById('position').addEventListener('change', function() {
+                        var position = this.value;
+                        var assignTo = document.getElementById('assign_to');
+                        assignTo.innerHTML = '<option value="">Please select an intern...</option>';
+                        if (position in data) {
+                            data[position].forEach(function(item) {
+                                var option = document.createElement('option');
+                                option.value = item.id;
+                                option.text = item.name;
+                                assignTo.add(option);
+                            });
+                        }
+                    });
+                </script>
+
 
                 <div class="btnSection">
                     <button type="submit" name="add_task_post" class="btn btn-success-custom">Assign</button>

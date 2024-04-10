@@ -197,38 +197,51 @@ public function add_new_user($data){
 }
 
 
-/* ---------update_user_data----------*/
+/* ---------update_user_data----------*/ 
+private function getCurrentProfileImg($id) 
+{ 
+ $stmt = $this->db->prepare("SELECT profileimg FROM tbl_admin WHERE user_id = :id"); 
+ $stmt->execute(array(':id' => $id)); 
+ $result = $stmt->fetch(PDO::FETCH_ASSOC); 
+ return $result['profileimg']; 
+} 
 
-	public function update_user_data($data, $id){
-		$user_fullname  = $this->test_form_input_data($data['em_fullname']);
-		$user_username = $this->test_form_input_data($data['em_username']);
-		$user_email = $this->test_form_input_data($data['em_email']);
-		$user_position = $this->test_form_input_data($data['position']);
+public function update_user_data($data, $id) 
+{ 
+ $user_fullname  = $this->test_form_input_data($data['em_fullname']); 
+ $user_username = $this->test_form_input_data($data['em_username']); 
+ $user_email = $this->test_form_input_data($data['em_email']); 
+ $user_position = $this->test_form_input_data($data['position']); 
 
-		// Process image upload
-		$target_dir = "uploads/";
-		$target_file = $target_dir . basename($_FILES["profileimg"]["name"]);
-		move_uploaded_file($_FILES["profileimg"]["tmp_name"], $target_file);
+ $current_profileimg = $this->getCurrentProfileImg($id); 
 
-		try{
-			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x, username = :y, email = :z, position = :p, profileimg = :e WHERE user_id = :id ");
+ if (!empty($_FILES["profileimg"]["tmp_name"])) { 
+  $target_dir = "uploads/"; 
+  $target_file = $target_dir . basename($_FILES["profileimg"]["name"]); 
+  move_uploaded_file($_FILES["profileimg"]["tmp_name"], $target_file); 
+ } else { 
+  $target_file = $current_profileimg; 
+ } 
 
-			$update_user->bindparam(':x', $user_fullname);
-			$update_user->bindparam(':y', $user_username);
-			$update_user->bindparam(':z', $user_email);
-			$update_user->bindparam(':p', $user_position);
-			$update_user->bindparam(':e', $target_file); // Add this line
-			$update_user->bindparam(':id', $id);
-			
-			$update_user->execute();
+ try { 
+  $update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x, username = :y, email = :z, position = :p, profileimg = :e WHERE user_id = :id "); 
 
-			$_SESSION['update_user'] = 'update_user';
+  $update_user->bindparam(':x', $user_fullname); 
+  $update_user->bindparam(':y', $user_username); 
+  $update_user->bindparam(':z', $user_email); 
+  $update_user->bindparam(':p', $user_position); 
+  $update_user->bindparam(':e', $target_file); 
+  $update_user->bindparam(':id', $id); 
 
-			header('Location: admin-manage-user.php');
-		}catch (PDOException $e) {
-			echo $e->getMessage();
-		}
-	}
+  $update_user->execute(); 
+
+  $_SESSION['update_user'] = 'update_user'; 
+
+  header('Location: admin-manage-user.php'); 
+ } catch (PDOException $e) { 
+  echo $e->getMessage(); 
+ } 
+}
 
 /* ------------update_admin_data-------------------- */
 
@@ -254,27 +267,43 @@ public function add_new_user($data){
 	}
 
 
-/* ------update_user_password------------------*/
-	
-	public function update_user_password($data, $id){
-		$employee_password  = $this->test_form_input_data(md5($data['employee_password']));
-		
-		try{
-			$update_user_password = $this->db->prepare("UPDATE tbl_admin SET password = :x WHERE user_id = :id ");
+/* ------update_user_password------------------*/ 
+ 
+public function update_user_password($data, $id) 
+{ 
+    $current_employee_password = $this->test_form_input_data(md5($data['current_employee_password'])); 
+    
+    // Fetch current password from the database
+    $getcurrentPass = $this->db->prepare("SELECT password FROM tbl_admin WHERE user_id = :id"); 
+    $getcurrentPass->execute(array(':id' => $id));
+    $row = $getcurrentPass->fetch(PDO::FETCH_ASSOC);
+    $stored_password = $row['password'];
 
-			$update_user_password->bindparam(':x', $employee_password);
-			$update_user_password->bindparam(':id', $id);
-			
-			$update_user_password->execute();
-
-			$_SESSION['update_user_pass'] = 'update_user_pass';
-
-			header('Location: admin-manage-user.php');
-		}catch (PDOException $e) {
-			echo $e->getMessage();
-		}
-	}
-
+    if ($stored_password === $current_employee_password) { 
+        $new_employee_password = $this->test_form_input_data(md5($data['new_employee_password'])); 
+        $confirm_employee_password = $this->test_form_input_data(md5($data['confirm_employee_password'])); 
+        
+        if ($new_employee_password === $confirm_employee_password) { 
+            try { 
+                $update_user_password = $this->db->prepare("UPDATE tbl_admin SET password = :x WHERE user_id = :id "); 
+                
+                $update_user_password->bindparam(':x', $confirm_employee_password); 
+                $update_user_password->bindparam(':id', $id); 
+                
+                $update_user_password->execute(); 
+                
+                $_SESSION['update_user_pass'] = 'update_user_pass'; 
+                header('Location: userprofile-info.php'); 
+            } catch (PDOException $e) { 
+                echo $e->getMessage(); 
+            } 
+        } else { 
+            echo "New passwords do not match."; 
+        } 
+    } else { 
+        echo "Incorrect current password."; 
+    } 
+}
 
 
 
