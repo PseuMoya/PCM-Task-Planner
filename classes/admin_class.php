@@ -102,7 +102,7 @@ class Admin_Class
 					$_SESSION['user_role'] = $userRow['user_role'];
 					$_SESSION['temp_password'] = $userRow['temp_password'];
 
-					header('Location: task-info.php');
+					header('Location: home');
 				}
 			} catch (PDOException $e) {
 				echo $e->getMessage();
@@ -227,7 +227,7 @@ class Admin_Class
 
 			$_SESSION['update_user'] = 'update_user';
 
-			header('Location: userprofile-info.php');
+			header("Location: " . $_SERVER['REQUEST_URI']);
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 		}

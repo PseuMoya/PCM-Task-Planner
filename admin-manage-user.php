@@ -179,7 +179,9 @@ if (isset($_POST['add_new_employee'])) {
 <?php
 if (isset($_SESSION['update_user_pass'])) {
 
-    echo '<script>alert("Password updated successfully");</script>';
+    // echo '<script>alert("Password updated successfully");</script>';
+    echo '<script>alert("index");</script>';
+
     unset($_SESSION['update_user_pass']);
 }
 include("include/footer.php");

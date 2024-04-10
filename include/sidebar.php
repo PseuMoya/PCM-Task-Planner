@@ -38,7 +38,7 @@
         <li><a href="home" <?php if($page_name == "Home" ){echo "class=\"active\"";} ?>><i class="fas fa-home"></i>Home</a></li>        
         <li><a href="taskreport-user" <?php if($page_name == "TaskUser" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>Reports</a></li>
         <!-- <li><a href="attendance-info" <?php if($page_name == "Attendance" ){echo "class=\"active\"";} ?>><i class="ri-team-fill"></i>Attendance</a></li> -->
-        <li><a href="userprofile-info.php" <?php if($page_name == "User_Profile" ){echo "class=\"active\"";} ?>><i class="ri-file-text-fill"></i>User Profile</a></li>
+        <li><a href="userprofile-info.php" <?php if($page_name == "User_Profile" ){echo "class=\"active\"";} ?>><i class="ri-admin-fill"></i>User Profile</a></li>
 
         <!-- how tf does a user gain the role 1 or 2 -->
         <?php
