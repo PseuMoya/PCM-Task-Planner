@@ -42,13 +42,13 @@
       <?php
       } else if ($user_role == 2) {
       ?>
-        <li><a href="home.php" <?php if ($page_name == "Home") {
+        <li><a href="home" <?php if ($page_name == "Home") {
                                   echo "class=\"active\"";
                                 } ?>><i class="fas fa-home"></i>Home</a></li>
-        <li><a href="task-info.php" <?php if ($page_name == "Task_Info") {
+        <li><a href="task-info" <?php if ($page_name == "Task_Info") {
                                       echo "class=\"active\"";
                                     } ?>><i class="ri-file-text-fill"></i>Reports</a></li>
-        <li><a href="userprofile-info.php" <?php if ($page_name == "User_Profile") {
+        <li><a href="userprofile-info" <?php if ($page_name == "User_Profile") {
                                               echo "class=\"active\"";
                                             } ?>><i class="ri-team-fill"></i>User Profile</a></li>
 

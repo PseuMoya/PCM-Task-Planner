@@ -45,6 +45,22 @@
     border-radius: 10px;
 }
 
+@mixin img-container($img-size, $radius) {
+    .img-container {
+        overflow: hidden;
+        border-radius: $radius;
+        width: $img-size;
+        height: $img-size;
+        
+        img {
+            -o-object-fit: cover;
+               object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
 :root {
     --main-bg-color: #F9F8FF;
     --panel-color: #FFFFFF;
@@ -95,6 +111,12 @@ body {
         display: flex;
         align-items: center;
         gap: 1em;
+        justify-content: center;
+
+        img {
+            width: 50px;
+            height: 50px;
+        }
 
         p {
             font-weight: 550;
@@ -123,17 +145,8 @@ body {
             .h-wrapper {
                 @include h-wrapper;
                 align-items: center;
-
-                .img-container {
-                    border-radius: 5px;
-                    -o-object-fit: contain;
-                       object-fit: contain;
-                    
-                    img {
-                        width: 50px;
-                        height: 50px;
-                    }
-                }
+                
+                @include img-container(50px, 5px);
                 
                 .v-wrapper {
                     @include v-wrapper;
@@ -252,16 +265,7 @@ body {
             }
         }
 
-        .img-container {
-            border-radius: 5px;
-            -o-object-fit: contain;
-               object-fit: contain;
-        
-            img {
-                max-width: 100px;
-                max-height: 100px;
-            }
-        }
+        @include img-container(100px, 5px);
     }
 
     .card {
@@ -399,7 +403,8 @@ body {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
-    margin: 1em;
+
+    @include img-container(250px, 5px);
 
     label {
         font-weight: 550;
@@ -411,6 +416,10 @@ body {
         border-radius: 3px;
         color: var(--lighter-text-color);
         border: 1px solid var(--lighter-text-color);
+    }
+
+    input[type='file']{
+        width: 50%;
     }
 
     textarea {
@@ -441,10 +450,21 @@ body {
     }
 }
 
+.dash-cards-profile {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    grid-auto-rows: minmax(auto, auto);
+    gap: 1em;
+
+    .modal {
+        width: 100%;
+    }
+}
+
 //DASHBOARD
 .dash-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
     grid-auto-rows: minmax(auto, auto);
     gap: 1em;
 

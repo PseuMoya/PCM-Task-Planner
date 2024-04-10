@@ -39,9 +39,7 @@ include("include/lib_links.php");
 
 <body>
 
-
-
-<?php
+    <?php
     $page_name = "User_Profile";
     include("include/sidebar.php");
     ?>
@@ -50,34 +48,67 @@ include("include/lib_links.php");
 
         <div class="content">
             <h1>Profile</h1>
+            <div class="dash-cards-profile">
+                <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
+                    <div class="modal">
+                        <div class="modalTitle">
+                            <h2>Profile Picture</h2>
+                        </div>
+                        <?php
 
-            <div class="modal">
-                <h2>Profile Picture</h2>
-                <?php
+                        $sql = "SELECT * FROM tbl_admin WHERE user_id = $user_id";
+                        $info = $obj_admin->manage_all_info($sql);
 
-                $sql = "SELECT * FROM tbl_admin WHERE user_id = $user_id";
-                $info = $obj_admin->manage_all_info($sql);
+                        while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                            <div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div>
 
-                while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                ?>
+                            <!-- clever way of actually hiding it without having to display what is needed to be change -->
+                            <input type="text" style="display: none;" value="<?php echo $row['fullname']; ?>" placeholder="Enter Employee Name" name="em_fullname" list="expense" required>
+                            <input type="text" style="display: none;" value="<?php echo $row['username']; ?>" placeholder="Enter Employee Username" name="em_username" required>
+                            <input type="email" style="display: none;" value="<?php echo $row['email']; ?>" placeholder="Enter employee email" name="em_email" required>
+                            <div class="col-sm-8" style="display: none;">
+                                <select name="position" class="form-control input-custom" required>
+                                    <option value="">Select Position...</option>
+                                    <option value="IT Department" <?php if ($row['position'] == 'IT Department') echo 'selected'; ?>>IT Department</option>
+                                    <option value="Hr" <?php if ($row['position'] == 'Hr') echo 'selected'; ?>>Hr</option>
+                                    <option value="Marketing" <?php if ($row['position'] == 'Marketing') echo 'selected'; ?>>Marketing</option>
+                                    <option value="Admin" <?php if ($row['position'] == 'Admin') echo 'selected'; ?>>Admin</option>
+                                </select>
+                            </div>
 
-                    <div class="profile-name"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"><br><?php echo $row['fullname']; ?></div>
+                            <input type="file" name="profileimg">
 
-                    <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
+                            <div class="btnSection">
+                                <button type="submit" name="update_current_employee">Update</button>
+                            </div>
+                    </div>
+                </form>
 
-                        <input type="text" style="display: none;" value="<?php echo $row['fullname']; ?>" placeholder="Enter Employee Name" name="em_fullname" list="expense" id="default" required>
-
-                        <input type="text" style="display: none;" value="<?php echo $row['username']; ?>" placeholder="Enter Employee Username" name="em_username" required>
-
-                        <input type="email" style="display: none;" value="<?php echo $row['email']; ?>" placeholder="Enter employee email" name="em_email" required>
+                <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
+                    <div class="modal">
+                        <div class="modalTitle">
+                            <h2>Personal Information</h2>
+                        </div>
 
                         <div class="v-wrapper">
-                            <label class="control-label col-sm-2">Profile Image</label>
-                            <input type="file" name="profileimg" class="form-control">
+                            <label>Full name</label>
+                            <input type="text" value="<?php echo $row['fullname']; ?>" placeholder="Enter Employee Name" name="em_fullname" list="expense" class="form-control" id="default" required>
+                        </div>
+
+                        <div class="v-wrapper">
+                            <label>Username</label>
+                            <input type="text" value="<?php echo $row['username']; ?>" placeholder="Enter Employee Username" name="em_username" class="form-control" required>
+                        </div>
+
+                        <div class="v-wrapper">
+                            <label>Email</label>
+                            <input type="email" value="<?php echo $row['email']; ?>" placeholder="Enter employee email" name="em_email" class="form-control" required>
                         </div>
 
 
-                        <div class="col-sm-8" style="display: none;">
+                        <div class="v-wrapper">
+                            <label>Position</label>
                             <select name="position" class="form-control input-custom" required>
                                 <option value="">Select Position...</option>
                                 <option value="IT Department" <?php if ($row['position'] == 'IT Department') echo 'selected'; ?>>IT Department</option>
@@ -85,79 +116,39 @@ include("include/lib_links.php");
                                 <option value="Marketing" <?php if ($row['position'] == 'Marketing') echo 'selected'; ?>>Marketing</option>
                                 <option value="Admin" <?php if ($row['position'] == 'Admin') echo 'selected'; ?>>Admin</option>
                             </select>
+                        </div>
+                    <?php } ?>
+
+                    <div class="btnSection">
+                        <button type="submit" name="update_current_employee" class="btn btn-success-custom">Save changes</button>
+                    </div>
+                    </div>
+                </form>
+
+                <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
+                    <div class="modal">
+                        <div class="modalTitle">
+                            <h2>Change password</h2>
+                        </div>
+
+                        <div class="v-wrapper">
+                            <label for="current_employee_password" style="font-size: 18px; color: #333;">Current Password:</label>
+                            <input type="password" name="current_employee_password" class="form-control input-custom" id="current_employee_password" min="8" required>
+                        </div>
+
+                        <div class="v-wrapper">
+                            <label for="new_employee_password" style="font-size: 18px; color: #333;">New Password:</label>
+                            <input type="password" name="new_employee_password" class="form-control input-custom" id="new_employee_password" min="8" required>
+                        </div>
+
+                        <div class="v-wrapper">
+                            <label for="confirm_employee_password" style="font-size: 18px; color: #333;">Confirm Password:</label>
+                            <input type="password" name="confirm_employee_password" class="form-control input-custom" id="confirm_employee_password" min="8" required>
                         </div>
 
                         <div class="btnSection">
-                            <button type="submit" name="update_current_employee" class="btn btn-success-custom">Update Now</button>
+                            <button type="submit" name="btn_user_password">Confirm</button>
                         </div>
-                    </form>
-            </div>
-            <div>
-            </div>
-
-
-            <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
-                <div class="modal">
-                    <div class="modalTitle">
-                        <h2>Edit Intern</h2>
-                    </div>
-
-                    <div class="v-wrapper">
-                        <label class="control-label col-sm-2">Fullname</label>
-                        <input type="text" value="<?php echo $row['fullname']; ?>" placeholder="Enter Employee Name" name="em_fullname" list="expense" class="form-control" id="default" required>
-                    </div>
-
-                    <div class="v-wrapper">
-                        <label class="control-label col-sm-2">Username</label>
-                        <input type="text" value="<?php echo $row['username']; ?>" placeholder="Enter Employee Username" name="em_username" class="form-control" required>
-                    </div>
-
-                    <div class="v-wrapper">
-                        <label class="control-label col-sm-2">Email</label>
-                        <input type="email" value="<?php echo $row['email']; ?>" placeholder="Enter employee email" name="em_email" class="form-control" required>
-                    </div>
-
-
-                    <div class="v-wrapper">
-                        <label>Position</label>
-                        <div class="col-sm-8">
-                            <select name="position" class="form-control input-custom" required>
-                                <option value="">Select Position...</option>
-                                <option value="IT Department" <?php if ($row['position'] == 'IT Department') echo 'selected'; ?>>IT Department</option>
-                                <option value="Hr" <?php if ($row['position'] == 'Hr') echo 'selected'; ?>>Hr</option>
-                                <option value="Marketing" <?php if ($row['position'] == 'Marketing') echo 'selected'; ?>>Marketing</option>
-                                <option value="Admin" <?php if ($row['position'] == 'Admin') echo 'selected'; ?>>Admin</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="btnSection">
-                        <button type="submit" name="update_current_employee" class="btn btn-success-custom">Update Now</button>
-                    </div>
-            </form>
-
-        <?php } ?>
-
-        </div>
-        <div class="col-md-5" style="font-family: Arial, sans-serif;">
-            <div class="modal">
-                <!-- <button id="emlpoyee_pass_btn" class="btn btn-primary" style="background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 4px;">Change Password</button> -->
-                <form action="" method="POST" id="employee_pass_cng">
-                    <div class="form-group" style="margin-bottom: 15px;">
-                        <label for="admin_password" style="font-size: 18px; color: #333;">Current Password:</label>
-                        <input type="password" name="current_employee_password" class="form-control input-custom" id="current_employee_password" min="8" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 6px; margin-bottom: 16px; resize: vertical;">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 15px;">
-                        <label for="admin_password" style="font-size: 18px; color: #333;">New Password:</label>
-                        <input type="password" name="new_employee_password" class="form-control input-custom" id="new_employee_password" min="8" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 6px; margin-bottom: 16px; resize: vertical;">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 15px;">
-                        <label for="admin_password" style="font-size: 18px; color: #333;">Confirm Password:</label>
-                        <input type="password" name="confirm_employee_password" class="form-control input-custom" id="confirm_employee_password" min="8" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; margin-top: 6px; margin-bottom: 16px; resize: vertical;">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" name="btn_user_password" class="btn btn-success" style="background-color: #4CAF50; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; border-radius: 4px;">Confirm</button>
-                    </div>
                 </form>
             </div>
         </div>
