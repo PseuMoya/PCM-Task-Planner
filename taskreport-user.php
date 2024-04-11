@@ -34,7 +34,7 @@ include("include/lib_links.php");
 
 
 <head>
-    <title>Report | TaskUser</title>
+    <title>Your Tasks | TaskPlanner</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -101,7 +101,10 @@ include("include/lib_links.php");
         ?>
 
         <div class="content">
-            <h1>Reports</h1>
+            <div class="content-title">
+                <h1>Your Tasks</h1>
+            </div>
+            <p>This is where your tasks will be listed. Each task will be assigned to you by your assigned department supervisor.</p>
             
             <?php if($user_role == 1){ ?>
                 <div class="btnSection">

@@ -134,17 +134,17 @@ include("include/lib_links.php");
                         </div>
 
                         <div class="v-wrapper">
-                            <label for="current_employee_password" style="font-size: 18px; color: #333;">Current Password:</label>
+                            <label for="current_employee_password">Current Password:</label>
                             <input type="password" name="current_employee_password" class="form-control input-custom" id="current_employee_password" min="8" required>
                         </div>
 
                         <div class="v-wrapper">
-                            <label for="new_employee_password" style="font-size: 18px; color: #333;">New Password:</label>
+                            <label for="new_employee_password">New Password:</label>
                             <input type="password" name="new_employee_password" class="form-control input-custom" id="new_employee_password" min="8" required>
                         </div>
 
                         <div class="v-wrapper">
-                            <label for="confirm_employee_password" style="font-size: 18px; color: #333;">Confirm Password:</label>
+                            <label for="confirm_employee_password">Confirm Password:</label>
                             <input type="password" name="confirm_employee_password" class="form-control input-custom" id="confirm_employee_password" min="8" required>
                         </div>
 

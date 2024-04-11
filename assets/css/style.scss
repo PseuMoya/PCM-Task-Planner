@@ -47,6 +47,8 @@
 
 @mixin img-container($img-size, $radius) {
     .img-container {
+        display: flex;
+        align-items: center;
         overflow: hidden;
         border-radius: $radius;
         width: $img-size;
@@ -93,6 +95,10 @@ body {
     font-family: var(--primary-font);
 }
 
+#hamburger{
+    display: none;
+}
+
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -105,7 +111,7 @@ body {
     background-color: var(--panel-color);
     z-index: 1;
     
-    border-right: 1px solid #E6E4F0;
+    border-right: 1px solid var(--border-color);
 
     .title {
         display: flex;
@@ -213,6 +219,13 @@ body {
     }
 }
 
+.content-title {
+    @include v-wrapper;
+    p {
+        font-weight: 500;
+    }
+}
+
 .content {
     padding: 1em;
     margin-left: var(--sidebar-width);
@@ -230,7 +243,7 @@ body {
             select {
                 @include button;
                 font-family: var(--primary-font);
-                border: 1px solid #E6E4F0;
+                border: 1px solid var(--border-color);
                 background-color: #FAFAFA;
             }
 
@@ -238,7 +251,7 @@ body {
                 @include button;
                 @include h-wrapper;
                 align-items: center;
-                border: 1px solid #E6E4F0;
+                border: 1px solid var(--border-color);
                 background-color: white;
 
                 i {
@@ -256,6 +269,12 @@ body {
 
         .v-wrapper {
             @include v-wrapper;
+            gap: 0;
+            
+            p {
+                color: var(--lighter-text-color);
+                font-weight: 500;
+            }
 
             span {
                 background: var(--vibrant-color);
@@ -265,7 +284,7 @@ body {
             }
         }
 
-        @include img-container(100px, 5px);
+        @include img-container(100px, 100%);
     }
 
     .card {
@@ -288,7 +307,7 @@ body {
                         padding-top: 0;
                         text-align: start;
                         color: var(--text-color);
-                        font-weight: 550;
+                        font-weight: 700;
                         border-bottom: 1px solid var(--border-color);
                     }
                 }
@@ -302,8 +321,7 @@ body {
                 }
                 tr {
                     margin: 2em;
-                    border-top: 1px solid var(--border-color);
-                    border-bottom: 1px solid var(--border-color);
+                    border: 1px solid var(--border-color);
                     
                     td {
                         padding: 0.5em;
@@ -361,7 +379,7 @@ body {
     background-color: #69e83a26;
 }
 
-.status-indicator.failedtosub {
+.status-indicator.failedtosub, .status-indicator.incomplete {
     color: #b10000;
     background-color: #b1000026;
 }
@@ -418,8 +436,14 @@ body {
         border: 1px solid var(--lighter-text-color);
     }
 
-    input[type='file']{
-        width: 50%;
+    input[type=file] {
+        padding: 0;
+        border: none;
+    }
+
+    input[type=file]::file-selector-button {
+        @include button;
+        background-color: var(--accent-color);
     }
 
     textarea {
@@ -506,5 +530,76 @@ body {
             top: -75px;
             right: -40px;
         }
+    }
+}
+
+/*
+?#####################################
+?#            RESPONSIVE             #
+?#####################################
+*/
+
+@media screen and (max-width: 768px) {
+    #hamburger{
+        display: block;
+        font-size: 25px;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        
+        .sidebar-wrapper{
+            height: -webkit-fit-content;
+            height: -moz-fit-content;
+            height: fit-content;
+            border: 1px solid var(--border-color);
+            padding: 1em;
+            top: 120%;
+            right: -100%;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            transition: all 0.4s ease;
+            background-color: var(--panel-color);
+            border-radius: 12px;
+            
+            ul>li{
+                flex-direction: column-reverse;
+            }
+        }
+        
+        .sidebar-wrapper.open {
+            right: 0%;
+            z-index: -10;
+            margin: 0em 1em;
+        }
+
+    }
+
+    .content {
+        margin-left: 0;
+        padding-top: 3em;
+    }
+
+    .card.welcome {
+        flex-direction: column-reverse;
+        
+        .v-wrapper{
+            align-items: center;
+            
+            h1 {
+                text-align: center;
+                font-size: 28px;
+            }
+        }
+        
     }
 }
