@@ -148,6 +148,7 @@ include("include/lib_links.php");
                                 <th>Start Time</th>
                                 <th>End Time</th>
                                 <th>Status</th>
+                                <th>Proof Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -190,22 +191,31 @@ include("include/lib_links.php");
                                         }elseif ($row['status'] == 3) { 
                                             echo "<div class='status-indicator failedtosub'>Failed to submit</div>"; 
                                         } else {
-                                            echo "<div class='status-indicator incomplete'>Incomplete</div>";
+                                            echo "<div class='status-indicator pending'>Pending</div>";
                                         } ?>
                                     </td>
 
                                     <td>
-                                        <div class="actions">
-                                            <?php 
-                                                if ($row['status'] != 3) { 
-                                                    echo "<a title='Update Task' href='edit-task.php?task_id=" . $row['task_id'] . "'><i class='ri-edit-2-fill'></i></a>"; 
-                                                } 
-                                            ?>
-                                            <!-- <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a> -->
-                                            <a title="View" href="task-details.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-folder-open-fill"></i></a>
-                                            <?php if ($user_role == 1) { ?>
-                                                <a title="Delete" href="?delete_task=delete_task&task_id=<?php echo $row['task_id']; ?>" onclick=" return check_delete();"><i class="ri-delete-bin-6-fill"></i></a>
+                                        <div>
+                                            <?php if (!empty($row['proof'])) { ?>
+                                                <a href="<?php echo $row['proof']; ?>" target="_blank">
+                                                    <img src="<?php echo $row['proof']; ?>" alt="Proof Image" width="100px" height="100px">
+                                                </a>
+                                            <?php } else { ?>
+                                                <p>No Proof</p>
                                             <?php } ?>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                    <div class="actions"> 
+                                            <?php if ($row['status'] = 3 && $user_role = 2) { ?> 
+                                                <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a> 
+                                            <?php } ?> 
+                                            <a title=" View" href="task-details.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-folder-open-fill"></i></a> 
+                                            <?php if ($user_role = 1) { ?> 
+                                                <a title="Delete" href="?delete_task=delete_task&task_id=<?php echo $row['task_id']; ?>" onclick=" return check_delete();"><i class="ri-delete-bin-6-fill"></i></a> 
+                                            <?php } ?> 
                                         </div>
                                     </td>
                                 </tr>

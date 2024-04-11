@@ -34,7 +34,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-<form role="form" action="" method="post" autocomplete="off">
+<form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
 	<div class="modal">
 		<div class="modalTitle">
 			<h2>Edit task</h2>
@@ -83,7 +83,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 		<div class="v-wrapper">
 			<label for="status">Status</label>
 			<select class="form-control" name="status" id="status">
-				<option value="0" <?php if ($row['status'] == 0) { ?>selected <?php } ?>>Incomplete</option>
+				<option value="0" <?php if ($row['status'] == 0) { ?>selected <?php } ?>>Pending</option>
 				<option value="1" <?php if ($row['status'] == 1) { ?>selected <?php } ?>>In Progress</option>
 				<option value="2" <?php if ($row['status'] == 2) { ?>selected <?php } ?>>Completed</option>
 
@@ -93,6 +93,14 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				
 			</select>
 		</div>
+
+		<?php if ($user_role != 1) { ?> 
+			<div class="v-wrapper">
+                    <label for="proof">Proof Image</label>
+                    <input type="file" name="proof" class="form-control">
+                </div>
+		<?php } ?>
+
 
 		<div class="btnSection">
 		<button type="submit" name="update_task_info">Update Now</button>

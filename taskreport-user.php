@@ -165,7 +165,7 @@ include("include/lib_links.php");
                                         } elseif ($row['status'] == 3) { 
                                             echo "<div class='status-indicator failedtosub'>Failed to submit</div>"; 
                                         } else {
-                                            echo "<div class='status-indicator incomplete'>Incomplete</div>";
+                                            echo "<div class='status-indicator pending'>Pending</div>";
                                         } ?>
                                     </td>
 

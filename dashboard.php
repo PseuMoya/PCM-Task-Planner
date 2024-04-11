@@ -75,7 +75,7 @@ include("include/lib_links.php");
                     <p>HR Department</p>
                     <span class="how-many">
                         <?php
-                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Hr'";
+                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Hr Department'";
                         $info = $obj_admin->manage_all_info($sql);
                         $count = $info->rowCount();
                         echo $count;
@@ -88,7 +88,7 @@ include("include/lib_links.php");
                     <p>Marketing Department</p>
                     <span class="how-many">
                         <?php
-                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Marketing'";
+                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Marketing Department'";
                         $info = $obj_admin->manage_all_info($sql);
                         $count = $info->rowCount();
                         echo $count;
@@ -101,7 +101,7 @@ include("include/lib_links.php");
                     <p>Admin Department</p>
                     <span class="how-many">
                         <?php
-                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Admin'";
+                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Admin Department'";
                         $info = $obj_admin->manage_all_info($sql);
                         $count = $info->rowCount();
                         echo $count;

@@ -1,3 +1,8 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+
+# HTID:23078718: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOWphp_value display_errors 1
+# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:23078718:RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-fRewriteRule ^([^\.]+)$ $1.php [NC,L]
