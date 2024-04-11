@@ -78,13 +78,18 @@ class Admin_Class
 				$updatetaskstatus->bindParam(':current_datetime', $current_datetime->format('Y-m-d H:i:s')); 
 				$updatetaskstatus->execute();
 
-				if ($userRow['temp_password'] == null) {
+			
+				if($userRow['temp_password'] == null){
 					if ($userRow['user_role'] == 1) {
 						header('Location: dashboard');
 					} else {
 						header('Location: home.php');
-					}
-				}
+					}          		
+				}else{
+          			header('Location: changePasswordForEmployee.php');
+          		}
+                
+
 			} else {
 				$message = 'Invalid user name or Password';
 				return $message;
