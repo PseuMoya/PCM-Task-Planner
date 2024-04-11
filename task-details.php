@@ -76,7 +76,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 		} elseif ($row['status'] == 2) {
 			echo "<div class='status-indicator completed'>Completed</div>";
 		} else {
-			echo "<div class='status-indicator incomplete'>Incomplete</div>";
+			echo "<div class='status-indicator pending'>Pending</div>";
 		} ?>
 	</div>
 

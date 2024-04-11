@@ -74,9 +74,9 @@ include("include/lib_links.php");
         <select name="position" class="form-control input-custom" required>
           <option value="">Select Position...</option>
           <option value="IT Department" <?php if ($row['position'] == 'IT Department') echo 'selected'; ?>>IT Department</option>
-          <option value="Hr" <?php if ($row['position'] == 'Hr') echo 'selected'; ?>>Hr</option>
-          <option value="Marketing" <?php if ($row['position'] == 'Marketing') echo 'selected'; ?>>Marketing</option>
-          <option value="Admin" <?php if ($row['position'] == 'Admin') echo 'selected'; ?>>Admin</option>
+          <option value="Hr Department" <?php if ($row['position'] == 'Hr Department') echo 'selected'; ?>>Hr Department</option>
+          <option value="Marketing Department" <?php if ($row['position'] == 'Marketing Department') echo 'selected'; ?>>Marketing Department</option>
+          <option value="Admin Department" <?php if ($row['position'] == 'Admin Department') echo 'selected'; ?>>Admin Department</option>
         </select>
       </div>
     </div>

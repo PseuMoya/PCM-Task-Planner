@@ -18,7 +18,7 @@ if ($user_role != 1) {
 
 // Handle position filter
 $selected_position = isset($_GET['position']) ? $_GET['position'] : '';
-$positions = ['IT department', 'Admin', 'Marketing', 'HR'];
+$positions = ['IT Department', 'Admin Department', 'Marketing Department', 'HR Department'];
 
 if (isset($_GET['delete_attendance'])) {
     $action_id = $_GET['aten_id'];

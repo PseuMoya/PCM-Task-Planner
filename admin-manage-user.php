@@ -85,9 +85,9 @@ if (isset($_POST['add_new_employee'])) {
                     <select name="position" required>
                         <option value="">Select Position...</option>
                         <option value="IT Department">IT Department</option>
-                        <option value="Hr">Hr</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Admin">Admin</option>
+                        <option value="Hr Department">Hr Department</option>
+                        <option value="Marketing Department">Marketing Department</option>
+                        <option value="Admin Department">Admin Department</option>
                     </select>
                 </div>
 
