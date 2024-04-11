@@ -148,6 +148,7 @@ include("include/lib_links.php");
                                 <th>Start Time</th>
                                 <th>End Time</th>
                                 <th>Status</th>
+                                <th>Proof Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -192,6 +193,18 @@ include("include/lib_links.php");
                                         } else {
                                             echo "<div class='status-indicator pending'>Pending</div>";
                                         } ?>
+                                    </td>
+
+                                    <td>
+                                        <div>
+                                            <?php if (!empty($row['proof'])) { ?>
+                                                <a href="<?php echo $row['proof']; ?>" target="_blank">
+                                                    <img src="<?php echo $row['proof']; ?>" alt="Proof Image" width="100px" height="100px">
+                                                </a>
+                                            <?php } else { ?>
+                                                <p>No Proof</p>
+                                            <?php } ?>
+                                        </div>
                                     </td>
 
                                     <td>

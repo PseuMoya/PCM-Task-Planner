@@ -401,8 +401,6 @@ class Admin_Class
 	}
 
 
-
-
 	/* =================Task Related===================== */
 
 	public function add_new_task($data)
@@ -453,8 +451,23 @@ class Admin_Class
 		}
 
 
+		if (!empty($_FILES["proof"]["tmp_name"])) {
+			$target_dir = "proof/";
+			$target_file = $target_dir . basename($_FILES["proof"]["name"]);
+			// Check if file is an image
+			$finfo = finfo_open(FILEINFO_MIME_TYPE);
+			$mime = finfo_file($finfo, $_FILES["proof"]["tmp_name"]);
+			if (strpos($mime, 'image') !== false) {
+				// Move the file to your desired directory and save the file name in the database
+				move_uploaded_file($_FILES["proof"]["tmp_name"], $target_file);
+			} else {
+				throw new Exception('Invalid file type. Please upload an image.');
+			}
+		} 
+
 		try {
-			$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c WHERE task_id = :id ");
+			
+			$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c, proof = :d WHERE task_id = :id ");
 			$update_task->bindparam(':x', $task_title);
 			$update_task->bindparam(':y', $task_description);
 			$update_task->bindparam(':z', $t_start_time);
@@ -462,6 +475,7 @@ class Admin_Class
 			$update_task->bindparam(':b', $assign_to);
 			$update_task->bindparam(':c', $status);
 			$update_task->bindparam(':id', $task_id);
+			$update_task->bindparam(':d', $target_file);
 			$update_task->execute();
 
 			if ($user_role == 2) { 
@@ -481,7 +495,9 @@ class Admin_Class
 			}
 			$_SESSION['Task_msg'] = 'Task Updated Successfully';
 
-			header('Location: task-info.php');
+			// header('Location: task-info.php');
+			header("Refresh:0");
+
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 		}
