@@ -138,14 +138,14 @@ include("include/lib_links.php");
                             <input type="password" name="current_employee_password" class="form-control input-custom" id="current_employee_password" min="8" required>
                         </div>
 
-                        <div class="v-wrapper">
-                            <label for="new_employee_password" style="font-size: 18px; color: #333;">New Password:</label>
-                            <input type="password" name="new_employee_password" class="form-control input-custom" id="new_employee_password" min="8" required>
-                        </div>
-
-                        <div class="v-wrapper">
-                            <label for="confirm_employee_password" style="font-size: 18px; color: #333;">Confirm Password:</label>
-                            <input type="password" name="confirm_employee_password" class="form-control input-custom" id="confirm_employee_password" min="8" required>
+                        <div class="v-wrapper"> 
+                            <label for="new_employee_password" style="font-size: 18px; color: #333;">New Password:</label> 
+                            <input type="password" name="new_employee_password" class="form-control input-custom" id="new_employee_password" title="Password must be at least 8 characters long and contain at least one letter and one digit." minlength="8" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required> 
+                        </div> 
+ 
+                        <div class="v-wrapper"> 
+                            <label for="confirm_employee_password" style="font-size: 18px; color: #333;">Confirm Password:</label> 
+                            <input type="password" name="confirm_employee_password" class="form-control input-custom" id="confirm_employee_password" minlength="8" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required> 
                         </div>
 
                         <div class="btnSection">

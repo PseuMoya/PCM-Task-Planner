@@ -338,15 +338,17 @@ class Admin_Class
 					$update_user_password->execute();
 
 					$_SESSION['update_user_pass'] = 'update_user_pass';
-					header('Location: userprofile-info.php');
+					// header('Location: userprofile-info.php');
+					echo "<script>alert('Change Password Successfully');</script>";
+
 				} catch (PDOException $e) {
 					echo $e->getMessage();
 				}
 			} else {
-				echo "New passwords do not match.";
+				echo "<script>alert('New passwords do not match.');</script>";
 			}
 		} else {
-			echo "Incorrect current password.";
+			echo "<script>alert('Incorrect current password.');</script>";
 		}
 	}
 

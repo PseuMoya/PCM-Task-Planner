@@ -75,13 +75,15 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			echo "<div class='status-indicator in-progress'>In Progress</div>";
 		} elseif ($row['status'] == 2) {
 			echo "<div class='status-indicator completed'>Completed</div>";
-		} else {
+		} elseif ($row['status'] == 3) {
+		echo "<div class='status-indicator failedtosub'>Failed to Submit</div>";
+	}  else {
 			echo "<div class='status-indicator pending'>Pending</div>";
 		} ?>
 	</div>
 
 	<div class="btnSection">
-		<a href="task-info"><button>Go back</button></a>
+		<button onclick="window.history.back();">Go back</button>
 	</div>
 </div>
 <?php
