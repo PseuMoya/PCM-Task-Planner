@@ -188,13 +188,21 @@ if (isset($_POST['add_new_employee'])) {
                             $serial  = 1;
                             $num_row = $info->rowCount();
                             if ($num_row == 0) {
-                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                                echo '<tr>
+                                        <div class="data-not-found">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-x"><path d="M2 21a8 8 0 0 1 11.873-7"/><circle cx="10" cy="8" r="5"/><path d="m17 17 5 5"/><path d="m22 17-5 5"/></svg>
+                                        <span>No interns found</span>
+                                            <p>Start by adding one.</p>
+                                        </div>
+                                      </tr>
+                            
+                                        <style>thead{display:none;}</style>';
                             }
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                             ?>
                                 <tr>
                                     <td><?php echo $serial; $serial++; ?></td>
-                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image" width="40px" height="40px"></td>                                    
+                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></td>                                    
                                     <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['username']; ?></td>

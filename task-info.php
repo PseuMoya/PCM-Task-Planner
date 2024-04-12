@@ -207,10 +207,10 @@ include("include/lib_links.php");
                                         <div class="attachment">
                                             <?php if (!empty($row['proof'])) { ?>
                                                 <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><img src="<?php echo $row['proof']; ?>" alt=""></a>
+                                                <span class="tooltiptext">See attachment</span>
                                             <?php } else { ?>
-                                                <span><i class="ri-close-line"></i>No Proof</span>
+                                                <div class="no-proof"><i class="ri-close-line"></i>No Proof</div>
                                             <?php } ?>
-                                            <span class="tooltiptext">See attachment</span>
                                         </div>
                                     </td>
 

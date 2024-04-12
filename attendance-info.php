@@ -92,7 +92,15 @@ include("include/lib_links.php");
                             $serial = 1;
                             $num_row = $info->rowCount();
                             if ($num_row == 0) {
-                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                                echo '<tr>
+                                        <div class="data-not-found">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                                        <span>No data found</span>
+                                            <p>Try refreshing the website.</p>
+                                        </div>
+                                      </tr>
+                            
+                                        <style>thead{display:none;}</style>';
                             }
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                                 $user_id = $row['user_id'];

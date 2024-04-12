@@ -81,7 +81,7 @@ include("include/lib_links.php");
                 <?php } ?>
             </div>
 
-            <div class="dash-cards">
+            <div class="dash-cards home">
                 <div class="card">
                     <p>Pending Tasks</p>
                     <i class="ri-list-check-3"></i>

@@ -111,8 +111,8 @@ include("include/lib_links.php");
                 </div>
             </div>
 
-            <div class="card">
-                <h3>Task Report: <span>Ongoing</span></h3>
+            <div class="card" id="ongoing">
+                <h3>Task Report: <span class="status-indicator pending">Ongoing</span></h3>
                 <div class="table-container">
                     <table>
                         <thead>
@@ -137,12 +137,12 @@ include("include/lib_links.php");
                                 if ($num_row == 0) {
                                     echo '<tr>
                                     <div class="data-not-found">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database-zap"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 15 21.84"/><path d="M21 5V8"/><path d="M21 12L18 17H22L19 22"/><path d="M3 12A9 3 0 0 0 14.59 14.87"/></svg>
-                                        <span>No data found</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    <span>No data found</span>
                                     </div>
                                   </tr>
                                 
-                                <style>thead{display:none;}</style>';
+                                  <style>.card#ongoing .table-container table {display:none;}</style>';
                                 }
                                 
                                 while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
@@ -159,8 +159,8 @@ include("include/lib_links.php");
                 </div>
             </div>
 
-            <div class="card">
-                <h3>Task Report: <span>Pending</span></h3>
+            <div class="card" id="pending">
+                <h3>Task Report: <span class="status-indicator pending">Pending</span></h3>
                 <div class="table-container">
                     <table>
                         <thead>
@@ -185,12 +185,12 @@ include("include/lib_links.php");
                                     if ($num_row == 0) {
                                         echo '<tr>
                                             <div class="data-not-found">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database-zap"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 15 21.84"/><path d="M21 5V8"/><path d="M21 12L18 17H22L19 22"/><path d="M3 12A9 3 0 0 0 14.59 14.87"/></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                                                 <span>No data found</span>
                                             </div>
                                         </tr>
                                     
-                                    <style>thead{display:none;}</style>';
+                                    <style>.card#pending .table-container table {display:none;}</style>';
                                     }
                                 
                                     while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
@@ -207,8 +207,8 @@ include("include/lib_links.php");
                 </div>
             </div>
 
-            <div class="card">
-                <h3>Task Report: <span>Completed</span></h3>
+            <div class="card" id="completed">
+                <h3>Task Report: <span class="status-indicator completed">Completed</span></h3>
                 <div class="table-container">
                     <table>
                         <thead>
@@ -233,12 +233,12 @@ include("include/lib_links.php");
                                     if ($num_row == 0) {
                                         echo '<tr>
                                             <div class="data-not-found">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database-zap"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 15 21.84"/><path d="M21 5V8"/><path d="M21 12L18 17H22L19 22"/><path d="M3 12A9 3 0 0 0 14.59 14.87"/></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                                                 <span>No data found</span>
                                             </div>
                                         </tr>
                                     
-                                    <style>thead{display:none;}</style>';
+                                        <style>.card#completed .table-container table {display:none;}</style>';
                                     }
 
                                     while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
