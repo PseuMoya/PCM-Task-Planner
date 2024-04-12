@@ -75,9 +75,12 @@ include("include/lib_links.php");
                     $sql = "SELECT user_id, fullname, position FROM tbl_admin WHERE user_role = 2 ORDER BY position";
                     $info = $obj_admin->manage_all_info($sql);
                     $data = [];
+                    $allPositions = ['All Positions' => []];
                     while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                         $data[$row['position']][] = ['id' => $row['user_id'], 'name' => $row['fullname']];
+                        $allPositions['All Positions'][] = ['id' => $row['user_id'], 'name' => $row['fullname']];
                     }
+                    $data = array_merge($allPositions, $data);
                     ?>
 
                     <select class="form-control" name="position" id="position" required>
@@ -90,6 +93,9 @@ include("include/lib_links.php");
                     <label for="assign_to">Assign to</label>
                     <select class="form-control" name="assign_to" id="assign_to" required>
                         <option value="">Please select an intern...</option>
+                        <?php foreach ($allPositions['All Positions'] as $person) { ?>
+                            <option value="<?php echo $person['id']; ?>"><?php echo $person['name']; ?></option>
+                        <?php } ?>
                     </select>
                 </div>
 
