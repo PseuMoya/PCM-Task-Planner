@@ -7,7 +7,7 @@ $user_id = $_SESSION['admin_id'];
 $user_name = $_SESSION['name'];
 $security_key = $_SESSION['security_key'];
 if ($user_id == NULL || $security_key == NULL) {
-  header('Location: index');
+    header('Location: index');
 }
 
 // check admin
@@ -15,15 +15,15 @@ $user_role = $_SESSION['user_role'];
 
 
 if (isset($_GET['delete_task'])) {
-  $action_id = $_GET['task_id'];
+    $action_id = $_GET['task_id'];
 
-  $sql = "DELETE FROM task_info WHERE task_id = :id";
-  $sent_po = "task-info";
-  $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
+    $sql = "DELETE FROM task_info WHERE task_id = :id";
+    $sent_po = "task-info";
+    $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
 }
 
 if (isset($_POST['add_task_post'])) {
-  $obj_admin->add_new_task($_POST);
+    $obj_admin->add_new_task($_POST);
 }
 
 $page_name = "TaskUser";
@@ -62,7 +62,7 @@ include("include/lib_links.php");
                         <label for="t_start_time">Start Time</label>
                         <input type="text" name="t_start_time" id="t_start_time" class="form-control">
                     </div>
-    
+
                     <div class="v-wrapper">
                         <label for="t_end_time">End Time</label>
                         <input type="text" name="t_end_time" id="t_end_time" class="form-control">
@@ -82,7 +82,7 @@ include("include/lib_links.php");
                         <?php while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                             <option value="<?php echo $row['user_id']; ?>"><?php echo $row['fullname']; ?></option>
                         <?php } ?>
-                        </select>
+                    </select>
                 </div>
 
                 <div class="btnSection">
@@ -105,13 +105,13 @@ include("include/lib_links.php");
                 <h1>Your Tasks</h1>
             </div>
             <p>This is where your tasks will be listed. Each task will be assigned to you by your assigned department supervisor.</p>
-            
-            <?php if($user_role == 1){ ?>
+
+            <?php if ($user_role == 1) { ?>
                 <div class="btnSection">
-                      <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
+                    <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
                 </div>
             <?php } ?>
-            
+
             <div class="card">
                 <div class="table-container">
                     <table>
@@ -145,13 +145,21 @@ include("include/lib_links.php");
                             $serial  = 1;
                             $num_row = $info->rowCount();
                             if ($num_row == 0) {
-                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                                echo '<tr>
+                                        <div class="data-not-found">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-check-big"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                                            <span>No tasks currently assigned.</span>
+                                            <p>Either you are a work-a-holic intern or just done doing tasks, it\'s important to take a break. 😉</p>
+                                        </div>
+                                      </tr>
+                                    
+                                    <style>thead{display:none;}</style>';
                             }
 
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                                 <tr>
                                     <!-- <td><?php echo $serial;
-                                    $serial++; ?></td> -->
+                                                $serial++; ?></td> -->
                                     <td><?php echo $row['t_title']; ?></td>
                                     <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['t_start_time']; ?></td>
@@ -162,8 +170,8 @@ include("include/lib_links.php");
                                             echo "<div class='status-indicator in-progress'>In Progress</div>";
                                         } elseif ($row['status'] == 2) {
                                             echo "<div class='status-indicator completed'>Completed</div>";
-                                        } elseif ($row['status'] == 3) { 
-                                            echo "<div class='status-indicator failedtosub'>Failed to submit</div>"; 
+                                        } elseif ($row['status'] == 3) {
+                                            echo "<div class='status-indicator failedtosub'>Failed to submit</div>";
                                         } else {
                                             echo "<div class='status-indicator pending'>Pending</div>";
                                         } ?>
@@ -172,11 +180,11 @@ include("include/lib_links.php");
                                     <td>
                                         <div class="actions">
 
-                                          <?php 
-                                            if ($row['status'] != 3) { 
-                                                echo "<a title='Update Task' href='edit-task.php?task_id=" . $row['task_id'] . "'><i class='ri-edit-2-fill'></i></a>"; 
-                                            } 
-                                           ?>
+                                            <?php
+                                            if ($row['status'] != 3) {
+                                                echo "<a title='Update Task' href='edit-task.php?task_id=" . $row['task_id'] . "'><i class='ri-edit-2-fill'></i></a>";
+                                            }
+                                            ?>
 
                                             <!-- <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a> -->
                                             <a title="View" href="task-details.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-folder-open-fill"></i></a>
@@ -192,27 +200,27 @@ include("include/lib_links.php");
                 </div>
             </div>
         </div>
-      
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script type="text/javascript">
-  let currentDate = new Date();
-  flatpickr('#t_start_time', {
-    enableTime: true,
-    minTime: "9:00",
-    maxTime: "18:00",
-    defaultDate: currentDate,
-    time_24hr: false
+    let currentDate = new Date();
+    flatpickr('#t_start_time', {
+        enableTime: true,
+        minTime: "9:00",
+        maxTime: "18:00",
+        defaultDate: currentDate,
+        time_24hr: false
 
-  });
+    });
 
-  flatpickr('#t_end_time', {
-    enableTime: true,
-    minTime: "9:00",
-    maxTime: "18:00",
-    defaultDate: currentDate,
-    time_24hr: false
-  });
+    flatpickr('#t_end_time', {
+        enableTime: true,
+        minTime: "9:00",
+        maxTime: "18:00",
+        defaultDate: currentDate,
+        time_24hr: false
+    });
 </script>

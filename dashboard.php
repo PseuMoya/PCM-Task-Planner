@@ -132,6 +132,19 @@ include("include/lib_links.php");
                                 $info = $obj_admin->manage_all_info($sql);
 
                                 $serial  = 1;
+
+                                $num_row = $info->rowCount();
+                                if ($num_row == 0) {
+                                    echo '<tr>
+                                    <div class="data-not-found">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database-zap"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 15 21.84"/><path d="M21 5V8"/><path d="M21 12L18 17H22L19 22"/><path d="M3 12A9 3 0 0 0 14.59 14.87"/></svg>
+                                        <span>No data found</span>
+                                    </div>
+                                  </tr>
+                                
+                                <style>thead{display:none;}</style>';
+                                }
+                                
                                 while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                                 ?>
                                 <tr>
@@ -167,6 +180,19 @@ include("include/lib_links.php");
                                     $info = $obj_admin->manage_all_info($sql);
 
                                     $serial  = 1;
+
+                                    $num_row = $info->rowCount();
+                                    if ($num_row == 0) {
+                                        echo '<tr>
+                                            <div class="data-not-found">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database-zap"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 15 21.84"/><path d="M21 5V8"/><path d="M21 12L18 17H22L19 22"/><path d="M3 12A9 3 0 0 0 14.59 14.87"/></svg>
+                                                <span>No data found</span>
+                                            </div>
+                                        </tr>
+                                    
+                                    <style>thead{display:none;}</style>';
+                                    }
+                                
                                     while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
                                     <tr>
@@ -202,6 +228,19 @@ include("include/lib_links.php");
                                     $info = $obj_admin->manage_all_info($sql);
 
                                     $serial  = 1;
+
+                                    $num_row = $info->rowCount();
+                                    if ($num_row == 0) {
+                                        echo '<tr>
+                                            <div class="data-not-found">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-database-zap"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 15 21.84"/><path d="M21 5V8"/><path d="M21 12L18 17H22L19 22"/><path d="M3 12A9 3 0 0 0 14.59 14.87"/></svg>
+                                                <span>No data found</span>
+                                            </div>
+                                        </tr>
+                                    
+                                    <style>thead{display:none;}</style>';
+                                    }
+
                                     while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
                                     <tr>

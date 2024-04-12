@@ -134,7 +134,7 @@ body {
   font-weight: 500;
   border-radius: 10px;
   color: #9896a3;
-  padding: 0.85rem 1em;
+  padding: 0.75rem 1em;
 }
 .sidebar .sidebar-wrapper ul li a i {
   margin-right: 10px;
@@ -175,7 +175,7 @@ body {
 }
 .content .btnSection form select {
   font-family: var(--primary-font);
-  padding: 1em;
+  padding: 0.75em 1em;
   border: none;
   font-weight: 600;
   border-radius: 10px;
@@ -186,7 +186,7 @@ body {
 }
 .content .btnSection form button {
   font-family: var(--primary-font);
-  padding: 1em;
+  padding: 0.75em 1em;
   border: none;
   font-weight: 600;
   border-radius: 10px;
@@ -251,6 +251,10 @@ body {
 }
 .content .table-container {
   overflow-x: auto;
+  overflow-y: hidden;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 .content .table-container table {
   border-spacing: 0;
@@ -259,6 +263,9 @@ body {
   font-weight: 500;
 }
 .content .table-container table thead tr th {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
   padding: 0.5em;
   padding-top: 0;
   text-align: start;
@@ -302,6 +309,62 @@ body {
   width: 30px;
   height: 30px;
 }
+.content .table-container table tbody tr td .temp-pass {
+  background-color: #eeeeee;
+  padding: 5px 7px;
+  border-radius: 6px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-family: monospace;
+}
+.content .table-container table tbody tr td .attachment {
+  font-size: 14px;
+}
+.content .table-container table tbody tr td .attachment a {
+  background-color: rgba(79, 152, 255, 0.1490196078);
+  padding: 5px 7px;
+  border-radius: 6px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: #5b7dac;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.content .table-container table tbody tr td .attachment a img {
+  width: 20px;
+  height: 20px;
+}
+.content .table-container table tbody tr td .attachment span {
+  background-color: #e9e9e9;
+  padding: 5px 7px;
+  border-radius: 6px;
+}
+.content .table-container table tbody tr td .attachment a:hover ~ .tooltiptext {
+  opacity: 1;
+  visibility: visible;
+}
+.content .table-container table tbody tr td .attachment span.tooltiptext {
+  display: grid;
+  gap: 1em;
+  padding: 1em;
+  border: 1px solid var(--border-color);
+  background-color: var(--panel-color);
+  border-radius: 10px;
+  opacity: 0;
+  visibility: hidden;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1450980392);
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  margin: 0em 1em;
+  transition: all 0.2s ease;
+}
 .content .table-container table tbody tr img {
   aspect-ratio: 3/2;
   -o-object-fit: cover;
@@ -311,10 +374,29 @@ body {
   height: 30px;
 }
 
+.data-not-found {
+  padding: 3em 3em;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--text-color);
+  text-align: center;
+}
+.data-not-found span {
+  font-size: 24px;
+  font-weight: 600;
+}
+.data-not-found p {
+  color: var(--lighter-text-color);
+  font-size: 14px;
+  padding-top: 5px;
+}
+
 .status-indicator {
   font-weight: 500;
   text-align: center;
-  padding: 10px;
+  padding: 5px 7px;
   font-size: 14px;
   border-radius: 6px;
   width: -webkit-fit-content;
@@ -322,13 +404,13 @@ body {
   width: fit-content;
 }
 
-.status-indicator.in-progress {
-  color: #ffb92e;
+.status-indicator.in-progress, .status-indicator.pending {
+  color: #d8a642;
   background-color: rgba(255, 185, 46, 0.1490196078);
 }
 
 .status-indicator.completed {
-  color: #69e83a;
+  color: #60a447;
   background-color: rgba(105, 232, 58, 0.1490196078);
 }
 
@@ -339,7 +421,7 @@ body {
 
 #openModal {
   font-family: var(--primary-font);
-  padding: 1em;
+  padding: 0.75em 1em;
   border: none;
   font-weight: 600;
   border-radius: 10px;
@@ -390,8 +472,14 @@ body {
   width: 100%;
   height: 100%;
 }
+.modal .modalTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 14px;
+}
 .modal label {
-  font-weight: 550;
+  font-weight: 600;
 }
 .modal input, .modal textarea, .modal select {
   font-family: var(--primary-font);
@@ -406,7 +494,7 @@ body {
 }
 .modal input[type=file]::file-selector-button {
   font-family: var(--primary-font);
-  padding: 1em;
+  padding: 0.75em 1em;
   border: none;
   font-weight: 600;
   border-radius: 10px;
@@ -425,7 +513,7 @@ body {
 }
 .modal .btnSection button {
   font-family: var(--primary-font);
-  padding: 1em;
+  padding: 0.75em 1em;
   border: none;
   font-weight: 600;
   border-radius: 10px;
@@ -434,6 +522,14 @@ body {
 .modal .btnSection button:nth-child(1) {
   background-color: #28a745;
   color: white;
+}
+.modal p {
+  background-color: #eeeeee;
+  padding: 5px 7px;
+  border-radius: 6px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 .modal .h-wrapper {
   display: flex;
@@ -485,7 +581,7 @@ body {
 }
 .dash-cards .card span.how-many button {
   font-family: var(--primary-font);
-  padding: 1em;
+  padding: 0.75em 1em;
   border: none;
   font-weight: 600;
   border-radius: 10px;

@@ -13,34 +13,41 @@ if (isset($_POST['change_password_btn'])) {
 }
 
 $page_name = "Login";
-include("include/login_header.php");
+include("include/lib_links.php");
 
 ?>
 
-<div class="row">
-	<div class="col-md-4 col-md-offset-3">
-		<div class="well" style="position:relative;top:20vh;">
-			<form class="form-horizontal form-custom-login" action="" method="POST">
-				<div class="form-heading" style="background: orange;">
-					<h2 class="text-center">Please Change your password</h2>
-				</div>
-				<!-- <div class="login-gap"></div> -->
-				<?php if (isset($info)) { ?>
-					<h5 class="alert alert-danger"><?php echo $info; ?></h5>
-				<?php } ?>
+<style>
+	body {
+		background: url(assets/login-bg.png);
+		background-size: cover !important;
+	}
+</style>
 
-				<div class="form-group">
-					<input type="hidden" class="form-control" name="user_id" value="<?php echo $user_id; ?>" required />
-					<input type="password" class="form-control" placeholder="Password" name="password" required />
-				</div>
-				<div class="form-group">
-					<input type="password" class="form-control" placeholder="Retype Password" name="re_password" required />
-				</div>
-				<button type="submit" name="change_password_btn" class="btn btn-default pull-right">Change Password</button>
-			</form>
+<form action="" method="POST">
+	<div id="modalBG" style="display: grid; place-items:center">
+		<div class="modal" style="max-width: 450px;">
+			<?php if (isset($info)) { ?>
+				<span class="status-indicator incomplete"><?php echo $info; ?></span>
+			<?php } ?>
+
+			<div class="modalTitle">
+				<h2>Create a new password your account</h2>
+				<span>Great! You're one step closer into acccessing your account. By going here, we assume you have been given a temporary password for this account. Please enter a new password for the temporary password to be replaced with yours.</span>
+			</div>
+
+			<div class="v-wrapper">
+				<input type="hidden" class="form-control" name="user_id" value="<?php echo $user_id; ?>" required />
+				<input type="password" class="form-control" placeholder="Enter new password" name="password" required />
+				<input type="password" class="form-control" placeholder="Re-type password" name="re_password" required />
+			</div>
+			<div class="btnSection">
+				<button type="submit" name="change_password_btn" class="btn btn-default pull-right">Create password</button>
+			</div>
 		</div>
 	</div>
-</div>
+</form>
+
 
 
 <?php

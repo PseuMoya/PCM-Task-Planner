@@ -139,7 +139,7 @@ class Admin_Class
 				echo $e->getMessage();
 			}
 		} else {
-			$message = 'Sorry !! Password Can not match';
+			$message = 'Passwords do not match. Please try again.';
 			return $message;
 		}
 	}

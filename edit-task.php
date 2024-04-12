@@ -34,79 +34,82 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-<form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
-	<div class="modal">
-		<div class="modalTitle">
-			<h2>Edit task</h2>
-		</div>
-		
-		<div class="v-wrapper">
-			<label for="task_title">Task Title</label>
-			<input type="text" placeholder="Task Title" id="task_title" name="task_title" list="expense" class="form-control" value="<?php echo $row['t_title']; ?>" <?php if ($user_role != 1) { ?> readonly <?php } ?> val required>
-		</div>
-		
-		<div class="v-wrapper">
-			<label for="task_description">Task Description</label>
-			<textarea name="task_description" id="task_description" placeholder="What's the task all about...?" class="form-control" rows="5" cols="5"><?php echo $row['t_description']; ?></textarea>
-		</div>
-
-		<div class="h-wrapper">
-			<div class="v-wrapper">
-				<label for="t_start_time">Start Time</label>
-				<input type="text" name="t_start_time" id="t_start_time" class="form-control" value="<?php echo $row['t_start_time']; ?>">
+<div id="modalBG" style="display: grid; place-items:center">
+	<form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
+		<div class="modal">
+			<div class="modalTitle">
+				<h2>Edit task</h2>
 			</div>
-
+			
 			<div class="v-wrapper">
-				<label for="t_end_time">End Time</label>
-				<input type="text" name="t_end_time" id="t_end_time" class="form-control" value="<?php echo $row['t_end_time']; ?>">
+				<label for="task_title">Task Title</label>
+				<input type="text" placeholder="Task Title" id="task_title" name="task_title" list="expense" class="form-control" value="<?php echo $row['t_title']; ?>" <?php if ($user_role != 1) { ?> readonly <?php } ?> val required>
 			</div>
-		</div>
-
-		<div class="v-wrapper">
-			<label for="assign_to">Assign to</label>
-			<?php
-			$sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_role = 2";
-			$info = $obj_admin->manage_all_info($sql);
-			?>
-
-			<select class="form-control" name="assign_to" id="aassign_to" <?php if ($user_role != 1) { ?> disabled="true" <?php } ?>>
-				<option value="">Please select an intern...</option>
-				
-				<?php while ($rows = $info->fetch(PDO::FETCH_ASSOC)) { ?>
-					<option value="<?php echo $rows['user_id']; ?>" <?php
-					if ($rows['user_id'] == $row['t_user_id']) {
-					?> selected <?php } ?>><?php echo $rows['fullname']; ?></option>
+			
+			<div class="v-wrapper">
+				<label for="task_description">Task Description</label>
+				<textarea name="task_description" id="task_description" placeholder="What's the task all about...?" class="form-control" rows="5" cols="5"><?php echo $row['t_description']; ?></textarea>
+			</div>
+	
+			<div class="h-wrapper">
+				<div class="v-wrapper">
+					<label for="t_start_time">Start Time</label>
+					<input type="text" name="t_start_time" id="t_start_time" class="form-control" value="<?php echo $row['t_start_time']; ?>">
+				</div>
+	
+				<div class="v-wrapper">
+					<label for="t_end_time">End Time</label>
+					<input type="text" name="t_end_time" id="t_end_time" class="form-control" value="<?php echo $row['t_end_time']; ?>">
+				</div>
+			</div>
+	
+			<div class="v-wrapper">
+				<label for="assign_to">Assign to</label>
+				<?php
+				$sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_role = 2";
+				$info = $obj_admin->manage_all_info($sql);
+				?>
+	
+				<select class="form-control" name="assign_to" id="aassign_to" <?php if ($user_role != 1) { ?> disabled="true" <?php } ?>>
+					<option value="">Please select an intern...</option>
+					
+					<?php while ($rows = $info->fetch(PDO::FETCH_ASSOC)) { ?>
+						<option value="<?php echo $rows['user_id']; ?>" <?php
+						if ($rows['user_id'] == $row['t_user_id']) {
+						?> selected <?php } ?>><?php echo $rows['fullname']; ?></option>
+						<?php } ?>
+				</select>
+			</div>
+			
+			<div class="v-wrapper">
+				<label for="status">Status</label>
+				<select class="form-control" name="status" id="status">
+					<option value="0" <?php if ($row['status'] == 0) { ?>selected <?php } ?>>Pending</option>
+					<option value="1" <?php if ($row['status'] == 1) { ?>selected <?php } ?>>In Progress</option>
+					<option value="2" <?php if ($row['status'] == 2) { ?>selected <?php } ?>>Completed</option>
+	
+					<?php if ($user_role != 2) { ?> 
+						<option value="3" <?php if ($row['status'] == 3) { ?> selected <?php } ?>>Failed to submit</option> 
 					<?php } ?>
-			</select>
+					
+				</select>
+			</div>
+	
+			<?php if ($user_role != 1) { ?> 
+				<div class="v-wrapper">
+						<label for="proof">Proof Image</label>
+						<input type="file" name="proof" class="form-control">
+					</div>
+			<?php } ?>
+	
+	
+			<div class="btnSection">
+			<button type="submit" name="update_task_info">Update Now</button>
+			</div>
 		</div>
-		
-		<div class="v-wrapper">
-			<label for="status">Status</label>
-			<select class="form-control" name="status" id="status">
-				<option value="0" <?php if ($row['status'] == 0) { ?>selected <?php } ?>>Pending</option>
-				<option value="1" <?php if ($row['status'] == 1) { ?>selected <?php } ?>>In Progress</option>
-				<option value="2" <?php if ($row['status'] == 2) { ?>selected <?php } ?>>Completed</option>
+	</form>
+</div>
 
-				<?php if ($user_role != 2) { ?> 
-					<option value="3" <?php if ($row['status'] == 3) { ?> selected <?php } ?>>Failed to submit</option> 
-				<?php } ?>
-				
-			</select>
-		</div>
-
-		<?php if ($user_role != 1) { ?> 
-			<div class="v-wrapper">
-                    <label for="proof">Proof Image</label>
-                    <input type="file" name="proof" class="form-control">
-                </div>
-		<?php } ?>
-
-
-		<div class="btnSection">
-		<button type="submit" name="update_task_info">Update Now</button>
-		</div>
-	</div>
-</form>
 	
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 

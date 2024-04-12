@@ -171,7 +171,15 @@ include("include/lib_links.php");
                             $serial  = 1;
                             $num_row = $info->rowCount();
                             if ($num_row == 0) {
-                                echo '<tr><td colspan="7">No Data found</td></tr>';
+                                echo '<tr>
+                                        <div class="data-not-found">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-inbox"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+                                            <span>No tasks currently assigned.</span>
+                                            <p>You can start by assigning a new task to an intern.</p>
+                                        </div>
+                                      </tr>
+                            
+                                        <style>thead{display:none;}</style>';
                             }
 
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
@@ -196,14 +204,13 @@ include("include/lib_links.php");
                                     </td>
 
                                     <td>
-                                        <div>
+                                        <div class="attachment">
                                             <?php if (!empty($row['proof'])) { ?>
-                                                <a href="<?php echo $row['proof']; ?>" target="_blank">
-                                                    <img src="<?php echo $row['proof']; ?>" alt="Proof Image" width="100px" height="100px">
-                                                </a>
+                                                <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><img src="<?php echo $row['proof']; ?>" alt=""></a>
                                             <?php } else { ?>
-                                                <p>No Proof</p>
+                                                <span><i class="ri-close-line"></i>No Proof</span>
                                             <?php } ?>
+                                            <span class="tooltiptext">See attachment</span>
                                         </div>
                                     </td>
 

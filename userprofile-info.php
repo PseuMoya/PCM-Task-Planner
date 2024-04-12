@@ -31,7 +31,7 @@ include("include/lib_links.php");
 
 
 <head>
-    <title>Edit Profile</title>
+    <title>Edit Profile | TaskPlanner</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>

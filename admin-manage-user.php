@@ -166,6 +166,7 @@ if (isset($_POST['add_new_employee'])) {
                                 <th>Username</th>
                                 <th>Department</th>
                                 <th>Temp Password</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -198,13 +199,12 @@ if (isset($_POST['add_new_employee'])) {
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['username']; ?></td>
                                     <td><?php echo $row['position']; ?></td>
-                                    <td><?php echo $row['temp_password']; ?></td>
+                                    <td><div class="temp-pass"><?php echo $row['temp_password']; ?></div></td>
                             
                                     <td>
                                         <div class="actions">
-                                            <a title="Update Employee" href="update-employee?admin_id=<?php echo $row['user_id']; ?>">
-                                                <i class="ri-folder-open-fill"></i></a>&nbsp;&nbsp;<a title="Delete" href="?delete_user=delete_user&admin_id=<?php echo $row['user_id']; ?>" onclick=" return check_delete();">
-                                                <i class="ri-delete-bin-6-fill"></i></a>
+                                            <a title="Update Employee" href="update-employee?admin_id=<?php echo $row['user_id']; ?>"><i class="ri-folder-open-fill"></i></a>
+                                            <a title="Delete" href="?delete_user=delete_user&admin_id=<?php echo $row['user_id']; ?>" onclick=" return check_delete();"><i class="ri-delete-bin-6-fill"></i></a>
                                         </div>
                                     </td>
                                 </tr>
