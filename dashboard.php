@@ -111,8 +111,8 @@ include("include/lib_links.php");
                 </div>
             </div>
 
-            <div class="card" id="ongoing">
-                <h3>Task Report: <span class="status-indicator pending">Ongoing</span></h3>
+            <h3>Task Report: <span class="status-indicator pending">In progress</span></h3>
+            <div class="card with-table" id="ongoing">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -159,8 +159,8 @@ include("include/lib_links.php");
                 </div>
             </div>
 
-            <div class="card" id="pending">
-                <h3>Task Report: <span class="status-indicator pending">Pending</span></h3>
+            <h3>Task Report: <span class="status-indicator pending">Pending</span></h3>
+            <div class="card with-table" id="pending">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -207,8 +207,8 @@ include("include/lib_links.php");
                 </div>
             </div>
 
-            <div class="card" id="completed">
-                <h3>Task Report: <span class="status-indicator completed">Completed</span></h3>
+            <h3>Task Report: <span class="status-indicator completed">Completed</span></h3>
+            <div class="card with-table" id="completed">
                 <div class="table-container">
                     <table>
                         <thead>

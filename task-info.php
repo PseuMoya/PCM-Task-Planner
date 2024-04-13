@@ -137,7 +137,7 @@ include("include/lib_links.php");
                 </div>
             <?php } ?>
             
-            <div class="card">
+            <div class="card with-table">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -179,7 +179,7 @@ include("include/lib_links.php");
                                         </div>
                                       </tr>
                             
-                                        <style>thead{display:none;}</style>';
+                                        <style>table{display:none;}</style>';
                             }
 
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
@@ -193,7 +193,7 @@ include("include/lib_links.php");
 
                                     <td>
                                         <?php if ($row['status'] == 1) {
-                                            echo "<div class='status-indicator in-progress'>In Progress</div>";
+                                            echo "<div class='status-indicator in-progress'>In progress</div>";
                                         } elseif ($row['status'] == 2) {
                                             echo "<div class='status-indicator completed'>Completed</div>";
                                         }elseif ($row['status'] == 3) { 

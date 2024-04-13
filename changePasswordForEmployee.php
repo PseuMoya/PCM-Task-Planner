@@ -24,29 +24,36 @@ include("include/lib_links.php");
 	}
 </style>
 
-<form action="" method="POST">
-	<div id="modalBG" style="display: grid; place-items:center">
-		<div class="modal" style="max-width: 450px;">
-			<?php if (isset($info)) { ?>
-				<span class="status-indicator incomplete"><?php echo $info; ?></span>
-			<?php } ?>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-			<div class="modalTitle">
-				<h2>Create a new password your account</h2>
-				<span>Great! You're one step closer into acccessing your account. By going here, we assume you have been given a temporary password for this account. Please enter a new password for the temporary password to be replaced with yours.</span>
-			</div>
-
-			<div class="v-wrapper">
-				<input type="hidden" class="form-control" name="user_id" value="<?php echo $user_id; ?>" required />
-				<input type="password" class="form-control" placeholder="Enter new password" name="password" required />
-				<input type="password" class="form-control" placeholder="Re-type password" name="re_password" required />
-			</div>
-			<div class="btnSection">
-				<button type="submit" name="change_password_btn" class="btn btn-default pull-right">Create password</button>
+<body>
+	<form action="" method="POST">
+		<div id="modalBG" style="display: grid; place-items:center; background:none">
+			<div class="modal" style="max-width: 450px;">
+				<?php if (isset($info)) { ?>
+					<span class="status-indicator incomplete"><?php echo $info; ?></span>
+				<?php } ?>
+	
+				<div class="modalTitle">
+					<h2>Create a new password for this account</h2>
+					<span>Great! You're one step closer into acccessing your account. By going here, we assume you have been given a temporary password for this account. Please enter a new password for the temporary password to be replaced with yours.</span>
+				</div>
+	
+				<div class="v-wrapper">
+					<input type="hidden" class="form-control" name="user_id" value="<?php echo $user_id; ?>" required />
+					<input type="password" class="form-control" placeholder="Enter new password" name="password" required />
+					<input type="password" class="form-control" placeholder="Re-type password" name="re_password" required />
+				</div>
+				<div class="btnSection">
+					<button type="submit" name="change_password_btn" class="btn btn-default pull-right">Create password</button>
+				</div>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
+</body>
 
 
 

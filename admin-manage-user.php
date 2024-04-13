@@ -154,7 +154,7 @@ if (isset($_POST['add_new_employee'])) {
             
 
 
-            <div class="card">
+            <div class="card with-table">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -196,7 +196,7 @@ if (isset($_POST['add_new_employee'])) {
                                         </div>
                                       </tr>
                             
-                                        <style>thead{display:none;}</style>';
+                                        <style>table{display:none;}</style>';
                             }
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                             ?>

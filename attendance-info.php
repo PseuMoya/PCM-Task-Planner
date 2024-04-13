@@ -67,7 +67,7 @@ include("include/lib_links.php");
                 </form>
             </div>
 
-            <div class="card">
+            <div class="card with-table">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -100,7 +100,7 @@ include("include/lib_links.php");
                                         </div>
                                       </tr>
                             
-                                        <style>thead{display:none;}</style>';
+                                        <style>table{display:none;}</style>';
                             }
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                                 $user_id = $row['user_id'];

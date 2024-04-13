@@ -112,7 +112,7 @@ include("include/lib_links.php");
                 </div>
             <?php } ?>
 
-            <div class="card">
+            <div class="card with-table">
                 <div class="table-container">
                     <table>
                         <thead>
@@ -149,11 +149,11 @@ include("include/lib_links.php");
                                         <div class="data-not-found">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-check-big"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                                             <span>No tasks currently assigned.</span>
-                                            <p>Either you are a work-a-holic intern or just done doing tasks, it\'s important to take a break. 😉</p>
+                                            <p>Tasks will appear here when it\'s been assigned to you.</p>
                                         </div>
                                       </tr>
                                     
-                                    <style>thead{display:none;}</style>';
+                                    <style>table{display:none;}</style>';
                             }
 
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
@@ -167,7 +167,7 @@ include("include/lib_links.php");
 
                                     <td>
                                         <?php if ($row['status'] == 1) {
-                                            echo "<div class='status-indicator in-progress'>In Progress</div>";
+                                            echo "<div class='status-indicator in-progress'>In progress</div>";
                                         } elseif ($row['status'] == 2) {
                                             echo "<div class='status-indicator completed'>Completed</div>";
                                         } elseif ($row['status'] == 3) {

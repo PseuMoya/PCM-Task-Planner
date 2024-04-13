@@ -73,7 +73,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 		<div class="v-wrapper">
 			<label for="status">Status</label>
 			<?php if ($row['status'] == 1) {
-				echo "<div class='status-indicator in-progress'>In Progress</div>";
+				echo "<div class='status-indicator in-progress'>In progress</div>";
 			} elseif ($row['status'] == 2) {
 				echo "<div class='status-indicator completed'>Completed</div>";
 			} else {

@@ -43,7 +43,7 @@
             ?>
                 <li><a href="home" <?php if ($page_name == "Home") {
                                         echo "class=\"active\"";
-                                    } ?>><i class="fas fa-home"></i>Home</a></li>
+                                    } ?>><i class="ri-home-fill"></i>Home</a></li>
                 <li><a href="taskreport-user" <?php if ($page_name == "TaskUser") {
                                                     echo "class=\"active\"";
                                                 } ?>><i class="ri-list-check-3"></i>Your Tasks</a></li>
