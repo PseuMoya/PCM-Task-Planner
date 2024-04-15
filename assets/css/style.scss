@@ -117,7 +117,6 @@ body {
         display: flex;
         align-items: center;
         gap: 1em;
-        justify-content: center;
 
         img {
             width: 50px;
@@ -609,6 +608,7 @@ body {
     }
 }
 
+//USER PROFILE (INTERN)
 .dash-cards-profile {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, auto));
@@ -620,7 +620,7 @@ body {
     }
 }
 
-//DASHBOARD
+//DASHBOARD FOR INTERN AND ADMIN
 .dash-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, auto));
@@ -666,6 +666,19 @@ body {
             top: -75px;
             right: -40px;
         }
+    }
+}
+
+.home-board {
+    gap: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    grid-auto-rows: minmax(auto, auto);
+
+    .card.calendar {
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
     }
 }
 

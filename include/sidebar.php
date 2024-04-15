@@ -32,7 +32,7 @@
                                         } ?>><i class="ri-file-text-fill"></i>Reports</a></li>
                 <li><a href="attendance-info" <?php if ($page_name == "Attendance") {
                                                     echo "class=\"active\"";
-                                                } ?>><i class="ri-team-fill"></i>Intern Lists</a></li>
+                                                } ?>><i class="ri-team-fill"></i>Intern List</a></li>
                 <li><a href="admin-manage-user" <?php if ($page_name == "Admin") {
                                                     echo "class=\"active\"";
                                                 } ?>><i class="ri-admin-fill"></i>User Management</a></li>

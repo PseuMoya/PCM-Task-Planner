@@ -36,6 +36,7 @@ include("include/lib_links.php");
     <title>Home - TaskPlanner</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href="assets/tiny-datepicker/tiny-date-picker.min.css">
 </head>
 
 <body>
@@ -81,75 +82,87 @@ include("include/lib_links.php");
                 <?php } ?>
             </div>
 
-            <div class="dash-cards home">
-                <div class="card">
-                    <p>Pending Tasks</p>
-                    <i class="ri-list-check-3"></i>
-                    <span class="how-many">
-                        <?php
-                        if ($user_role == 1) {
-                            $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
-                                                    FROM task_info a
-                                                    INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                                                    WHERE a.status = 0
-                                                    GROUP BY b.fullname, b.profileimg
-                                                    ORDER BY b.fullname ASC";
-                        } else {
-                            $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
-                                                    FROM task_info a
-                                                    INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                                                    WHERE a.t_user_id = $user_id AND a.status = 0
-                                                    GROUP BY b.fullname, b.profileimg
-                                                    ORDER BY b.fullname ASC";
-                        }
+            <div class="home-board">
+                <div class="dash-cards home">
+                    <div class="card">
+                        <p>Pending Tasks</p>
+                        <i class="ri-list-check-3"></i>
+                        <span class="how-many">
+                            <?php
+                            if ($user_role == 1) {
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
+                                                        FROM task_info a
+                                                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
+                                                        WHERE a.status = 0
+                                                        GROUP BY b.fullname, b.profileimg
+                                                        ORDER BY b.fullname ASC";
+                            } else {
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
+                                                        FROM task_info a
+                                                        INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
+                                                        WHERE a.t_user_id = $user_id AND a.status = 0
+                                                        GROUP BY b.fullname, b.profileimg
+                                                        ORDER BY b.fullname ASC";
+                            }
 
-                        $info = $obj_admin->manage_all_info($sql);
-                        $num_row = $info->rowCount();
-                        if ($num_row == 0) {
-                            echo '0';
-                        }
+                            $info = $obj_admin->manage_all_info($sql);
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '0';
+                            }
 
-                        while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
 
-                            <?php echo $row['pending_tasks']; ?>
-                            <a href="taskreport-user"><button>Go Now</button></a>
-                        <?php } ?>
-                    </span>
+                                <?php echo $row['pending_tasks']; ?>
+                                <a href="taskreport-user"><button>Go Now</button></a>
+                            <?php } ?>
+                        </span>
+                    </div>
+
+                    <div class="card">
+                        <p>Completed Tasks</p>
+                        <i class="ri-checkbox-circle-line"></i>
+                        <span class="how-many">
+                            <?php
+                            if ($user_role == 1) {
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
+                                                FROM task_info a
+                                                INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
+                                                WHERE a.status = 2
+                                                GROUP BY b.fullname, b.profileimg
+                                                ORDER BY b.fullname ASC";
+                            } else {
+                                $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
+                                                FROM task_info a
+                                                INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
+                                                WHERE a.t_user_id = $user_id AND a.status = 2
+                                                GROUP BY b.fullname, b.profileimg
+                                                ORDER BY b.fullname ASC";
+                            }
+
+                            $info = $obj_admin->manage_all_info($sql);
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '0';
+                            }
+
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
+                                <?php echo $row['pending_tasks']; ?>
+                                <a href="taskreport-user"><button>Go Now</button></a>
+                            <?php } ?>
+                        </span>
+                    </div>
                 </div>
 
-                <div class="card">
-                    <p>Completed Tasks</p>
-                    <i class="ri-checkbox-circle-line"></i>
-                    <span class="how-many">
-                        <?php
-                        if ($user_role == 1) {
-                            $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
-                                            FROM task_info a
-                                            INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                                            WHERE a.status = 2
-                                            GROUP BY b.fullname, b.profileimg
-                                            ORDER BY b.fullname ASC";
-                        } else {
-                            $sql = "SELECT b.fullname, b.profileimg, COUNT(a.task_id) as pending_tasks
-                                            FROM task_info a
-                                            INNER JOIN tbl_admin b ON(a.t_user_id = b.user_id)
-                                            WHERE a.t_user_id = $user_id AND a.status = 2
-                                            GROUP BY b.fullname, b.profileimg
-                                            ORDER BY b.fullname ASC";
-                        }
-
-                        $info = $obj_admin->manage_all_info($sql);
-                        $num_row = $info->rowCount();
-                        if ($num_row == 0) {
-                            echo '0';
-                        }
-
-                        while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <?php echo $row['pending_tasks']; ?>
-                            <a href="taskreport-user"><button>Go Now</button></a>
-                        <?php } ?>
-                    </span>
+                <div class="card calendar">
                 </div>
             </div>
         </div>
+    </div>
+    <script src="assets/tiny-datepicker/tiny-date-picker.min.js"></script>
+    <script>
+        var dpPermanent = TinyDatePicker('.card.calendar', {
+            mode: 'dp-permanent',
+        });
+    </script>
 </body>
