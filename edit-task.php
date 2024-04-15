@@ -102,12 +102,30 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 					</div>
 			<?php } ?>
 	
-	
-			<div class="btnSection">
+	<?php
+		if (isset($_POST['update_task_info'])) {
+			if ($user_role != 1) {
+				header('Location: taskreport-user.php');
+				exit();
+			} elseif ($user_role != 2) {
+				header('Location: task-info.php');
+				exit();
+			} else {
+				header('Location: index.php');
+				exit();
+			}
+		}
+	?>
+
+	<div class="btnSection">
+		<form method="post">
 			<button type="submit" name="update_task_info">Update Now</button>
-			</div>
+		</form>
+	</div>
+			
 		</div>
 	</form>
+
 </div>
 		
 		<script>
