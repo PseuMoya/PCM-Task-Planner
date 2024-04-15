@@ -111,6 +111,8 @@ include("include/lib_links.php");
                     </div>
                 </div>
             <?php } ?>
+            
+            <span class=on-phone>Tip: Scroll right to see more information.</span>
 
             <div class="card with-table">
                 <div class="table-container">

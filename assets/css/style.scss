@@ -109,7 +109,7 @@ body {
     width: var(--sidebar-width);
     height: 100%;
     background-color: var(--panel-color);
-    z-index: 1;
+    z-index: 10;
     
     border-right: 2px solid var(--border-color);
 
@@ -232,6 +232,12 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1em;
+    
+    span {
+        font-size: .8em;
+        color: var(--lighter-text-color);
+        text-align: center
+    }
 
     .btnSection{
         @include btnSection;
@@ -458,6 +464,10 @@ body {
     }
 }
 
+.on-phone {
+    display: none;
+}
+
 .data-not-found {
     padding: 3em 3em;
     width: 100%;
@@ -623,7 +633,7 @@ body {
 //DASHBOARD FOR INTERN AND ADMIN
 .dash-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
     grid-auto-rows: minmax(auto, auto);
     gap: 1em;
 
@@ -674,12 +684,6 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, auto));
     grid-auto-rows: minmax(auto, auto);
-
-    .card.calendar {
-        width: -webkit-fit-content;
-        width: -moz-fit-content;
-        width: fit-content;
-    }
 }
 
 /*
@@ -697,6 +701,10 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    .on-phone {
+        display: grid !important;
+    }
+
     table {
         width: unset !important;
     }
@@ -717,6 +725,13 @@ body {
         border-right: none;
         border-bottom: 2px solid var(--border-color);
         
+        .title {
+
+            p {
+                font-size: 24px;
+            }
+        }
+
         .sidebar-wrapper{
             height: -webkit-fit-content;
             height: -moz-fit-content;
