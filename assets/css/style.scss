@@ -234,9 +234,7 @@ body {
     gap: 1em;
     
     span {
-        font-size: .8em;
         color: var(--lighter-text-color);
-        text-align: center
     }
 
     .btnSection{
@@ -551,8 +549,6 @@ body {
     height: -moz-fit-content;
     height: fit-content;
 
-    @include img-container(250px, 5px);
-
     .modalTitle {
         @include v-wrapper;
         font-size: 14px;
@@ -569,16 +565,6 @@ body {
         color: var(--text-color);
         font-weight: 500;
         border: 2px solid var(--border-color);
-    }
-
-    input[type=file] {
-        padding: 0;
-        border: none;
-    }
-
-    input[type=file]::file-selector-button {
-        @include button;
-        background-color: var(--accent-color);
     }
 
     textarea {
@@ -619,14 +605,150 @@ body {
 }
 
 //USER PROFILE (INTERN)
-.dash-cards-profile {
+.card.settings {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
-    grid-auto-rows: minmax(auto, auto);
     gap: 1em;
+    grid-template-columns: clamp(15rem, 8vw, 20rem) 8fr;
+    padding: 1.5em;
 
-    .modal {
-        width: 100%;
+    .card-title {
+
+        span {
+            font-size: .9em;
+        }
+    }
+    
+    .card {
+        background: var(--main-bg-color);
+    }
+
+    .card.profile-pic {
+        grid-template-columns: clamp(6rem, 8vw, 20rem) 8fr;
+        border-radius: 8px;
+
+        .btnSection {
+            @include btnSection;
+            
+            button {
+                @include button;
+                padding: 10px 20px;
+                background-color: #28a745;
+                color: white;
+            }
+        }
+
+        @include img-container(110px, 100%);
+        
+        input[type=file] {
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .file-drop-area {
+            position: relative;
+            padding: 1em;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1em;
+
+            height: 200px;
+            border: 2px dashed var(--border-color);
+            border-radius: 3px;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background-color: var(--panel-color);
+            }
+
+            .no-file-yet {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5em;
+                text-align: center;
+
+                span {
+                    font-size: .8em;
+                }
+            }
+
+            .has-file {
+                display: flex;
+                align-items: center;
+                gap: 1em;
+                display: none;
+                
+                .fake-btn {
+                    background-color: var(--panel-color);
+                    border: 2px solid var(--border-color);
+                    border-radius: 3px;
+                    padding: 8px 15px;
+                    margin-right: 10px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+
+                .file-msg {
+                    font-size: smaller;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+
+    .card.personal-info {
+        @include v-wrapper;
+        gap: 1em;
+
+        span {
+            font-size: 12px;
+        }
+
+        .btnSection {
+            @include btnSection;
+            
+            button {
+                @include button;
+                padding: 10px 20px;
+                background-color: #28a745;
+                color: white;
+            }
+        }
+
+        .v-wrapper {
+            @include v-wrapper;
+        }
+
+        .h-wrapper {
+            @include h-wrapper;
+        }
+
+        input, select {
+            border-radius: 12px;
+            padding: 1em;
+            font-family: var(--primary-font);
+            font-weight: 500;
+            border: 2px solid var(--border-color)
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        
     }
 }
 
@@ -701,6 +823,11 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    .card.settings { 
+        display: flex;
+        flex-direction: column;
+    }
+
     .on-phone {
         display: grid !important;
     }
