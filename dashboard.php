@@ -66,7 +66,7 @@ include("include/lib_links.php");
 
             <div class="dash-cards">
                 
-                <a href="attendance-info">
+                <a href="attendance-info?position=IT+Department">
                     <div class="card">
                         <p>IT Department</p>
                         <span class="how-many">
@@ -82,7 +82,7 @@ include("include/lib_links.php");
                 </a>
                
 
-                <a href="attendance-info">
+                <a href="attendance-info?position=HR+Department">
                     <div class="card">
                         <p>HR Department</p>
                         <span class="how-many">
@@ -97,7 +97,7 @@ include("include/lib_links.php");
                     </div>
                 </a>
 
-                <a href="attendance-info">
+                <a href="attendance-info?position=Marketing+Department">
                     <div class="card">
                         <p>Marketing Department</p>
                         <span class="how-many">
@@ -112,7 +112,7 @@ include("include/lib_links.php");
                     </div>
                 </a>
 
-                <a href="attendance-info">
+                <a href="attendance-info?position=Admin+Department">
                     <div class="card">
                         <p>Admin Department</p>
                         <span class="how-many">
