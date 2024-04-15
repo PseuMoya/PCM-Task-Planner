@@ -75,27 +75,23 @@ include("include/lib_links.php");
                     $sql = "SELECT user_id, fullname, position FROM tbl_admin WHERE user_role = 2 ORDER BY position";
                     $info = $obj_admin->manage_all_info($sql);
                     $data = [];
-                    $allPositions = ['All Positions' => []];
                     while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                         $data[$row['position']][] = ['id' => $row['user_id'], 'name' => $row['fullname']];
-                        $allPositions['All Positions'][] = ['id' => $row['user_id'], 'name' => $row['fullname']];
                     }
-                    $data = array_merge($allPositions, $data);
                     ?>
 
                     <select class="form-control" name="position" id="position" required>
                         <option value="">Please select a position...</option>
+                        <option value = "all">All</option>
                         <?php foreach (array_keys($data) as $position) { ?>
                             <option value="<?php echo $position; ?>"><?php echo $position; ?></option>
                         <?php } ?>
                     </select>
 
                     <label for="assign_to">Assign to</label>
-                    <select class="form-control" name="assign_to" id="assign_to" required>
+                    <select class="form-control" name="assign_to[]" id="assign_to" multiple required>
                         <option value="">Please select an intern...</option>
-                        <?php foreach ($allPositions['All Positions'] as $person) { ?>
-                            <option value="<?php echo $person['id']; ?>"><?php echo $person['name']; ?></option>
-                        <?php } ?>
+                       
                     </select>
                 </div>
 
@@ -105,7 +101,17 @@ include("include/lib_links.php");
                         var position = this.value;
                         var assignTo = document.getElementById('assign_to');
                         assignTo.innerHTML = '<option value="">Please select an intern...</option>';
-                        if (position in data) {
+                        if (position === 'all'){
+                            Object.values(data).forEach(function(positionData) {
+                                positionData.forEach(function(item) {
+                                    var option = document.createElement('option');
+                                    option.value = item.id;
+                                    option.text = item.name;
+                                    option.setAttribute('selected', 'selected');
+                                    assignTo.add(option);
+                                });
+                            });
+                        }else if (position in data) {
                             data[position].forEach(function(item) {
                                 var option = document.createElement('option');
                                 option.value = item.id;

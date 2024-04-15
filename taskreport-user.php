@@ -22,8 +22,8 @@ if (isset($_GET['delete_task'])) {
     $obj_admin->delete_data_by_this_method($sql, $action_id, $sent_po);
 }
 
-if (isset($_POST['add_task_post'])) {
-    $obj_admin->add_new_task($_POST);
+if (isset($_POST['add_new_task_user_input'])) {
+    $obj_admin->add_new_task_user_input($_POST);
 }
 
 $page_name = "TaskUser";
@@ -72,21 +72,19 @@ include("include/lib_links.php");
                 <div class="v-wrapper">
                     <label for="assign_to">Assign to</label>
                     <?php
-                    $sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_role = 2";
-                    $info = $obj_admin->manage_all_info($sql);
+                        $sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_id = $user_id";
+                        $info = $obj_admin->manage_all_info($sql);
+                        $row = $info->fetch(PDO::FETCH_ASSOC);
                     ?>
 
-                    <select class="form-control" name="assign_to" id="aassign_to" required>
-                        <option value="">Please select an intern...</option>
-
-                        <?php while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <option value="<?php echo $row['user_id']; ?>"><?php echo $row['fullname']; ?></option>
-                        <?php } ?>
-                    </select>
+                    <input type="text" class="form-control" id="assign_to" value="<?php echo $row['fullname']; ?>" disabled>
+                    <input type="hidden" name="assign_to" value="<?php echo $row['user_id']; ?>">
                 </div>
 
+                
+
                 <div class="btnSection">
-                    <button type="submit" name="add_task_post" class="btn btn-success-custom">Assign</button>
+                    <button type="submit" name="add_new_task_user_input" class="btn btn-success-custom">Assign</button>
                     <button id="exitModal">Cancel</button>
                 </div>
             </div>
@@ -106,9 +104,11 @@ include("include/lib_links.php");
             </div>
             <p>This is where your tasks will be listed. Each task will be assigned to you by your assigned department supervisor.</p>
 
-            <?php if ($user_role == 1) { ?>
+            <?php if($user_role == 2){ ?>
                 <div class="btnSection">
-                    <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
+                    <div class="btn-group">
+                      <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
+                    </div>
                 </div>
             <?php } ?>
 
@@ -119,7 +119,7 @@ include("include/lib_links.php");
                             <tr>
                                 <!-- <th>#</th> -->
                                 <th>Task Title</th>
-                                <th>Assigned to</th>
+                                <!-- <th>Assigned to</th> -->
                                 <th>Start Time</th>
                                 <th>End Time</th>
                                 <th>Status</th>
@@ -161,7 +161,7 @@ include("include/lib_links.php");
                                     <!-- <td><?php echo $serial;
                                                 $serial++; ?></td> -->
                                     <td><?php echo $row['t_title']; ?></td>
-                                    <td><?php echo $row['fullname']; ?></td>
+                                    <!-- <td><?php echo $row['fullname']; ?></td> -->
                                     <td><?php echo $row['t_start_time']; ?></td>
                                     <td><?php echo $row['t_end_time']; ?></td>
 

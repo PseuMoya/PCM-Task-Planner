@@ -417,6 +417,36 @@ class Admin_Class
 		$task_description = $this->test_form_input_data($data['task_description']);
 		$t_start_time = $this->test_form_input_data($data['t_start_time']);
 		$t_end_time = $this->test_form_input_data($data['t_end_time']);
+		$assign_to = isset($data['assign_to'])? $data['assign_to'] : [];
+
+		foreach ($assign_to as $intern_id){
+
+		try {
+			$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, 	t_end_time, t_user_id) VALUES (:x, :y, :z, :a, :b) ");
+
+			$add_task->bindparam(':x', $task_title);
+			$add_task->bindparam(':y', $task_description);
+			$add_task->bindparam(':z', $t_start_time);
+			$add_task->bindparam(':a', $t_end_time);
+			$add_task->bindparam(':b', $intern_id);
+
+			$add_task->execute();
+
+			$_SESSION['Task_msg'] = 'Task Add Successfully';
+
+			header('Location: task-info.php');
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}}
+	}
+
+	public function add_new_task_user_input($data)
+	{
+		// data insert   
+		$task_title  = $this->test_form_input_data($data['task_title']);
+		$task_description = $this->test_form_input_data($data['task_description']);
+		$t_start_time = $this->test_form_input_data($data['t_start_time']);
+		$t_end_time = $this->test_form_input_data($data['t_end_time']);
 		$assign_to = $this->test_form_input_data($data['assign_to']);
 
 		try {
@@ -432,7 +462,7 @@ class Admin_Class
 
 			$_SESSION['Task_msg'] = 'Task Add Successfully';
 
-			header('Location: task-info.php');
+			header('Location: taskreport-user.php');
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 		}
