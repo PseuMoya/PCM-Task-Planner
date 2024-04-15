@@ -46,10 +46,8 @@ include("include/lib_links.php");
     include("include/sidebar.php");
     ?>
     <div class="page">
-
-
         <div class="content">
-            <h1>Profile</h1>
+            <h1>User Profile</h1>
             <div class="dash-cards-profile">
                 <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
                     <div class="modal">

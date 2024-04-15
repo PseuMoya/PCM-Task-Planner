@@ -41,7 +41,7 @@ body {
   width: var(--sidebar-width);
   height: 100%;
   background-color: var(--panel-color);
-  z-index: 1;
+  z-index: 10;
   border-right: 2px solid var(--border-color);
 }
 .sidebar .title {
@@ -161,6 +161,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1em;
+}
+.content span {
+  font-size: 0.8em;
+  color: var(--lighter-text-color);
+  text-align: center;
 }
 .content .btnSection {
   display: flex;
@@ -404,6 +409,10 @@ body {
   height: 30px;
 }
 
+.on-phone {
+  display: none;
+}
+
 .data-not-found {
   padding: 3em 3em;
   width: 100%;
@@ -583,7 +592,7 @@ body {
 
 .dash-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
   grid-auto-rows: minmax(auto, auto);
   gap: 1em;
 }
@@ -639,11 +648,6 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(300px, auto));
   grid-auto-rows: minmax(auto, auto);
 }
-.home-board .card.calendar {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
 
 /*
 ?#####################################
@@ -656,6 +660,9 @@ body {
   }
 }
 @media screen and (max-width: 768px) {
+  .on-phone {
+    display: grid !important;
+  }
   table {
     width: unset !important;
   }
@@ -672,6 +679,9 @@ body {
     align-items: center;
     border-right: none;
     border-bottom: 2px solid var(--border-color);
+  }
+  .sidebar .title p {
+    font-size: 24px;
   }
   .sidebar .sidebar-wrapper {
     height: -webkit-fit-content;

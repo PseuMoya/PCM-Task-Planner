@@ -111,6 +111,8 @@ include("include/lib_links.php");
                     <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
                 </div>
             <?php } ?>
+            
+            <span class=on-phone>Tip: Scroll right to see more information.</span>
 
             <div class="card with-table">
                 <div class="table-container">
