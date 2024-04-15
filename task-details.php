@@ -53,7 +53,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			<p><?php echo $row['t_description']; ?></p>
 		</div>
 
-		<div class="h-wrapper" style="gap: 1em">
+		<div class="h-wrapper">
 			<div class="v-wrapper">
 				<label for="t_start_time">Start Time</label>
 				<p><?php echo $row['t_start_time']; ?></p>
@@ -73,22 +73,22 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 		<div class="v-wrapper">
 			<label for="status">Status</label>
 			<?php if ($row['status'] == 1) {
-				echo "<div class='status-indicator in-progress'>In progress</div>";
+				echo "<div class='status-indicator in-progress'>In Progress</div>";
 			} elseif ($row['status'] == 2) {
 				echo "<div class='status-indicator completed'>Completed</div>";
+			} elseif ($row['status'] == 3) {
+				echo "<div class='status-indicator failedtosub'>Failed to Submit</div>";
 			} else {
 				echo "<div class='status-indicator pending'>Pending</div>";
 			} ?>
 		</div>
-
 		<div class="btnSection">
-			<a onclick="history.back()"><button>Go back</button></a>
+			<button onclick="window.history.back();">Go back</button>
 		</div>
 	</div>
-</div>
-<?php
+	<?php
 
 
-include("include/footer.php");
+	include("include/footer.php");
 
-?>
+	?>

@@ -109,7 +109,18 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 		</div>
 	</form>
 </div>
-
+		
+		<script>
+			document.querySelector('form').addEventListener('submit', function(event) {
+				var status = document.querySelector('#status').value;
+				var proof = document.querySelector('input[name="proof"]').value;
+			
+				if (status == '2' && proof == '') {
+					event.preventDefault();
+					alert('Please upload an image proof for completed status');
+				}
+			});
+		</script>
 	
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 

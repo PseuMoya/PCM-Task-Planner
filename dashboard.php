@@ -48,6 +48,13 @@ include("include/lib_links.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
+<style>
+    a{
+        text-decoration: none;
+        color:#56555c;
+    }
+</style>
+
 <body>
     <div class="page">
         <?php
@@ -58,57 +65,67 @@ include("include/lib_links.php");
             <h1>Dashboard</h1>
 
             <div class="dash-cards">
-                <div class="card">
-                    <p>IT Department</p>
-                    <span class="how-many">
-                        <?php
-                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'IT Department'";
-                        $info = $obj_admin->manage_all_info($sql);
-                        $count = $info->rowCount();
-                        echo $count;
-                        ?>
-                    </span>
-                    <i class="ri-macbook-line"></i>
-                </div>
+                
+                <a href="attendance-info">
+                    <div class="card">
+                        <p>IT Department</p>
+                        <span class="how-many">
+                            <?php
+                            $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'IT Department'";
+                            $info = $obj_admin->manage_all_info($sql);
+                            $count = $info->rowCount();
+                            echo $count;
+                            ?>
+                        </span>
+                        <i class="ri-macbook-line"></i>
+                    </div>
+                </a>
+               
 
-                <div class="card">
-                    <p>HR Department</p>
-                    <span class="how-many">
-                        <?php
-                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Hr Department'";
-                        $info = $obj_admin->manage_all_info($sql);
-                        $count = $info->rowCount();
-                        echo $count;
-                        ?>
-                    </span>
-                    <i class="ri-group-2-line"></i>
-                </div>
+                <a href="attendance-info">
+                    <div class="card">
+                        <p>HR Department</p>
+                        <span class="how-many">
+                            <?php
+                            $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Hr Department'";
+                            $info = $obj_admin->manage_all_info($sql);
+                            $count = $info->rowCount();
+                            echo $count;
+                            ?>
+                        </span>
+                        <i class="ri-group-2-line"></i>
+                    </div>
+                </a>
 
-                <div class="card">
-                    <p>Marketing Department</p>
-                    <span class="how-many">
-                        <?php
-                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Marketing Department'";
-                        $info = $obj_admin->manage_all_info($sql);
-                        $count = $info->rowCount();
-                        echo $count;
-                        ?>
-                    </span>
-                    <i class="ri-store-2-line"></i>
-                </div>
+                <a href="attendance-info">
+                    <div class="card">
+                        <p>Marketing Department</p>
+                        <span class="how-many">
+                            <?php
+                            $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Marketing Department'";
+                            $info = $obj_admin->manage_all_info($sql);
+                            $count = $info->rowCount();
+                            echo $count;
+                            ?>
+                        </span>
+                        <i class="ri-store-2-line"></i>
+                    </div>
+                </a>
 
-                <div class="card">
-                    <p>Admin Department</p>
-                    <span class="how-many">
-                        <?php
-                        $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Admin Department'";
-                        $info = $obj_admin->manage_all_info($sql);
-                        $count = $info->rowCount();
-                        echo $count;
-                        ?>
-                    </span>
-                    <i class="ri-user-settings-line"></i>
-                </div>
+                <a href="attendance-info">
+                    <div class="card">
+                        <p>Admin Department</p>
+                        <span class="how-many">
+                            <?php
+                            $sql = "SELECT * FROM tbl_admin WHERE user_role = 2 AND position = 'Admin Department'";
+                            $info = $obj_admin->manage_all_info($sql);
+                            $count = $info->rowCount();
+                            echo $count;
+                            ?>
+                        </span>
+                        <i class="ri-user-settings-line"></i>
+                    </div>
+                </a>
             </div>
 
             <h3>Task Report: <span class="status-indicator pending">In progress</span></h3>
