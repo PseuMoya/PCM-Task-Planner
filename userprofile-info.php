@@ -69,7 +69,7 @@ include("include/lib_links.php");
                                 <div class="no-file-yet">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"/><path d="m14 19.5 3-3 3 3"/><path d="M17 22v-5.5"/><circle cx="9" cy="9" r="2"/></svg>
                                     <p><b>Click to upload</b> or drag and drop</p>
-                                    <span>JPG or PNG (Recommended ratio 1:1)</span>
+                                    <span>JPG, PNG or GIF (Recommended ratio 1:1)</span>
                                 </div>
 
                                 <div class="has-file">
@@ -77,7 +77,7 @@ include("include/lib_links.php");
                                     <span class="file-msg"></span>
                                 </div>
 
-                                <input class="file-input" type="file" name="profileimg">
+                                <input class="file-input" type="file" name="profileimg" required>
                             </div>
 
 
@@ -142,7 +142,7 @@ include("include/lib_links.php");
                             </div>
                             
                             <div class="btnSection">
-                                <button type="submit" name="update_current_employee" class="btn btn-success-custom">Save changes</button>
+                                <button type="submit" name="update_current_employee">Save changes</button>
                             </div>
                         </div>
                     </form>
@@ -187,6 +187,8 @@ include("include/lib_links.php");
         var fileInput = document.querySelector('.file-input');
         var droparea = document.querySelector('.file-drop-area');
         var fileMsg = document.querySelector('.file-msg');
+        var imgContainer = document.querySelector('.card.settings .card.profile-pic .img-container');
+        var uploadedImage = imgContainer.querySelector('img');
 
         var noFile = document.querySelector('.no-file-yet');
         var hasFile = document.querySelector('.has-file');
@@ -200,6 +202,12 @@ include("include/lib_links.php");
                 hasFile.style.display = 'flex';
                 noFile.style.display = 'none';
 
+                // Read the uploaded image file and set it as the image source
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedImage.src = event.target.result;
+                };
+                reader.readAsDataURL(this.files[0]);
             }
         });
     });
