@@ -28,15 +28,6 @@
     gap: 0.5rem;
 }
 
-@mixin tableimg {
-    aspect-ratio: 3/2;
-    -o-object-fit: cover;
-       object-fit: cover;
-    border-radius: 100%;
-    width: 30px;
-    height: 30px;
-}
-
 @mixin card {
     display: grid;
     gap: 1em;
@@ -51,6 +42,7 @@
         display: flex;
         align-items: center;
         overflow: hidden;
+        background-color: var(--border-color);
         border-radius: $radius;
         width: $img-size;
         height: $img-size;
@@ -243,6 +235,7 @@ body {
 
         form {
             @include btnSection;
+            width: auto;
             
             select {
                 @include button;
@@ -260,6 +253,7 @@ body {
 
                 i {
                     color: var(--accent-color);
+                    font-size: 16px;
                 }
             }
         }
@@ -380,9 +374,7 @@ body {
                         align-items: center;
                         gap: 0.5rem;
 
-                        img {
-                            @include tableimg;
-                        }
+                        @include img-container(30px, 100%);
                     }
 
                     td .temp-pass {
@@ -453,10 +445,7 @@ body {
                             transition: all 0.2s ease;
                           }
                     }
-
-                    img {
-                        @include tableimg;
-                    }
+                    @include img-container(30px, 100%);
                 }
             }
         }

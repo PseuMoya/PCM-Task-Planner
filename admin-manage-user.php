@@ -143,12 +143,12 @@ if (isset($_POST['add_new_employee'])) {
                             <option value="<?php echo $position; ?>" <?php echo ($selected_position == $position) ? 'selected' : ''; ?>><?php echo $position; ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <button type="submit" class="btn btn-primary"><i class="ri-filter-2-line"></i>Filter</button>
+                    <button type="submit"><i class="ri-filter-line"></i>Filter</button>
                 </form>
-
                 <?php if ($user_role == 1) { ?>
-                    <button id="openModal"><i class="ri-user-add-line"></i>Add New Employee</button>
+                    <button id="openModal"><i class="ri-user-add-line"></i>New Employee</button>
                 <?php } ?>
+                
             </div>
 
             
@@ -202,7 +202,7 @@ if (isset($_POST['add_new_employee'])) {
                             ?>
                                 <tr>
                                     <td><?php echo $serial; $serial++; ?></td>
-                                    <td><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></td>                                    
+                                    <td><div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div></td>                                    
                                     <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['username']; ?></td>

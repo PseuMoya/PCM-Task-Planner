@@ -112,8 +112,7 @@ include("include/lib_links.php");
                                 <tr>
                                     <?php if($row['position'] != 'Super Admin'){ ?>
                                     <td><?php echo $serial++; ?></td>
-                                    <td><div class="profile-name"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image">
-                                    <?php echo $row['fullname']; ?></div></td>
+                                    <td><div class="profile-name"><div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div><?php echo $row['fullname']; ?></div></td>
                                     <td><?php echo $row['position']; ?></td>
                                     <td><?php echo $task_num; ?></td>
                                     <td>

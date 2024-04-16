@@ -143,9 +143,7 @@ include("include/lib_links.php");
             
             <?php if($user_role == 1){ ?>
                 <div class="btnSection">
-                    <div class="btn-group">
                       <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
-                    </div>
                 </div>
             <?php } ?>
             
