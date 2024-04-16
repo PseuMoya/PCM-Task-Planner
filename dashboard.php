@@ -48,13 +48,6 @@ include("include/lib_links.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<style>
-    a{
-        text-decoration: none;
-        color:#56555c;
-    }
-</style>
-
 <body>
     <div class="page">
         <?php
@@ -62,7 +55,10 @@ include("include/lib_links.php");
         ?>
 
         <div class="content">
-            <h1>Dashboard</h1>
+            <div class="content-title">
+                <h1>Dashboard</h1>
+                <p>Welcome, Admin. Here's an overview of today's progress.</p>
+            </div>
 
             <div class="dash-cards">
                 
@@ -177,7 +173,7 @@ include("include/lib_links.php");
                     </table>
                     <?php if ($num_row > 5) { ?>
                         <div class="btnSection">
-                            <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                            <a href="task-info">See more</a>
                         </div>
                     <?php } ?>
                 </div>
@@ -233,7 +229,7 @@ include("include/lib_links.php");
                 </div>
                 <?php if ($num_row > 5) { ?>
                     <div class="btnSection">
-                        <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                        <a href="task-info">See more</a>
                     </div>
                 <?php } ?>
             </div>
@@ -287,7 +283,7 @@ include("include/lib_links.php");
                     </table>
                     <?php if ($num_row > 5) { ?>
                         <div class="btnSection">
-                            <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                            <a href="task-info">See more</a>
                         </div>
                     <?php } ?>
                 </div>

@@ -53,7 +53,12 @@ include("include/lib_links.php");
     ?>
         <div class="page">
             <div class="content">
-                <h1>User Profile</h1>
+                <div class="content-title">
+                    <h1>User Profile</h1>
+                    <p>Update your profile.</p>
+                </div>
+                <span class="status-indicator failedtosub">Any usage of inappropriate or sensitive content in your profile will result you in suspension.</span>
+
                 <div class="card settings">
                     <div class="card-title">
                         <h4>Profile Picture</h4>
@@ -108,6 +113,7 @@ include("include/lib_links.php");
                         <span>Update your personal details here.</span>
                     </div>
 
+
                     <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
                         <div class="card personal-info">
                             <div class="v-wrapper">
@@ -125,7 +131,6 @@ include("include/lib_links.php");
                             <div class="v-wrapper">
                                 <label>Email</label>
                                 <input type="email" value="<?php echo $row['email']; ?>" placeholder="Enter employee email" name="em_email" class="form-control" required>
-                                <span>If you ever forget your password, it will be sent here for renewal.</span>
                             </div>
 
 
@@ -156,17 +161,17 @@ include("include/lib_links.php");
                     <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
                         <div class="card personal-info">
                             <div class="v-wrapper">
-                                <label for="current_employee_password">Current Password:</label>
+                                <label for="current_employee_password">Current password</label>
                                 <input type="password" name="current_employee_password" class="form-control input-custom" id="current_employee_password" min="8" required>
                             </div>
 
                             <div class="v-wrapper">
-                                <label for="new_employee_password">New Password:</label>
+                                <label for="new_employee_password">New password</label>
                                 <input type="password" name="new_employee_password" class="form-control input-custom" id="new_employee_password" min="8" required>
                             </div>
 
                             <div class="v-wrapper">
-                                <label for="confirm_employee_password">Confirm Password:</label>
+                                <label for="confirm_employee_password">Confirm password</label>
                                 <input type="password" name="confirm_employee_password" class="form-control input-custom" id="confirm_employee_password" min="8" required>
                             </div>
 
@@ -226,7 +231,7 @@ include("include/lib_links.php");
         var fileType = file["type"];
         var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
         if (!validImageTypes.includes(fileType)) { 
-            swal('Invalid file type', 'Please upload a PNG or JPG image.', 'error');
+            swal('Invalid file type', 'Please upload a PNG, JPG, or GIF image.', 'error');
             this.value = '';
         }
     });

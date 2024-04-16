@@ -48,7 +48,6 @@ include("include/lib_links.php");
         ?>
 
         <div class="content">
-            <h1>Home</h1>
 
             <div class="card welcome">
                 <?php
@@ -76,7 +75,7 @@ include("include/lib_links.php");
                 // Modify the PHP code that generates the table to display only one name and the count of pending tasks
                 while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                     <div class="v-wrapper">
-                        <h1>Welcome,<br><span><?php echo $row['fullname']; ?></span>!</h1>
+                        <h1>Welcome,<br><span><?php echo $row['fullname']; ?></span>! <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Waving%20Hand.png" alt="Waving Hand" width="32" height="32" /></h1>
                         <p>You have <?php echo $row['pending_tasks']; ?> pending task(s)</p>
                     </div>
                     <div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div>

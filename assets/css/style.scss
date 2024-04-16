@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("fonts.css");
 
 @mixin button {
     font-family: var(--primary-font);
+    white-space: nowrap;
     padding: 0.75em 1em;
     border: none;
     font-weight: 600;
@@ -63,7 +65,7 @@
     --text-color: #56555c;
     --lighter-text-color: #82808F;
     --accent-color: #ffd600;
-    --primary-font: Plus Jakarta Sans;
+    --primary-font: Mi Sans;
 
     --vibrant-color: linear-gradient(135deg, #FFDF2B, #FF7A00);
 
@@ -192,12 +194,12 @@ body {
                     border-radius: 10px;
                     color: #9896a3;
                     padding: 0.75rem 1em;
-
+                    
                     i {
                         margin-right: 10px;
                     }
                 }
-
+                
                 a.active {
                     background-color: var(--accent-color);
                     color: black;
@@ -216,6 +218,11 @@ body {
     p {
         font-weight: 500;
     }
+    span {
+        color: var(--lighter-text-color);
+        font-size: small;
+        font-weight: 500;
+    }
 }
 
 .content {
@@ -225,10 +232,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1em;
-    
-    span {
-        color: var(--lighter-text-color);
-    }
 
     .btnSection{
         @include btnSection;
@@ -262,7 +265,7 @@ body {
     .card.with-table {
         @include card;
         gap: 0;
-        padding: 1em;
+        padding: 0.5em 1em;
 
         a {
             @include button;
@@ -295,6 +298,7 @@ body {
 
             span {
                 background: var(--vibrant-color);
+                
                 -webkit-background-clip: text;
                         background-clip: text;
                 -webkit-text-fill-color: transparent;
@@ -325,6 +329,7 @@ body {
                 tr {
                     th {
                         text-transform: uppercase;
+                        white-space: nowrap;
                         letter-spacing: 1px;
                         font-size: 14px;
                         padding: 0.5rem 0.85rem;
@@ -363,6 +368,7 @@ body {
                 tr {
                     
                     td {
+                        white-space: nowrap;
                         border-width: 2px 0px;
                         border-style: solid;
                         border-color: var(--border-color);
@@ -416,10 +422,7 @@ body {
                             gap: 0.5rem;  
                             
                             
-                            img {
-                                width: 20px;
-                                height: 20px;
-                            }
+                            @include img-container(20px, 100%)
                         }
 
                         .no-proof {
@@ -465,8 +468,11 @@ body {
     }
 }
 
-.on-phone {
+span.on-phone {
     display: none;
+    color: var(--lighter-text-color);
+    font-size: small;
+    font-weight: 500;
 }
 
 .data-not-found {
@@ -491,6 +497,7 @@ body {
 
 .status-indicator {
     font-weight: 500;
+    white-space: nowrap;
     text-align: center;
     padding: 5px 7px;
     font-size: 14px;
@@ -765,10 +772,19 @@ body {
     grid-auto-rows: minmax(auto, auto);
     gap: 1em;
 
+    a {
+        color: unset
+    }
+
     .card {
         @include card;
         gap: 0;
         overflow: hidden;
+        transition: all 0.4s ease;
+        
+        &:hover {
+            transform: scale(1.05);
+        }
         
         :nth-child(1) {
             font-size: 18px;

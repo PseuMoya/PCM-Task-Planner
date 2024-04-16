@@ -101,8 +101,8 @@ include("include/lib_links.php");
         <div class="content">
             <div class="content-title">
                 <h1>Your Tasks</h1>
+                <p>This is where your tasks will be listed. Each task will be assigned to you by your assigned department supervisor.</p>
             </div>
-            <p>This is where your tasks will be listed. Each task will be assigned to you by your assigned department supervisor.</p>
 
             <?php if($user_role == 2){ ?>
                 <div class="btnSection">

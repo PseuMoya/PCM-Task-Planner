@@ -48,7 +48,7 @@ include("include/lib_links.php");
                 </div>
 
                 <div class="v-wrapper">
-                    <label for="task_title">Task Title</label>
+                    <label for="task_title">Task Name</label>
                     <input type="text" placeholder="Name of the task" id="task_title" name="task_title" list="expense" class="form-control" id="default" required>
                 </div>
 
@@ -139,13 +139,18 @@ include("include/lib_links.php");
         ?>
 
         <div class="content">
-            <h1>Reports</h1>
+            <div class="content-title">
+                <h1>Reports</h1>
+                <p>Oversee each intern's task. You may assign a task to an intern, or to all of them.</p>
+            </div>
             
             <?php if($user_role == 1){ ?>
                 <div class="btnSection">
                       <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
                 </div>
             <?php } ?>
+
+            <span class="on-phone">Tip: Scroll right to see more information.</span>
             
             <div class="card with-table">
                 <div class="table-container">
@@ -153,7 +158,7 @@ include("include/lib_links.php");
                         <thead>
                             <tr>
                                 <!-- <th>#</th> -->
-                                <th>Task Title</th>
+                                <th>Task Name</th>
                                 <th>Assigned to</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>
@@ -216,7 +221,7 @@ include("include/lib_links.php");
                                     <td>
                                         <div class="attachment">
                                             <?php if (!empty($row['proof'])) { ?>
-                                                <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><img src="<?php echo $row['proof']; ?>" alt=""></a>
+                                                <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div></a>
                                                 <span class="tooltiptext">See attachment</span>
                                             <?php } else { ?>
                                                 <div class="no-proof"><i class="ri-close-line"></i>No Proof</div>
