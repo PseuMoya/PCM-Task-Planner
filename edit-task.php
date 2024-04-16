@@ -105,7 +105,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			<?php if ($user_role != 1) { ?> 
 				<div class="v-wrapper">
 						<label for="proof">Proof Image</label>
-						<input type="file" name="proof" class="form-control">
+						<input type="file" name="proof" class="form-control ">
 					</div>
 			<?php } ?>
 	
@@ -156,7 +156,6 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 		enableTime: true,
 		minTime: "9:00",
 		maxTime: "18:00",
-		defaultDate: currentDate,
 		time_24hr: false,
 		minDate: currentDate // disable past dates
 	});
@@ -165,16 +164,9 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 		enableTime: true,
 		minTime: "9:00",
 		maxTime: "18:00",
-		defaultDate: currentDate,
 		time_24hr: false,
 		minDate: currentDate // disable past dates
 	});
 </script>
 
 
-
-<?php
-
-include("include/footer.php");
-
-?>

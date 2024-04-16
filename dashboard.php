@@ -144,7 +144,8 @@ include("include/lib_links.php");
                                 $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
                                 FROM task_info
                                 JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
-                                WHERE task_info.status = 1;
+                                WHERE task_info.status = 1
+                                LIMIT 6;
                                 ";
                                 $info = $obj_admin->manage_all_info($sql);
 
@@ -153,17 +154,18 @@ include("include/lib_links.php");
                                 $num_row = $info->rowCount();
                                 if ($num_row == 0) {
                                     echo '<tr>
-                                    <div class="data-not-found">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                    <span>No data found</span>
-                                    </div>
-                                  </tr>
+                                        <div class="data-not-found">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                            <span>No data found</span>
+                                        </div>
+                                    </tr>
                                 
-                                  <style>.card#ongoing .table-container table {display:none;}</style>';
+                                <style>.card#ongoing .table-container table {display:none;}</style>';
                                 }
-                                
+                            
                                 while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
+                                    if ($serial > 5) break;
+                            ?>
                                 <tr>
                                     <td><?php echo $serial;
                                         $serial++; ?></td>
@@ -173,6 +175,10 @@ include("include/lib_links.php");
                             <?php  } ?>
                         </tbody>
                     </table>
+                    <?php if ($num_row > 5) { ?>
+                        <a href="task-info"></a>
+                            <button class="see-more">See More</button>
+                    <?php } ?>
                 </div>
             </div>
 
@@ -192,35 +198,42 @@ include("include/lib_links.php");
                                 $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
                                 FROM task_info
                                 JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
-                                WHERE task_info.status = 0;
+                                WHERE task_info.status = 0
+                                LIMIT 6;
                                 ";
-                                    $info = $obj_admin->manage_all_info($sql);
+                                $info = $obj_admin->manage_all_info($sql);
 
-                                    $serial  = 1;
+                                $serial  = 1;
 
-                                    $num_row = $info->rowCount();
-                                    if ($num_row == 0) {
-                                        echo '<tr>
-                                            <div class="data-not-found">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                                <span>No data found</span>
-                                            </div>
-                                        </tr>
-                                    
-                                    <style>.card#pending .table-container table {display:none;}</style>';
-                                    }
-                                
-                                    while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $serial;
-                                            $serial++; ?></td>
-                                        <td><?php echo $row['fullname']; ?></td>
-                                        <td><?php echo $row['t_title']; ?></td>
+                                $num_row = $info->rowCount();
+                                if ($num_row == 0) {
+                                    echo '<tr>
+                                        <div class="data-not-found">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                            <span>No data found</span>
+                                        </div>
                                     </tr>
+                                
+                                <style>.card#pending .table-container table {display:none;}</style>';
+                                }
+                            
+                                while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                                    if ($serial > 5) break;
+                            ?>
+                                <tr>
+                                    <td><?php echo $serial;
+                                        $serial++; ?></td>
+                                    <td><?php echo $row['fullname']; ?></td>
+                                    <td><?php echo $row['t_title']; ?></td>
+                                </tr>
                             <?php  } ?>
                         </tbody>
                     </table>
+                    <?php if ($num_row > 5) { ?>
+                            <a href="task-info">                            
+                                <button class="place-holder-style">See More</button>
+                            </a>
+                    <?php } ?>
                 </div>
             </div>
 
@@ -237,38 +250,43 @@ include("include/lib_links.php");
                         </thead>
                         <tbody>
                             <?php
-                                $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname 
-                                FROM task_info 
-                                JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id 
-                                WHERE task_info.status = 2; 
+                                $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
+                                FROM task_info
+                                JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
+                                WHERE task_info.status = 2
+                                LIMIT 6;
                                 ";
-                                    $info = $obj_admin->manage_all_info($sql);
+                                $info = $obj_admin->manage_all_info($sql);
 
-                                    $serial  = 1;
+                                $serial  = 1;
 
-                                    $num_row = $info->rowCount();
-                                    if ($num_row == 0) {
-                                        echo '<tr>
-                                            <div class="data-not-found">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                                <span>No data found</span>
-                                            </div>
-                                        </tr>
-                                    
-                                        <style>.card#completed .table-container table {display:none;}</style>';
-                                    }
-
-                                    while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $serial;
-                                            $serial++; ?></td>
-                                        <td><?php echo $row['fullname']; ?></td>
-                                        <td><?php echo $row['t_title']; ?></td>
+                                $num_row = $info->rowCount();
+                                if ($num_row == 0) {
+                                    echo '<tr>
+                                        <div class="data-not-found">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                            <span>No data found</span>
+                                        </div>
                                     </tr>
+                                
+                                <style>.card#completed .table-container table {display:none;}</style>';
+                                }
+                            
+                                while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                                    if ($serial > 5) break;
+                            ?>
+                                <tr>
+                                    <td><?php echo $serial;
+                                        $serial++; ?></td>
+                                    <td><?php echo $row['fullname']; ?></td>
+                                    <td><?php echo $row['t_title']; ?></td>
+                                </tr>
                             <?php  } ?>
                         </tbody>
                     </table>
+                    <?php if ($num_row > 5) { ?>
+                            <button class="see-more">See More</button>
+                    <?php } ?>
                 </div>
             </div>
         </div>
