@@ -169,11 +169,13 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  width: 100%;
 }
 .content .btnSection form {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  width: 100%;
 }
 .content .btnSection form select {
   font-family: var(--primary-font);
@@ -520,6 +522,7 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  width: 100%;
 }
 .modal .btnSection button {
   font-family: var(--primary-font);
@@ -571,6 +574,7 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  width: 100%;
 }
 .card.settings .card.profile-pic .btnSection button {
   font-family: var(--primary-font);
@@ -617,6 +621,9 @@ body {
   height: 200px;
   border: 2px dashed var(--border-color);
   border-radius: 3px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   transition: all 0.2s ease;
 }
 .card.settings .card.profile-pic .file-drop-area:hover {
@@ -668,6 +675,7 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  width: 100%;
 }
 .card.settings .card.personal-info .btnSection button {
   font-family: var(--primary-font);
@@ -769,10 +777,18 @@ body {
   .content .dash-cards {
     grid-template-columns: auto auto;
   }
+  .card.settings .card.profile-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 @media screen and (max-width: 768px) {
   .card.settings {
     display: flex;
+    flex-direction: column;
+  }
+  .card.settings .card.profile-pic .file-drop-area .has-file {
     flex-direction: column;
   }
   .on-phone {
