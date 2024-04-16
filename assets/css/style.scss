@@ -261,7 +261,20 @@ body {
 
     .card.with-table {
         @include card;
-        padding: 0.5em 1em;
+        gap: 0;
+        padding: 1em;
+
+        a {
+            @include button;
+            background-color: rgba(79, 152, 255, 0.1490196078);
+            color: #5b7dac;
+            border-radius: 6px;
+            padding: 5px 7px;
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
+            width: fit-content;
+        }
+            
     }
 
     .card.welcome {

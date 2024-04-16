@@ -176,8 +176,9 @@ include("include/lib_links.php");
                         </tbody>
                     </table>
                     <?php if ($num_row > 5) { ?>
-                        <a href="task-info"></a>
-                            <button class="see-more">See More</button>
+                        <div class="btnSection">
+                            <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
@@ -229,12 +230,12 @@ include("include/lib_links.php");
                             <?php  } ?>
                         </tbody>
                     </table>
-                    <?php if ($num_row > 5) { ?>
-                            <a href="task-info">                            
-                                <button class="place-holder-style">See More</button>
-                            </a>
-                    <?php } ?>
                 </div>
+                <?php if ($num_row > 5) { ?>
+                    <div class="btnSection">
+                        <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                    </div>
+                <?php } ?>
             </div>
 
             <h3>Task Report: <span class="status-indicator completed">Completed</span></h3>
@@ -285,7 +286,9 @@ include("include/lib_links.php");
                         </tbody>
                     </table>
                     <?php if ($num_row > 5) { ?>
-                            <button class="see-more">See More</button>
+                        <div class="btnSection">
+                            <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                        </div>
                     <?php } ?>
                 </div>
             </div>
