@@ -150,14 +150,27 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script type="text/javascript">
+	let currentDate = new Date();
+	
 	flatpickr('#t_start_time', {
-		enableTime: true
+		enableTime: true,
+		minTime: "9:00",
+		maxTime: "18:00",
+		defaultDate: currentDate,
+		time_24hr: false,
+		minDate: currentDate // disable past dates
 	});
-
+	
 	flatpickr('#t_end_time', {
-		enableTime: true
+		enableTime: true,
+		minTime: "9:00",
+		maxTime: "18:00",
+		defaultDate: currentDate,
+		time_24hr: false,
+		minDate: currentDate // disable past dates
 	});
 </script>
+
 
 
 <?php

@@ -209,20 +209,22 @@ include("include/lib_links.php");
 
 <script type="text/javascript">
     let currentDate = new Date();
+    
     flatpickr('#t_start_time', {
         enableTime: true,
         minTime: "9:00",
         maxTime: "18:00",
         defaultDate: currentDate,
-        time_24hr: false
-
+        time_24hr: false,
+        minDate: currentDate // disable past dates
     });
-
+    
     flatpickr('#t_end_time', {
         enableTime: true,
         minTime: "9:00",
         maxTime: "18:00",
         defaultDate: currentDate,
-        time_24hr: false
+        time_24hr: false,
+        minDate: currentDate // disable past dates
     });
 </script>

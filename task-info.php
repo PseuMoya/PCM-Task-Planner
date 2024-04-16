@@ -252,7 +252,32 @@ include("include/lib_links.php");
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<script type="text/javascript">
+
+<script>
+
+    let currentDate = new Date();
+
+    flatpickr('#t_start_time', {
+        enableTime: true,
+        minTime: "9:00",
+        maxTime: "18:00",
+        defaultDate: currentDate,
+        time_24hr: false,
+        minDate: currentDate // disable past dates
+    });
+
+    flatpickr('#t_end_time', {
+        enableTime: true,
+        minTime: "9:00",
+        maxTime: "18:00",
+        defaultDate: currentDate,
+        time_24hr: false,
+        minDate: currentDate // disable past dates
+    });
+
+</script>
+
+<!-- <script type="text/javascript">
   let currentDate = new Date();
   flatpickr('#t_start_time', {
     enableTime: true,
@@ -270,4 +295,7 @@ include("include/lib_links.php");
     defaultDate: currentDate,
     time_24hr: false
   });
-</script>
+</script> -->
+
+
+

@@ -80,6 +80,7 @@ include("include/lib_links.php");
                                 <input class="file-input" type="file" name="profileimg">
                             </div>
 
+
                             <div>
                                 <!-- clever way of actually hiding it without having to display what is needed to be change -->
                                 <input type="text" style="display: none;" value="<?php echo $row['fullname']; ?>" placeholder="Enter Employee Name" name="em_fullname" list="expense" required>
@@ -205,3 +206,20 @@ include("include/lib_links.php");
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+<!-- FOR FILE VALIDATION -->
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    document.querySelector('.file-input').addEventListener('change', function(e) {
+        var file = this.files[0]; 
+        var fileType = file["type"];
+        var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+        if (!validImageTypes.includes(fileType)) { 
+            swal('Invalid file type', 'Please upload a PNG or JPG image.', 'error');
+            this.value = '';
+        }
+    });
+</script>
