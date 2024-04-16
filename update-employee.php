@@ -63,7 +63,7 @@ include("include/lib_links.php");
 
             <div class="v-wrapper">
                 <label class="control-label col-sm-2">Profile Image</label>
-                <input type="file" name="profileimg" class="form-control">
+                <input type="file" name="profileimg" class="form-control file-input">
             </div>
 
 
@@ -113,5 +113,19 @@ include("include/footer.php");
 <script type="text/javascript">
     $('#emlpoyee_pass_btn').click(function() {
         $('#employee_pass_cng').toggle('slow');
+    });
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    document.querySelector('.file-input').addEventListener('change', function(e) {
+        var file = this.files[0]; 
+        var fileType = file["type"];
+        var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+        if (!validImageTypes.includes(fileType)) { 
+            swal('Invalid file type', 'Please upload a PNG or JPG image.', 'error');
+            this.value = '';
+        }
     });
 </script>

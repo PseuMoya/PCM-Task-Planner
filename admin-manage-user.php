@@ -93,7 +93,7 @@ if (isset($_POST['add_new_employee'])) {
 
                 <div class="v-wrapper">
                     <label for="profileimg">Profile Image</label>
-                    <input type="file" name="profileimg" class="form-control">
+                    <input type="file" name="profileimg" class="form-control file-input">
                 </div>
 
                 <div class="btnSection">
@@ -237,3 +237,17 @@ if (isset($_SESSION['update_user_pass'])) {
 include("include/footer.php");
 
 ?>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    document.querySelector('.file-input').addEventListener('change', function(e) {
+        var file = this.files[0]; 
+        var fileType = file["type"];
+        var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+        if (!validImageTypes.includes(fileType)) { 
+            swal('Invalid file type', 'Please upload a PNG or JPG image.', 'error');
+            this.value = '';
+        }
+    });
+</script>

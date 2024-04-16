@@ -440,6 +440,8 @@ class Admin_Class
 		}}
 	}
 
+	/* --------------------UPDATE_TASK_USER--------------*/
+
 	public function add_new_task_user_input($data)
 	{
 		// data insert   
@@ -468,6 +470,7 @@ class Admin_Class
 		}
 	}
 
+	/* --------------------UPDATE_TASK_ADMIN--------------*/
 
 	public function update_task_info($data, $task_id, $user_role)
 	{
