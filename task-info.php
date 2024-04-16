@@ -259,7 +259,7 @@ include("include/lib_links.php");
         enableTime: true,
         minTime: "9:00",
         maxTime: "18:00",
-        defaultDate: currentDate,
+        // defaultDate: currentDate,
         time_24hr: false,
         minDate: currentDate // disable past dates
     });
@@ -268,7 +268,7 @@ include("include/lib_links.php");
         enableTime: true,
         minTime: "9:00",
         maxTime: "18:00",
-        defaultDate: currentDate,
+        // defaultDate: currentDate,
         time_24hr: false,
         minDate: currentDate // disable past dates
     });
