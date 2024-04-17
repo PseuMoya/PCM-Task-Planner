@@ -105,10 +105,10 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			<label>Proof Image</label>
 			<?php if ($user_role != 1) { ?>
 				<div class="v-wrapper">
+					<?php if (!empty($row['proof'])) { ?>
 						<div class="img-container">
-						<?php if (!empty($row['proof'])) { ?>
 							<img src="<?php echo $row['proof']; ?>" alt="">
-					</div>
+						</div>
 					<div class="file-drop-area" style="height: 150px;">
 
 						<div class="no-file-yet">

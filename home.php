@@ -114,7 +114,7 @@ include("include/lib_links.php");
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
 
                                 <?php echo $row['pending_tasks']; ?>
-                                <a href="taskreport-user"><button>Go Now</button></a>
+                                <a href="taskreport-user?status=Pending"><button>Go Now</button></a>
                             <?php } ?>
                         </span>
                     </div>
@@ -148,7 +148,7 @@ include("include/lib_links.php");
 
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) { ?>
                                 <?php echo $row['pending_tasks']; ?>
-                                <a href="taskreport-user"><button>Go Now</button></a>
+                                <a href="taskreport-user?status=Completed"><button>Go Now</button></a>
                             <?php } ?>
                         </span>
                     </div>

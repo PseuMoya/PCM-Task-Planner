@@ -241,7 +241,27 @@ include("include/lib_links.php");
    
 </script>   
 <script type = "text/javascript">
-     var statusSelect = document.getElementById('status');
+
+    function getUrlParams() {
+        var params = {};
+        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
+            params[key] = decodeURIComponent(value);
+        });
+        return params;
+    }
+
+    var urlParams = getUrlParams();
+    var statusParam = urlParams["status"];
+
+    if (statusParam) {
+        var statusSelect = document.getElementById('status');
+        statusSelect.value = statusParam;
+        filterTableByStatus(statusSelect.value);
+
+
+    }
+
+    var statusSelect = document.getElementById('status');
     statusSelect.addEventListener("change", function(){
         filterTableByStatus(this.value);
     });
@@ -264,4 +284,7 @@ include("include/lib_links.php");
             }
         }
     }
+    
 </script>
+
+
