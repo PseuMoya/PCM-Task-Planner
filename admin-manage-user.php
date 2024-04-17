@@ -136,6 +136,9 @@ if (isset($_POST['add_new_employee'])) {
 
             <!-- Position filter dropdown -->
             <div class="btnSection">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search..." name="search" id="search">
+                    </div>
                 <form method="get" role="form" action="">
                     <select name="position" class="form-control">
                         <option value="">All Positions</option>
@@ -156,7 +159,7 @@ if (isset($_POST['add_new_employee'])) {
 
             <div class="card with-table">
                 <div class="table-container">
-                    <table>
+                    <table id="internTable">
                         <thead>
                             <tr>
                                 <th>Serial No.</th>
@@ -250,4 +253,27 @@ include("include/footer.php");
             this.value = '';
         }
     });
+
+    var searchInput = document.getElementById('search');
+    searchInput.addEventListener("input", function(){
+        filterTableBySearch(this.value);
+    });
+    function filterTableBySearch (searchText) {
+        var table = document.getElementById('internTable');
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var internNameCell = row.getElementsByTagName('td')[2];
+            if(internNameCell){
+                var internName = internNameCell.textContent || internNameCell.innerText;
+                if (internName.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+                            row.style.display = "";
+                        } else {
+                            row.style.display = "none";
+                        }
+            }
+
+           
+        }
+    }
 </script>

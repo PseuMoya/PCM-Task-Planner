@@ -55,6 +55,9 @@ include("include/lib_links.php");
             <h1>Intern List</h1>
 
             <div class="btnSection">
+            <div class="search-bar">
+                        <input type="text" placeholder="Search..." name="search" id="search">
+                    </div>
                 <!-- Position filter dropdown -->
                 <form method="get" role="form" action="">
                     <select name="position" class="form-control">
@@ -69,7 +72,7 @@ include("include/lib_links.php");
 
             <div class="card with-table">
                 <div class="table-container">
-                    <table>
+                    <table id="internTable">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -139,3 +142,27 @@ include("include/lib_links.php");
 <?php
 include("include/footer.php");
 ?>
+<script>
+    var searchInput = document.getElementById('search');
+    searchInput.addEventListener("input", function(){
+        filterTableBySearch(this.value);
+    });
+    function filterTableBySearch (searchText) {
+        var table = document.getElementById('internTable');
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var internNameCell = row.getElementsByTagName('td')[    1];
+            if(internNameCell){
+                var internName = internNameCell.textContent || internNameCell.innerText;
+                if (internName.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+                            row.style.display = "";
+                        } else {
+                            row.style.display = "none";
+                        }
+            }
+
+           
+        }
+    }
+</script>

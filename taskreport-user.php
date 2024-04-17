@@ -104,19 +104,31 @@ include("include/lib_links.php");
             </div>
             <p>This is where your tasks will be listed. Each task will be assigned to you by your assigned department supervisor.</p>
 
-            <?php if($user_role == 2){ ?>
-                <div class="btnSection">
-                    <div class="btn-group">
-                      <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
+
+            <div class="btnSection">
+
+                <select name="status" id="status" required>
+                            <option value="">Select status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Failed to submit">Failed to submit</option>
+                            <option value="In progress">In progress</option>
+                            <option value="Completed">Completed</option>
+                </select>
+                <?php if($user_role == 2){ ?>
+                    <div class="btnSection">
+                        <div class="btn-group">
+                        <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
+                        </div>
                     </div>
-                </div>
-            <?php } ?>
+                <?php } ?>
+            </div>
+
             
             <span class=on-phone>Tip: Scroll right to see more information.</span>
 
             <div class="card with-table">
                 <div class="table-container">
-                    <table>
+                    <table id="internTable">
                         <thead>
                             <tr>
                                 <!-- <th>#</th> -->
@@ -227,4 +239,31 @@ include("include/lib_links.php");
         time_24hr: false,
         minDate: currentDate // disable past dates
     });
+
+   
+</script>   
+<script type = "text/javascript">
+     var statusSelect = document.getElementById('status');
+    statusSelect.addEventListener("change", function(){
+        filterTableByStatus(this.value);
+    });
+    function filterTableByStatus(status){
+        console.log("filter select called");
+        var table = document.getElementById('internTable');
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            row.style.display = "table-row";
+            var cells = row.getElementsByTagName('td');
+    
+            if (cells.length >= 4) {
+                var rowStatus = cells[3].innerText;
+                if (status === '' || rowStatus === status) {
+                    row.style.display = "table-row";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+    }
 </script>

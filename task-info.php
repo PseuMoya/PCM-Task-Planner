@@ -140,6 +140,17 @@ include("include/lib_links.php");
 
         <div class="content">
             <h1>Reports</h1>
+            <div class="search-bar">
+                        <input type="text" placeholder="Search..." name="search" id="search">
+                    </div>
+
+                    <select name="status" id="status" required>
+                        <option value="">Select status</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Failed to submit">Failed to submit</option>
+                        <option value="In progress">In progress</option>
+                        <option value="Completed">Completed</option>
+                    </select>
             
             <?php if($user_role == 1){ ?>
                 <div class="btnSection">
@@ -149,7 +160,7 @@ include("include/lib_links.php");
             
             <div class="card with-table">
                 <div class="table-container">
-                    <table>
+                    <table id="internTable">
                         <thead>
                             <tr>
                                 <!-- <th>#</th> -->
@@ -273,8 +284,56 @@ include("include/lib_links.php");
         minDate: currentDate // disable past dates
     });
 
+    
 </script>
+<script type="text/javascript">
+    var searchInput = document.getElementById('search');
+    searchInput.addEventListener("input", function(){
+        filterTableBySearch(this.value);
+    });
+    function filterTableBySearch (searchText) {
+        var table = document.getElementById('internTable');
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var internNameCell = row.getElementsByTagName('td')[1];
+            if(internNameCell){
+                var internName = internNameCell.textContent || internNameCell.innerText;
+                if (internName.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+                            row.style.display = "";
+                        } else {
+                            row.style.display = "none";
+                        }
+            }
 
+           
+        }
+    }
+
+    var statusSelect = document.getElementById('status');
+    statusSelect.addEventListener("change", function(){
+        filterTableByStatus(this.value);
+    });
+    function filterTableByStatus(status){
+        console.log("filter select called");
+        var table = document.getElementById('internTable');
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            row.style.display = "table-row";
+            var cells = row.getElementsByTagName('td');
+    
+            if (cells.length >= 4) {
+                var rowStatus = cells[4].innerText;
+                if (status === '' || rowStatus === status) {
+                    row.style.display = "table-row";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+    }
+</script>
 <!-- <script type="text/javascript">
   let currentDate = new Date();
   flatpickr('#t_start_time', {
