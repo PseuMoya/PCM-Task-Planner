@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url("fonts.css");
 
 @mixin button {
     font-family: var(--primary-font);
+    white-space: nowrap;
     padding: 0.75em 1em;
     border: none;
     font-weight: 600;
@@ -63,7 +65,7 @@
     --text-color: #56555c;
     --lighter-text-color: #82808F;
     --accent-color: #ffd600;
-    --primary-font: Plus Jakarta Sans;
+    --primary-font: Mi Sans;
 
     --vibrant-color: linear-gradient(135deg, #FFDF2B, #FF7A00);
 
@@ -192,12 +194,12 @@ body {
                     border-radius: 10px;
                     color: #9896a3;
                     padding: 0.75rem 1em;
-
+                    
                     i {
                         margin-right: 10px;
                     }
                 }
-
+                
                 a.active {
                     background-color: var(--accent-color);
                     color: black;
@@ -216,6 +218,11 @@ body {
     p {
         font-weight: 500;
     }
+    span {
+        color: var(--lighter-text-color);
+        font-size: small;
+        font-weight: 500;
+    }
 }
 
 .content {
@@ -225,10 +232,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1em;
-    
-    span {
-        color: var(--lighter-text-color);
-    }
 
     .btnSection{
         @include btnSection;
@@ -262,7 +265,7 @@ body {
     .card.with-table {
         @include card;
         gap: 0;
-        padding: 1em;
+        padding: 0.5em 1em;
 
         a {
             @include button;
@@ -295,6 +298,7 @@ body {
 
             span {
                 background: var(--vibrant-color);
+                
                 -webkit-background-clip: text;
                         background-clip: text;
                 -webkit-text-fill-color: transparent;
@@ -325,6 +329,7 @@ body {
                 tr {
                     th {
                         text-transform: uppercase;
+                        white-space: nowrap;
                         letter-spacing: 1px;
                         font-size: 14px;
                         padding: 0.5rem 0.85rem;
@@ -363,6 +368,7 @@ body {
                 tr {
                     
                     td {
+                        white-space: nowrap;
                         border-width: 2px 0px;
                         border-style: solid;
                         border-color: var(--border-color);
@@ -416,10 +422,7 @@ body {
                             gap: 0.5rem;  
                             
                             
-                            img {
-                                width: 20px;
-                                height: 20px;
-                            }
+                            @include img-container(20px, 100%)
                         }
 
                         .no-proof {
@@ -465,8 +468,11 @@ body {
     }
 }
 
-.on-phone {
+span.on-phone {
     display: none;
+    color: var(--lighter-text-color);
+    font-size: small;
+    font-weight: 500;
 }
 
 .data-not-found {
@@ -491,6 +497,7 @@ body {
 
 .status-indicator {
     font-weight: 500;
+    white-space: nowrap;
     text-align: center;
     padding: 5px 7px;
     font-size: 14px;
@@ -526,16 +533,27 @@ body {
 }
 
 #modalBG {
-    display: none;
     position: fixed;
     z-index: 9999;
-    // display: flex;
     width: 100%;
     height: 100%;
+    display: flex;
     justify-content: center;
+    padding: 10px 0;
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease; /* Delay visibility change after opacity transition */
+    
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1); /* Zoom in to full scale (1) */
+    }
 }
+
+
 
 .modal {
     background-color: var(--panel-color);
@@ -551,6 +569,17 @@ body {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9); /* Initial scale set to 0.8 */
+    transition: all 0.3s ease-in-out; /* Add transform transition for zoom effect */
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+        transition-delay: 0s;
+    }
 
     .modalTitle {
         @include v-wrapper;
@@ -605,6 +634,79 @@ body {
     .v-wrapper {
         @include v-wrapper;
     }
+
+    @include img-container(150px, 5px)
+}
+
+input[type=file] {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.file-drop-area {
+    position: relative;
+    padding: 1em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+
+    height: 200px;
+    border: 2px dashed var(--border-color);
+    border-radius: 3px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: var(--panel-color);
+    }
+
+    .no-file-yet {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5em;
+        text-align: center;
+
+        span {
+            font-size: .8em;
+        }
+    }
+
+    .has-file {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        display: none;
+
+        .fake-btn {
+            background-color: var(--panel-color);
+            border: 2px solid var(--border-color);
+            border-radius: 3px;
+            padding: 8px 15px;
+            margin-right: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .file-msg {
+            font-size: smaller;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
 }
 
 //USER PROFILE (INTERN)
@@ -641,77 +743,6 @@ body {
         }
 
         @include img-container(110px, 100%);
-        
-        input[type=file] {
-            opacity: 0;
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        .file-drop-area {
-            position: relative;
-            padding: 1em;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1em;
-
-            height: 200px;
-            border: 2px dashed var(--border-color);
-            border-radius: 3px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            transition: all 0.2s ease;
-
-            &:hover {
-                background-color: var(--panel-color);
-            }
-
-            .no-file-yet {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5em;
-                text-align: center;
-
-                span {
-                    font-size: .8em;
-                }
-            }
-
-            .has-file {
-                display: flex;
-                align-items: center;
-                gap: 1em;
-                display: none;
-
-                .fake-btn {
-                    background-color: var(--panel-color);
-                    border: 2px solid var(--border-color);
-                    border-radius: 3px;
-                    padding: 8px 15px;
-                    margin-right: 10px;
-                    font-size: 12px;
-                    font-weight: bold;
-                    text-align: center;
-                    text-transform: uppercase;
-                }
-
-                .file-msg {
-                    font-size: smaller;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            }
-        }
     }
 
     .card.personal-info {
@@ -758,17 +789,34 @@ body {
     }
 }
 
+.dash-cards.home {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, auto));
+    grid-auto-rows: minmax(auto, auto);
+    gap: 1em;
+}
+
 //DASHBOARD FOR INTERN AND ADMIN
 .dash-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
     grid-auto-rows: minmax(auto, auto);
     gap: 1em;
+
+    a {
+        color: unset
+    }
 
     .card {
         @include card;
         gap: 0;
         overflow: hidden;
+        transition: all 0.4s ease;
+        height: 100%;
+        
+        &:hover {
+            transform: scale(1.025);
+        }
         
         :nth-child(1) {
             font-size: 18px;
@@ -821,6 +869,22 @@ body {
 */
 
 @media screen and (max-width: 448px) {
+    #modalBG {
+        padding: 0;
+    }
+
+    .modal {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 0px;
+        overflow-y: auto;
+
+        .h-wrapper {
+            display: grid;
+        }
+    }
+
     .content {
         .dash-cards {
             grid-template-columns: auto auto;
@@ -838,18 +902,19 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    .file-drop-area {
+        
+        .has-file {
+            flex-direction: column;
+        }
+    }
+
     .card.settings { 
         display: flex;
         flex-direction: column;
 
         .card.profile-pic {
 
-            .file-drop-area {
-                
-                .has-file {
-                    flex-direction: column;
-                }
-            }
         }
     }
 

@@ -61,14 +61,19 @@ request.onreadystatechange = function(response) {
 document.addEventListener('DOMContentLoaded', function() {
 	// Get references to modal elements
 	var openModal = document.getElementById("openModal");
+	var modalItself = document.querySelector(".modal");
 	var modal = document.getElementById("modalBG");
 	var exitModal = document.getElementById("exitModal");
 
 	openModal.addEventListener("click", function () {
-		modal.style.display = "flex";
+		modal.classList.add('show');
+		modalItself.classList.add('show');
+		document.body.style.overflow = 'hidden';
 	});
 
 	exitModal.addEventListener("click", function () {
-		modal.style.display = "none";
+		modal.classList.remove('show');
+		modalItself.classList.remove('show');
+		document.body.style.overflow = '';
 	});
 });

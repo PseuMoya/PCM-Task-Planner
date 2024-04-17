@@ -112,17 +112,20 @@ if (isset($_POST['add_new_employee'])) {
         ?>
 
         <div class="content">
-            <h1>Administration</h1>
-                
+            <div class="content-title">
+                <h1>Administration</h1>
+                <p>Manage the information given by interns.</p>
+            </div>
+            
             <!-- <div class="btnSection">
                 <?php if ($user_role == 1) { ?>
                     <div class="btn-group">
                         <button id="openModal"><i class="ri-user-add-line"></i>Add New Employee</button>
                     </div>
-                <?php } ?>
-            </div> -->
-            
-            <?php
+                    <?php } ?>
+                </div> -->
+                
+                <?php
             // Fetch distinct positions from the database, excluding the Super Admin position
             $positions_sql = "SELECT DISTINCT position FROM tbl_admin WHERE position != 'Super Admin'";
             $positions_result = $obj_admin->db->prepare($positions_sql);
@@ -151,11 +154,9 @@ if (isset($_POST['add_new_employee'])) {
                 <?php if ($user_role == 1) { ?>
                     <button id="openModal"><i class="ri-user-add-line"></i>New Employee</button>
                 <?php } ?>
-                
             </div>
 
-            
-
+            <span class="on-phone">Tip: Scroll right to see more information.</span>
 
             <div class="card with-table">
                 <div class="table-container">
@@ -163,13 +164,13 @@ if (isset($_POST['add_new_employee'])) {
                         <thead>
                             <tr>
                                 <th>Serial No.</th>
-                                <th>Profile Image</th>
+                                <th>PFP</th>
                                 <th>Fullname</th>
                                 <th>Email</th>
                                 <th>Username</th>
                                 <th>Department</th>
                                 <th>Temp Password</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

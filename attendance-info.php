@@ -52,7 +52,10 @@ include("include/lib_links.php");
         ?>
 
         <div class="content">
-            <h1>Intern List</h1>
+            <div class="content-title">
+                <h1>Intern List</h1>
+                <p>See if interns have tasks at hand.</p>
+            </div>
 
             <div class="btnSection">
             <div class="search-bar">
@@ -69,6 +72,8 @@ include("include/lib_links.php");
                     <button type="submit" class="btn btn-primary"><i class="ri-filter-2-line"></i>Filter</button>
                 </form>
             </div>
+
+            <span class=on-phone>Tip: Scroll right to see more information.</span>
 
             <div class="card with-table">
                 <div class="table-container">

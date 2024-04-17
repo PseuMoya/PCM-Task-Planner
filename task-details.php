@@ -33,12 +33,18 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
+<head>
+	<title>Task Details</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <!--modal for employee add-->
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-<div id="modalBG" style="display: grid; place-items:center">
-	<div class="modal">
+<div id="modalBG" style="visibility: visible; opacity: 1; transition: none">
+	<div class="modal" style="visibility: visible; opacity: 1; transform: scale(1.0); transition: none">
 		<div class="modalTitle">
 			<h2>Task details</h2>
 		</div>
@@ -82,8 +88,20 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				echo "<div class='status-indicator pending'>Pending</div>";
 			} ?>
 		</div>
+
+		<div class="v-wrapper">
+			<!-- TODO: preview image of what the user has sent -->
+			<label>Attached proof</label>
+			<?php if (!empty($row['proof'])) { ?>
+				<div class="img-container">
+					<img src="<?php echo $row['proof']; ?>" alt="">
+				</div>
+			<?php } else { ?>
+				<div class="no-proof"><i class="ri-close-line"></i>No Proof</div>
+			<?php } ?>
+		</div>
 		<div class="btnSection">
-			<button onclick="window.history.back();">Go back</button>
+			<button onclick="window.history.back();">Back</button>
 		</div>
 	</div>
 	<?php
