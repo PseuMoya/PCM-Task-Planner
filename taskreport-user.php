@@ -107,18 +107,16 @@ include("include/lib_links.php");
 
             <div class="btnSection">
 
-                <select name="status" id="status" required>
-                            <option value="">Select status</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Failed to submit">Failed to submit</option>
-                            <option value="In progress">In progress</option>
-                            <option value="Completed">Completed</option>
-                </select>
                 <?php if($user_role == 2){ ?>
                     <div class="btnSection">
-                        <div class="btn-group">
+                        <select name="status" id="status" required>
+                                    <option value="">Select status</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Failed to submit">Failed to submit</option>
+                                    <option value="In progress">In progress</option>
+                                    <option value="Completed">Completed</option>
+                        </select>
                         <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
-                        </div>
                     </div>
                 <?php } ?>
             </div>

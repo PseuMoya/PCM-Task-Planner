@@ -143,22 +143,29 @@ include("include/lib_links.php");
                 <h1>Reports</h1>
                 <p>Oversee each intern's task. You may assign a task to an intern, or to all of them.</p>
             </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search..." name="search" id="search">
-            </div>
-            <select name="status" id="status" required>
-                <option value="">Select status</option>
-                <option value="Pending">Pending</option>
-                <option value="Failed to submit">Failed to submit</option>
-                <option value="In progress">In progress</option>
-                <option value="Completed">Completed</option>
-            </select>
             
-            <?php if($user_role == 1){ ?>
-                <div class="btnSection">
-                    <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
+            <div class="btnSection">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search name..." name="search" id="search">
                 </div>
-            <?php } ?>
+
+                <div class="btnSection">
+
+                    <div class="h-wrapper">
+                        <select name="status" id="status" required>
+                            <option value="">Select status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Failed to submit">Failed to submit</option>
+                            <option value="In progress">In progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                        <?php if($user_role == 1){ ?>
+                            <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
 
             <span class="on-phone">Tip: Scroll right to see more information.</span>
             

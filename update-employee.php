@@ -39,9 +39,15 @@ include("include/lib_links.php");
 
 ?>
 
-<div id="modalBG" style="display: grid; place-items:center">
+<head>
+    <title>Update Employee</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<div id="modalBG" style="visibility: visible; opacity: 1; transition: none; gap: 1em;">
     <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
-        <div class="modal">
+    <div class="modal" style="visibility: visible; opacity: 1; transform: scale(1.0); transition: none">
             <div class="modalTitle">
                 <h2>Edit Intern</h2>
             </div>
@@ -63,7 +69,21 @@ include("include/lib_links.php");
 
             <div class="v-wrapper">
                 <label class="control-label col-sm-2">Profile Image</label>
-                <input type="file" name="profileimg" class="form-control file-input">
+                <div class="file-drop-area" style="height: 150px;">
+		
+                    <div class="no-file-yet">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"/><path d="m14 19.5 3-3 3 3"/><path d="M17 22v-5.5"/><circle cx="9" cy="9" r="2"/></svg>
+                        <p><b>Click to upload</b> or drag and drop</p>
+                        <span>JPG, PNG</span>
+                    </div>
+
+                    <div class="has-file">
+                        <span class="fake-btn">Choose another file</span>
+                        <span class="file-msg"></span>
+                    </div>
+
+                    <input class="file-input" type="file" name="profileimg">
+                </div>
             </div>
 
 
@@ -85,8 +105,9 @@ include("include/lib_links.php");
             </div>
         </div>
     </form>
+
     <form action="" method="POST" id="employee_pass_cng">
-        <div class="modal">
+    <div class="modal" style="visibility: visible; opacity: 1; transform: scale(1.0); transition: none">
             <div class="modalTitle">
                 <h2>Password</h2>
             </div>
@@ -101,6 +122,7 @@ include("include/lib_links.php");
             </div>
         </div>
     </form>
+    
 </div>
 
 
@@ -120,10 +142,10 @@ include("include/footer.php");
 
 <script>
     document.querySelector('.file-input').addEventListener('change', function(e) {
-        var file = this.files[0]; 
+        var file = this.files[0];
         var fileType = file["type"];
         var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-        if (!validImageTypes.includes(fileType)) { 
+        if (!validImageTypes.includes(fileType)) {
             swal('Invalid file type', 'Please upload a PNG or JPG image.', 'error');
             this.value = '';
         }

@@ -58,9 +58,10 @@ include("include/lib_links.php");
             </div>
 
             <div class="btnSection">
-            <div class="search-bar">
-                        <input type="text" placeholder="Search..." name="search" id="search">
-                    </div>
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search name..." name="search" id="search">
+                </div>
                 <!-- Position filter dropdown -->
                 <form method="get" role="form" action="">
                     <select name="position" class="form-control">

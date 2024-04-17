@@ -140,7 +140,8 @@ if (isset($_POST['add_new_employee'])) {
             <!-- Position filter dropdown -->
             <div class="btnSection">
                     <div class="search-bar">
-                        <input type="text" placeholder="Search..." name="search" id="search">
+                        <i class="ri-search-line"></i>
+                        <input type="text" placeholder="Search name..." name="search" id="search">
                     </div>
                 <form method="get" role="form" action="">
                     <select name="position" class="form-control">

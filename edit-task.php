@@ -101,51 +101,66 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 
 				</select>
 			</div>
-			
-			<div class="v-wrapper">
-				<label>Proof Image</label>
-				<?php if ($user_role != 1) { ?>
-					<?php if (!empty($row['proof'])) { ?>
+
+			<label>Proof Image</label>
+			<?php if ($user_role != 1) { ?>
+				<div class="v-wrapper">
 						<div class="img-container">
+						<?php if (!empty($row['proof'])) { ?>
 							<img src="<?php echo $row['proof']; ?>" alt="">
+					</div>
+					<div class="file-drop-area" style="height: 150px;">
+
+						<div class="no-file-yet">
+							<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
+								<path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+								<path d="m14 19.5 3-3 3 3" />
+								<path d="M17 22v-5.5" />
+								<circle cx="9" cy="9" r="2" />
+							</svg>
+							<p><b>Wrong upload?</b> Don't worry.</p>
+							<span>You can try again. Make sure it's a JPG or a PNG</span>
 						</div>
-						<div class="file-drop-area" style="height: 150px;">
-		
-							<div class="no-file-yet">
-								<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"/><path d="m14 19.5 3-3 3 3"/><path d="M17 22v-5.5"/><circle cx="9" cy="9" r="2"/></svg>
-								<p><b>Wrong upload?</b> Don't worry.</p>
-								<span>You can try again. Make sure it's a JPG or a PNG</span>
-							</div>
-		
-							<div class="has-file">
-								<span class="fake-btn">Choose another file</span>
-								<span class="file-msg"></span>
-							</div>
-		
-							<input class="file-input" type="file" name="proof">
+
+						<div class="has-file">
+							<span class="fake-btn">Choose another file</span>
+							<span class="file-msg"></span>
 						</div>
+
+						<input class="file-input" type="file" name="proof">
+					</div>
 					<?php } else { ?>
 						<div class="file-drop-area" style="height: 150px;">
-		
+
 							<div class="no-file-yet">
-								<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"/><path d="m14 19.5 3-3 3 3"/><path d="M17 22v-5.5"/><circle cx="9" cy="9" r="2"/></svg>
+								<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
+									<path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+									<path d="m14 19.5 3-3 3 3" />
+									<path d="M17 22v-5.5" />
+									<circle cx="9" cy="9" r="2" />
+								</svg>
 								<p><b>Click to upload</b> or drag and drop</p>
 								<span>JPG, PNG</span>
 							</div>
-		
+
 							<div class="has-file">
 								<span class="fake-btn">Choose another file</span>
 								<span class="file-msg"></span>
 							</div>
-		
+
 							<input class="file-input" type="file" name="proof">
 						</div>
-					<?php } ?>
-			</div>
+				<?php } ?>
+				</div>
+			<?php } else {?>
+				<?php if (!empty($row['proof'])) { ?>
+					<div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div>
+				<?php } ?>
 			<?php } ?>
 
 			<?php
-			function redirect_based_on_role($user_role) {
+			function redirect_based_on_role($user_role)
+			{
 				if ($user_role != 1) {
 					header('Location: taskreport-user');
 				} elseif ($user_role != 2) {
@@ -207,32 +222,32 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 </script>
 
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        var fileInput = document.querySelector('.file-input');
-        var droparea = document.querySelector('.file-drop-area');
-        var fileMsg = document.querySelector('.file-msg');
+	document.addEventListener('DOMContentLoaded', function() {
+		var fileInput = document.querySelector('.file-input');
+		var droparea = document.querySelector('.file-drop-area');
+		var fileMsg = document.querySelector('.file-msg');
 
-        var noFile = document.querySelector('.no-file-yet');
-        var hasFile = document.querySelector('.has-file');
+		var noFile = document.querySelector('.no-file-yet');
+		var hasFile = document.querySelector('.has-file');
 
-        fileInput.addEventListener('change', function() {
-            var filesCount = this.files.length;
+		fileInput.addEventListener('change', function() {
+			var filesCount = this.files.length;
 
-            if (filesCount === 1) {
-                var fileName = this.files[0].name;
-                fileMsg.textContent = fileName;
-                hasFile.style.display = 'flex';
-                noFile.style.display = 'none';
+			if (filesCount === 1) {
+				var fileName = this.files[0].name;
+				fileMsg.textContent = fileName;
+				hasFile.style.display = 'flex';
+				noFile.style.display = 'none';
 
-                // // Read the uploaded image file and set it as the image source
-                // var reader = new FileReader();
-                // reader.onload = function(event) {
-                //     uploadedImage.src = event.target.result;
-                // };
-                // reader.readAsDataURL(this.files[0]);
-            }
-        });
-    });
+				// // Read the uploaded image file and set it as the image source
+				// var reader = new FileReader();
+				// reader.onload = function(event) {
+				//     uploadedImage.src = event.target.result;
+				// };
+				// reader.readAsDataURL(this.files[0]);
+			}
+		});
+	});
 </script>
 
 <!-- FOR FILE VALIDATION -->
@@ -240,13 +255,13 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
-    document.querySelector('.file-input').addEventListener('change', function(e) {
-        var file = this.files[0]; 
-        var fileType = file["type"];
-        var validImageTypes = ["image/jpeg", "image/png"];
-        if (!validImageTypes.includes(fileType)) { 
-            swal('Invalid file type', 'Please upload a PNG or a JPG image.', 'error');
-            this.value = '';
-        }
-    });
+	document.querySelector('.file-input').addEventListener('change', function(e) {
+		var file = this.files[0];
+		var fileType = file["type"];
+		var validImageTypes = ["image/jpeg", "image/png"];
+		if (!validImageTypes.includes(fileType)) {
+			swal('Invalid file type', 'Please upload a PNG or a JPG image.', 'error');
+			this.value = '';
+		}
+	});
 </script>

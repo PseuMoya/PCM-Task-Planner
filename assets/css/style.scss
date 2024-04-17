@@ -58,6 +58,17 @@
     }
 }
 
+.h-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.v-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 :root {
     --main-bg-color: #F9F8FF;
     --panel-color: #FFFFFF;
@@ -236,9 +247,37 @@ body {
     .btnSection{
         @include btnSection;
 
+        .search-bar {
+            @include h-wrapper;
+            align-items: center;
+            padding-left: 0.75em;
+            border-radius: 10px;
+            font-family: var(--primary-font);
+            background-color: #FAFAFA;
+            border: 2px solid var(--border-color);
+            
+            i {
+                color: var(--accent-color);
+            }
+            
+            input {
+                @include button;
+                cursor: text;
+                background: none;
+                border: none;
+            }
+        }
+
+        select {
+            @include button;
+            font-family: var(--primary-font);
+            border: 2px solid var(--border-color);
+            background-color: #FAFAFA;
+        }
+
         form {
             @include btnSection;
-            width: auto;
+            width: 100%;
             
             select {
                 @include button;
@@ -592,6 +631,7 @@ span.on-phone {
     
     input, textarea, select{
         font-family: var(--primary-font);
+        width: 100%;
         padding: 10px;
         border-radius: 3px;
         color: var(--text-color);
@@ -871,6 +911,9 @@ input[type=file] {
 @media screen and (max-width: 448px) {
     #modalBG {
         padding: 0;
+        flex-direction: column;
+        justify-content: unset;
+        gap: 0 !important;
     }
 
     .modal {
@@ -983,6 +1026,14 @@ input[type=file] {
 
         .dash-cards.home{
             grid-template-columns: unset;
+        }
+
+        .btnSection {
+            @include v-wrapper;
+
+            select {
+                width: 100%;
+            }
         }
     }
 
