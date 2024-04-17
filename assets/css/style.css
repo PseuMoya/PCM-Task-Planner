@@ -944,7 +944,7 @@ input[type=file] {
     gap: 0 !important;
   }
   .modal {
-    width: 100%;
+    width: 100% !important;
     height: 100%;
     border: none;
     border-radius: 0px;

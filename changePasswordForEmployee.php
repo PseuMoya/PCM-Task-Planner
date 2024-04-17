@@ -31,8 +31,8 @@ include("include/lib_links.php");
 
 <body>
 	<form action="" method="POST">
-		<div id="modalBG" style="display: grid; place-items:center; background:none">
-			<div class="modal" style="max-width: 450px;">
+		<div id="modalBG" style="visibility: visible; opacity: 1; transition: none; place-items: center;">
+		<div class="modal" style="visibility: visible; opacity: 1; transform: scale(1.0); transition: none; width: 50%; justify-content: center;">
 				<?php if (isset($info)) { ?>
 					<span class="status-indicator incomplete"><?php echo $info; ?></span>
 				<?php } ?>
