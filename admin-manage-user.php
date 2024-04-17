@@ -92,8 +92,27 @@ if (isset($_POST['add_new_employee'])) {
                 </div>
 
                 <div class="v-wrapper">
-                    <label for="profileimg">Profile Image</label>
-                    <input type="file" name="profileimg" class="form-control file-input">
+                    <label for="profileimg">Profile Image (optional)</label>
+                    <div class="file-drop-area">
+
+                        <div class="no-file-yet">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
+                                <path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+                                <path d="m14 19.5 3-3 3 3" />
+                                <path d="M17 22v-5.5" />
+                                <circle cx="9" cy="9" r="2" />
+                            </svg>
+                            <p><b>Click to upload</b> or drag and drop</p>
+                            <span>JPG, PNG or GIF (Recommended ratio 1:1)</span>
+                        </div>
+
+                        <div class="has-file">
+                            <span class="fake-btn">Choose another file</span>
+                            <span class="file-msg"></span>
+                        </div>
+
+                        <input class="file-input" type="file" name="profileimg">
+                    </div>
                 </div>
 
                 <div class="btnSection">
@@ -116,7 +135,7 @@ if (isset($_POST['add_new_employee'])) {
                 <h1>Administration</h1>
                 <p>Manage the information given by interns.</p>
             </div>
-            
+
             <!-- <div class="btnSection">
                 <?php if ($user_role == 1) { ?>
                     <div class="btn-group">
@@ -124,8 +143,8 @@ if (isset($_POST['add_new_employee'])) {
                     </div>
                     <?php } ?>
                 </div> -->
-                
-                <?php
+
+            <?php
             // Fetch distinct positions from the database, excluding the Super Admin position
             $positions_sql = "SELECT DISTINCT position FROM tbl_admin WHERE position != 'Super Admin'";
             $positions_result = $obj_admin->db->prepare($positions_sql);
@@ -139,10 +158,10 @@ if (isset($_POST['add_new_employee'])) {
 
             <!-- Position filter dropdown -->
             <div class="btnSection">
-                    <div class="search-bar">
-                        <i class="ri-search-line"></i>
-                        <input type="text" placeholder="Search name..." name="search" id="search">
-                    </div>
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search name..." name="search" id="search">
+                </div>
                 <form method="get" role="form" action="">
                     <select name="position" class="form-control">
                         <option value="">All Positions</option>
@@ -188,7 +207,7 @@ if (isset($_POST['add_new_employee'])) {
                                 $info->bindParam(':position', $selected_position);
                             }
                             $info->execute();
-                            
+
                             // Display these records in the HTML table
                             $serial  = 1;
                             $num_row = $info->rowCount();
@@ -206,14 +225,19 @@ if (isset($_POST['add_new_employee'])) {
                             while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
                             ?>
                                 <tr>
-                                    <td><?php echo $serial; $serial++; ?></td>
-                                    <td><div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div></td>                                    
+                                    <td><?php echo $serial;
+                                        $serial++; ?></td>
+                                    <td>
+                                        <div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div>
+                                    </td>
                                     <td><?php echo $row['fullname']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['username']; ?></td>
                                     <td><?php echo $row['position']; ?></td>
-                                    <td><div class="temp-pass"><?php echo $row['temp_password']; ?></div></td>
-                            
+                                    <td>
+                                        <div class="temp-pass"><?php echo $row['temp_password']; ?></div>
+                                    </td>
+
                                     <td>
                                         <div class="actions">
                                             <a title="Update Employee" href="update-employee?admin_id=<?php echo $row['user_id']; ?>"><i class="ri-folder-open-fill"></i></a>
@@ -247,35 +271,58 @@ include("include/footer.php");
 
 <script>
     document.querySelector('.file-input').addEventListener('change', function(e) {
-        var file = this.files[0]; 
+        var file = this.files[0];
         var fileType = file["type"];
         var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-        if (!validImageTypes.includes(fileType)) { 
+        if (!validImageTypes.includes(fileType)) {
             swal('Invalid file type', 'Please upload a PNG or JPG image.', 'error');
             this.value = '';
         }
     });
 
     var searchInput = document.getElementById('search');
-    searchInput.addEventListener("input", function(){
+    searchInput.addEventListener("input", function() {
         filterTableBySearch(this.value);
     });
-    function filterTableBySearch (searchText) {
+
+    function filterTableBySearch(searchText) {
         var table = document.getElementById('internTable');
         var rows = table.getElementsByTagName('tr');
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
             var internNameCell = row.getElementsByTagName('td')[2];
-            if(internNameCell){
+            if (internNameCell) {
                 var internName = internNameCell.textContent || internNameCell.innerText;
                 if (internName.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
-                            row.style.display = "";
-                        } else {
-                            row.style.display = "none";
-                        }
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
             }
 
-           
+
         }
     }
+</script>
+
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		var fileInput = document.querySelector('.file-input');
+		var droparea = document.querySelector('.file-drop-area');
+		var fileMsg = document.querySelector('.file-msg');
+
+		var noFile = document.querySelector('.no-file-yet');
+		var hasFile = document.querySelector('.has-file');
+
+		fileInput.addEventListener('change', function() {
+			var filesCount = this.files.length;
+
+			if (filesCount === 1) {
+				var fileName = this.files[0].name;
+				fileMsg.textContent = fileName;
+				hasFile.style.display = 'flex';
+				noFile.style.display = 'none';
+			}
+		});
+	});
 </script>

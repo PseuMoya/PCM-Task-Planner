@@ -238,13 +238,6 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				fileMsg.textContent = fileName;
 				hasFile.style.display = 'flex';
 				noFile.style.display = 'none';
-
-				// // Read the uploaded image file and set it as the image source
-				// var reader = new FileReader();
-				// reader.onload = function(event) {
-				//     uploadedImage.src = event.target.result;
-				// };
-				// reader.readAsDataURL(this.files[0]);
 			}
 		});
 	});
