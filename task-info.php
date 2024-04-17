@@ -143,7 +143,6 @@ include("include/lib_links.php");
             <div class="search-bar">
                         <input type="text" placeholder="Search..." name="search" id="search">
                     </div>
-
                     <select name="status" id="status" required>
                         <option value="">Select status</option>
                         <option value="Pending">Pending</option>
@@ -270,7 +269,7 @@ include("include/lib_links.php");
         enableTime: true,
         minTime: "9:00",
         maxTime: "18:00",
-        // defaultDate: currentDate,
+        defaultDate: currentDate,
         time_24hr: false,
         minDate: currentDate // disable past dates
     });
@@ -279,7 +278,7 @@ include("include/lib_links.php");
         enableTime: true,
         minTime: "9:00",
         maxTime: "18:00",
-        // defaultDate: currentDate,
+        defaultDate: currentDate,
         time_24hr: false,
         minDate: currentDate // disable past dates
     });
