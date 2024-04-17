@@ -145,17 +145,19 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			<?php } ?>
 
 			<?php
-			if (isset($_POST['update_task_info'])) {
+			function redirect_based_on_role($user_role) {
 				if ($user_role != 1) {
-					header('Location: taskreport-user.php');
-					exit();
+					header('Location: taskreport-user');
 				} elseif ($user_role != 2) {
-					header('Location: task-info.php');
-					exit();
+					header('Location: task-info');
 				} else {
-					header('Location: index.php');
-					exit();
+					header('Location: index');
 				}
+				exit();
+			}
+
+			if (isset($_POST['update_task_info']) || isset($_POST['back'])) {
+				redirect_based_on_role($user_role);
 			}
 			?>
 
@@ -163,7 +165,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				<form method="post">
 					<button type="submit" name="update_task_info">Update Now</button>
 				</form>
-				<button onclick="window.history.back();">Back</button>
+				<button name="back" onclick="window.history.back();">Back</button>
 			</div>
 
 		</div>
