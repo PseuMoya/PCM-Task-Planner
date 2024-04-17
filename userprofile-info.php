@@ -56,9 +56,10 @@ include("include/lib_links.php");
                 <div class="content-title">
                     <h1>User Profile</h1>
                     <p>Update your profile.</p>
+                    <span class="status-indicator failedtosub" style="white-space: wrap; text-align: start;"><i class="ri-error-warning-line"></i> Any usage of inappropriate or sensitive content in your profile will result you in suspension.</span>
                 </div>
-                <span class="status-indicator failedtosub">Any usage of inappropriate or sensitive content in your profile will result you in suspension.</span>
-
+                
+                
                 <div class="card settings">
                     <div class="card-title">
                         <h4>Profile Picture</h4>

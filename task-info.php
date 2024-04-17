@@ -164,7 +164,7 @@ include("include/lib_links.php");
                                 <th>End Time</th>
                                 <th>Status</th>
                                 <th>Proof Image</th>
-                                <th>Action</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

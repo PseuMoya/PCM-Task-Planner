@@ -529,14 +529,23 @@ span.on-phone {
 }
 
 #modalBG {
-  display: none;
   position: fixed;
   z-index: 9999;
   width: 100%;
   height: 100%;
+  display: flex;
   justify-content: center;
+  padding: 10px 0;
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease; /* Delay visibility change after opacity transition */
+}
+#modalBG.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1); /* Zoom in to full scale (1) */
 }
 
 .modal {
@@ -553,6 +562,16 @@ span.on-phone {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.9); /* Initial scale set to 0.8 */
+  transition: all 0.3s ease-in-out; /* Add transform transition for zoom effect */
+}
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition-delay: 0s;
 }
 .modal .modalTitle {
   display: flex;
@@ -612,6 +631,84 @@ span.on-phone {
   flex-direction: column;
   gap: 0.5rem;
 }
+.modal .img-container {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--border-color);
+  border-radius: 5px;
+  width: 150px;
+  height: 150px;
+}
+.modal .img-container img {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+input[type=file] {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.file-drop-area {
+  position: relative;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  height: 200px;
+  border: 2px dashed var(--border-color);
+  border-radius: 3px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.2s ease;
+}
+.file-drop-area:hover {
+  background-color: var(--panel-color);
+}
+.file-drop-area .no-file-yet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  text-align: center;
+}
+.file-drop-area .no-file-yet span {
+  font-size: 0.8em;
+}
+.file-drop-area .has-file {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  display: none;
+}
+.file-drop-area .has-file .fake-btn {
+  background-color: var(--panel-color);
+  border: 2px solid var(--border-color);
+  border-radius: 3px;
+  padding: 8px 15px;
+  margin-right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+.file-drop-area .has-file .file-msg {
+  font-size: smaller;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .card.settings {
   display: grid;
@@ -662,67 +759,6 @@ span.on-phone {
   width: 100%;
   height: 100%;
 }
-.card.settings .card.profile-pic input[type=file] {
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  cursor: pointer;
-}
-.card.settings .card.profile-pic .file-drop-area {
-  position: relative;
-  padding: 1em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1em;
-  height: 200px;
-  border: 2px dashed var(--border-color);
-  border-radius: 3px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  transition: all 0.2s ease;
-}
-.card.settings .card.profile-pic .file-drop-area:hover {
-  background-color: var(--panel-color);
-}
-.card.settings .card.profile-pic .file-drop-area .no-file-yet {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em;
-  text-align: center;
-}
-.card.settings .card.profile-pic .file-drop-area .no-file-yet span {
-  font-size: 0.8em;
-}
-.card.settings .card.profile-pic .file-drop-area .has-file {
-  display: flex;
-  align-items: center;
-  gap: 1em;
-  display: none;
-}
-.card.settings .card.profile-pic .file-drop-area .has-file .fake-btn {
-  background-color: var(--panel-color);
-  border: 2px solid var(--border-color);
-  border-radius: 3px;
-  padding: 8px 15px;
-  margin-right: 10px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-}
-.card.settings .card.profile-pic .file-drop-area .has-file .file-msg {
-  font-size: smaller;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .card.settings .card.personal-info {
   display: flex;
   flex-direction: column;
@@ -771,9 +807,16 @@ span.on-phone {
   font-weight: bold;
 }
 
+.dash-cards.home {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, auto));
+  grid-auto-rows: minmax(auto, auto);
+  gap: 1em;
+}
+
 .dash-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
   grid-auto-rows: minmax(auto, auto);
   gap: 1em;
 }
@@ -790,9 +833,10 @@ span.on-phone {
   gap: 0;
   overflow: hidden;
   transition: all 0.4s ease;
+  height: 100%;
 }
 .dash-cards .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.025);
 }
 .dash-cards .card :nth-child(1) {
   font-size: 18px;
@@ -844,6 +888,19 @@ span.on-phone {
 ?#####################################
 */
 @media screen and (max-width: 448px) {
+  #modalBG {
+    padding: 0;
+  }
+  .modal {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0px;
+    overflow-y: auto;
+  }
+  .modal .h-wrapper {
+    display: grid;
+  }
   .content .dash-cards {
     grid-template-columns: auto auto;
   }
@@ -854,11 +911,11 @@ span.on-phone {
   }
 }
 @media screen and (max-width: 768px) {
-  .card.settings {
-    display: flex;
+  .file-drop-area .has-file {
     flex-direction: column;
   }
-  .card.settings .card.profile-pic .file-drop-area .has-file {
+  .card.settings {
+    display: flex;
     flex-direction: column;
   }
   .on-phone {

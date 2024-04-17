@@ -167,7 +167,7 @@ if (isset($_POST['add_new_employee'])) {
                                 <th>Username</th>
                                 <th>Department</th>
                                 <th>Temp Password</th>
-                                <th>Actions</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
