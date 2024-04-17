@@ -49,9 +49,9 @@ include("include/lib_links.php");
 </head>
 
 <style>
-    a{
+    a {
         text-decoration: none;
-        color:#56555c;
+        color: #56555c;
     }
 </style>
 
@@ -65,7 +65,7 @@ include("include/lib_links.php");
             <h1>Dashboard</h1>
 
             <div class="dash-cards">
-                
+
                 <a href="attendance-info?position=IT+Department">
                     <div class="card">
                         <p>IT Department</p>
@@ -80,7 +80,7 @@ include("include/lib_links.php");
                         <i class="ri-macbook-line"></i>
                     </div>
                 </a>
-               
+
 
                 <a href="attendance-info?position=HR+Department">
                     <div class="card">
@@ -133,27 +133,27 @@ include("include/lib_links.php");
                 <div class="table-container">
                     <table>
                         <thead>
-                        <tr>
-                            <th>Serial No.</th>
-                            <th>Interns</th>
-                            <th>Task</th>
-                        </tr>
+                            <tr>
+                                <th>Serial No.</th>
+                                <th>Interns</th>
+                                <th>Task</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <?php
-                                $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
+                            $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
                                 FROM task_info
                                 JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
                                 WHERE task_info.status = 1
                                 LIMIT 6;
                                 ";
-                                $info = $obj_admin->manage_all_info($sql);
+                            $info = $obj_admin->manage_all_info($sql);
 
-                                $serial  = 1;
+                            $serial  = 1;
 
-                                $num_row = $info->rowCount();
-                                if ($num_row == 0) {
-                                    echo '<tr>
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '<tr>
                                         <div class="data-not-found">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                                             <span>No data found</span>
@@ -161,10 +161,10 @@ include("include/lib_links.php");
                                     </tr>
                                 
                                 <style>.card#ongoing .table-container table {display:none;}</style>';
-                                }
-                            
-                                while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($serial > 5) break;
+                            }
+
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                                if ($serial > 5) break;
                             ?>
                                 <tr>
                                     <td><?php echo $serial;
@@ -177,7 +177,7 @@ include("include/lib_links.php");
                     </table>
                     <?php if ($num_row > 5) { ?>
                         <div class="btnSection">
-                            <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                            <a href="task-info?status=In progress">See more <i class="ri-arrow-right-line"></i></a>
                         </div>
                     <?php } ?>
                 </div>
@@ -188,27 +188,27 @@ include("include/lib_links.php");
                 <div class="table-container">
                     <table>
                         <thead>
-                        <tr>
-                            <th>Serial No.</th>
-                            <th>Interns</th>
-                            <th>Task</th>
-                        </tr>
+                            <tr>
+                                <th>Serial No.</th>
+                                <th>Interns</th>
+                                <th>Task</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <?php
-                                $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
+                            $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
                                 FROM task_info
                                 JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
                                 WHERE task_info.status = 0
                                 LIMIT 6;
                                 ";
-                                $info = $obj_admin->manage_all_info($sql);
+                            $info = $obj_admin->manage_all_info($sql);
 
-                                $serial  = 1;
+                            $serial  = 1;
 
-                                $num_row = $info->rowCount();
-                                if ($num_row == 0) {
-                                    echo '<tr>
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '<tr>
                                         <div class="data-not-found">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                                             <span>No data found</span>
@@ -216,10 +216,10 @@ include("include/lib_links.php");
                                     </tr>
                                 
                                 <style>.card#pending .table-container table {display:none;}</style>';
-                                }
-                            
-                                while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($serial > 5) break;
+                            }
+
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                                if ($serial > 5) break;
                             ?>
                                 <tr>
                                     <td><?php echo $serial;
@@ -233,7 +233,7 @@ include("include/lib_links.php");
                 </div>
                 <?php if ($num_row > 5) { ?>
                     <div class="btnSection">
-                        <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                        <a href="task-info?status=Pending">See more <i class="ri-arrow-right-line"></i></a>
                     </div>
                 <?php } ?>
             </div>
@@ -243,27 +243,27 @@ include("include/lib_links.php");
                 <div class="table-container">
                     <table>
                         <thead>
-                        <tr>
-                            <th>Serial No.</th>
-                            <th>Interns</th>
-                            <th>Task</th>
-                        </tr>
+                            <tr>
+                                <th>Serial No.</th>
+                                <th>Interns</th>
+                                <th>Task</th>
+                            </tr>
                         </thead>
                         <tbody>
                             <?php
-                                $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
+                            $sql = "SELECT task_info.*, tbl_admin.user_id, tbl_admin.fullname
                                 FROM task_info
                                 JOIN tbl_admin ON task_info.t_user_id = tbl_admin.user_id
                                 WHERE task_info.status = 2
                                 LIMIT 6;
                                 ";
-                                $info = $obj_admin->manage_all_info($sql);
+                            $info = $obj_admin->manage_all_info($sql);
 
-                                $serial  = 1;
+                            $serial  = 1;
 
-                                $num_row = $info->rowCount();
-                                if ($num_row == 0) {
-                                    echo '<tr>
+                            $num_row = $info->rowCount();
+                            if ($num_row == 0) {
+                                echo '<tr>
                                         <div class="data-not-found">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-x"><path d="m13.5 8.5-5 5"/><path d="m8.5 8.5 5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                                             <span>No data found</span>
@@ -271,10 +271,10 @@ include("include/lib_links.php");
                                     </tr>
                                 
                                 <style>.card#completed .table-container table {display:none;}</style>';
-                                }
-                            
-                                while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
-                                    if ($serial > 5) break;
+                            }
+
+                            while ($row = $info->fetch(PDO::FETCH_ASSOC)) {
+                                if ($serial > 5) break;
                             ?>
                                 <tr>
                                     <td><?php echo $serial;
@@ -287,7 +287,7 @@ include("include/lib_links.php");
                     </table>
                     <?php if ($num_row > 5) { ?>
                         <div class="btnSection">
-                            <a href="task-info">See more <i class="ri-arrow-right-line"></i></a>
+                            <a href="task-info?status=Completed">See more <i class="ri-arrow-right-line"></i></a>
                         </div>
                     <?php } ?>
                 </div>
