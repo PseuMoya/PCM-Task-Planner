@@ -61,13 +61,18 @@ include("include/lib_links.php");
                     </div>
                     <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
                         <div class="card profile-pic">
-                            
+
                             <div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div>
-                            
+
                             <div class="file-drop-area">
 
                                 <div class="no-file-yet">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"/><path d="m14 19.5 3-3 3 3"/><path d="M17 22v-5.5"/><circle cx="9" cy="9" r="2"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
+                                        <path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+                                        <path d="m14 19.5 3-3 3 3" />
+                                        <path d="M17 22v-5.5" />
+                                        <circle cx="9" cy="9" r="2" />
+                                    </svg>
                                     <p><b>Click to upload</b> or drag and drop</p>
                                     <span>JPG, PNG or GIF (Recommended ratio 1:1)</span>
                                 </div>
@@ -140,7 +145,7 @@ include("include/lib_links.php");
                                 </select>
                                 <span>Change your department. Only do this with your supervisor's permission.</span>
                             </div>
-                            
+
                             <div class="btnSection">
                                 <button type="submit" name="update_current_employee">Save changes</button>
                             </div>
@@ -162,12 +167,12 @@ include("include/lib_links.php");
 
                             <div class="v-wrapper">
                                 <label for="new_employee_password">New Password:</label>
-                                <input type="password" name="new_employee_password" class="form-control input-custom" id="new_employee_password" min="8" required>
+                                <input type="password" name="new_employee_password" class="form-control input-custom" id="new_employee_password" min="8" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required>
                             </div>
 
                             <div class="v-wrapper">
                                 <label for="confirm_employee_password">Confirm Password:</label>
-                                <input type="password" name="confirm_employee_password" class="form-control input-custom" id="confirm_employee_password" min="8" required>
+                                <input type="password" name="confirm_employee_password" class="form-control input-custom" id="confirm_employee_password" min="8" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required>
                             </div>
 
                             <div class="btnSection">
@@ -222,10 +227,10 @@ include("include/lib_links.php");
 
 <script>
     document.querySelector('.file-input').addEventListener('change', function(e) {
-        var file = this.files[0]; 
+        var file = this.files[0];
         var fileType = file["type"];
         var validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-        if (!validImageTypes.includes(fileType)) { 
+        if (!validImageTypes.includes(fileType)) {
             swal('Invalid file type', 'Please upload a PNG or JPG image.', 'error');
             this.value = '';
         }

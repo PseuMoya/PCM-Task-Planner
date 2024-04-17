@@ -36,16 +36,16 @@ include("include/lib_links.php");
 				<?php if (isset($info)) { ?>
 					<span class="status-indicator incomplete"><?php echo $info; ?></span>
 				<?php } ?>
-	
+
 				<div class="modalTitle">
 					<h2>Create a new password for this account</h2>
 					<span>Great! You're one step closer into acccessing your account. By going here, we assume you have been given a temporary password for this account. Please enter a new password for the temporary password to be replaced with yours.</span>
 				</div>
-	
+
 				<div class="v-wrapper">
 					<input type="hidden" class="form-control" name="user_id" value="<?php echo $user_id; ?>" required />
-					<input type="password" class="form-control" placeholder="Enter new password" name="password" required />
-					<input type="password" class="form-control" placeholder="Re-type password" name="re_password" required />
+					<input type="password" class="form-control" placeholder="Enter new password" name="password" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required />
+					<input type="password" class="form-control" placeholder="Re-type password" name="re_password" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required />
 				</div>
 				<div class="btnSection">
 					<button type="submit" name="change_password_btn" class="btn btn-default pull-right">Create password</button>
