@@ -61,12 +61,12 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			<div class="h-wrapper">
 				<div class="v-wrapper">
 					<label for="t_start_time">Start Time</label>
-					<input type="text" name="t_start_time" id="t_start_time" class="form-control" value="<?php echo $row['t_start_time']; ?>">
+					<input type="text" name="t_start_time" id="t_start_time" class="form-control" <?php if ($user_role != 1) { ?> disabled="true" <?php } ?> value="<?php echo $row['t_start_time']; ?>">
 				</div>
 
 				<div class="v-wrapper">
 					<label for="t_end_time">End Time</label>
-					<input type="text" name="t_end_time" id="t_end_time" class="form-control" value="<?php echo $row['t_end_time']; ?>">
+					<input type="text" name="t_end_time" id="t_end_time" class="form-control" <?php if ($user_role != 1) { ?> disabled="true" <?php } ?> value="<?php echo $row['t_end_time']; ?>">
 				</div>
 			</div>
 
