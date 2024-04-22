@@ -71,6 +71,11 @@ if (isset($_POST['add_new_employee'])) {
                 </div>
 
                 <div class="v-wrapper">
+                    <label for="em_school">School</label>
+                    <input type="text" placeholder="Enter school name" name="em_school" class="form-control" required>
+                </div>
+
+                <div class="v-wrapper">
                     <label for="em_username">Username</label>
                     <input type="text" placeholder="Enter employee username" name="em_username" class="form-control" required>
                 </div>
@@ -186,6 +191,7 @@ if (isset($_POST['add_new_employee'])) {
                                 <th>Serial No.</th>
                                 <th>PFP</th>
                                 <th>Fullname</th>
+                                <th>School</th>
                                 <th>Email</th>
                                 <th>Username</th>
                                 <th>Department</th>
@@ -231,6 +237,7 @@ if (isset($_POST['add_new_employee'])) {
                                         <div class="img-container"><img src="<?php echo $row['profileimg']; ?>" alt="Profile Image"></div>
                                     </td>
                                     <td><?php echo $row['fullname']; ?></td>
+                                    <td><?php echo $row['school']; ?></td>
                                     <td><?php echo $row['email']; ?></td>
                                     <td><?php echo $row['username']; ?></td>
                                     <td><?php echo $row['position']; ?></td>
@@ -306,23 +313,23 @@ include("include/footer.php");
 </script>
 
 <script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() {
-		var fileInput = document.querySelector('.file-input');
-		var droparea = document.querySelector('.file-drop-area');
-		var fileMsg = document.querySelector('.file-msg');
+    document.addEventListener('DOMContentLoaded', function() {
+        var fileInput = document.querySelector('.file-input');
+        var droparea = document.querySelector('.file-drop-area');
+        var fileMsg = document.querySelector('.file-msg');
 
-		var noFile = document.querySelector('.no-file-yet');
-		var hasFile = document.querySelector('.has-file');
+        var noFile = document.querySelector('.no-file-yet');
+        var hasFile = document.querySelector('.has-file');
 
-		fileInput.addEventListener('change', function() {
-			var filesCount = this.files.length;
+        fileInput.addEventListener('change', function() {
+            var filesCount = this.files.length;
 
-			if (filesCount === 1) {
-				var fileName = this.files[0].name;
-				fileMsg.textContent = fileName;
-				hasFile.style.display = 'flex';
-				noFile.style.display = 'none';
-			}
-		});
-	});
+            if (filesCount === 1) {
+                var fileName = this.files[0].name;
+                fileMsg.textContent = fileName;
+                hasFile.style.display = 'flex';
+                noFile.style.display = 'none';
+            }
+        });
+    });
 </script>

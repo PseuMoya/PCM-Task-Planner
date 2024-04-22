@@ -37,20 +37,20 @@ class Admin_Class
 
 	/* ---------------------- CHANGE STATUS ----------------------------------- */
 
-	public function changeStatus() 
-	{ 
+	public function changeStatus()
+	{
 		// Get the current datetime 
-		$current_datetime = new DateTime('now', new DateTimeZone('Asia/Manila')); 
-		$current_datetime_str = $current_datetime->format('Y-m-d H:i:s'); 
-		
-		$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE status IN (0, 1) AND STR_TO_DATE(t_end_time, '%Y-%m-%d %H:%i:%s') < :current_datetime"); 
-		$updatetaskstatus->bindParam(':current_datetime', $current_datetime_str); 
-		$updatetaskstatus->execute(); 
-		
-		if ($updatetaskstatus->errorCode() !== '00000') { 
-		$errorInfo = $updatetaskstatus->errorInfo(); 
-		echo "Error: " . $errorInfo[2]; 
-		} 
+		$current_datetime = new DateTime('now', new DateTimeZone('Asia/Manila'));
+		$current_datetime_str = $current_datetime->format('Y-m-d H:i:s');
+
+		$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE status IN (0, 1) AND STR_TO_DATE(t_end_time, '%Y-%m-%d %H:%i:%s') < :current_datetime");
+		$updatetaskstatus->bindParam(':current_datetime', $current_datetime_str);
+		$updatetaskstatus->execute();
+
+		if ($updatetaskstatus->errorCode() !== '00000') {
+			$errorInfo = $updatetaskstatus->errorInfo();
+			echo "Error: " . $errorInfo[2];
+		}
 	}
 
 
@@ -73,23 +73,21 @@ class Admin_Class
 				$_SESSION['user_role'] = $userRow['user_role'];
 				$_SESSION['temp_password'] = $userRow['temp_password'];
 
-				$current_datetime = new DateTime('now'); 
-				$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE status IN (0, 1) AND t_end_time < :current_datetime"); 
-				$updatetaskstatus->bindParam(':current_datetime', $current_datetime->format('Y-m-d H:i:s')); 
+				$current_datetime = new DateTime('now');
+				$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE status IN (0, 1) AND t_end_time < :current_datetime");
+				$updatetaskstatus->bindParam(':current_datetime', $current_datetime->format('Y-m-d H:i:s'));
 				$updatetaskstatus->execute();
 
-			
-				if($userRow['temp_password'] == null){
+
+				if ($userRow['temp_password'] == null) {
 					if ($userRow['user_role'] == 1) {
 						header('Location: dashboard');
 					} else {
 						header('Location: home.php');
-					}          		
-				}else{
-          			header('Location: changePasswordForEmployee.php');
-          		}
-                
-
+					}
+				} else {
+					header('Location: changePasswordForEmployee.php');
+				}
 			} else {
 				$message = 'Invalid user name or Password';
 				return $message;
@@ -147,25 +145,25 @@ class Admin_Class
 
 	/* ---------------------- user change password by admin Password Change ----------------------------------- */
 
-	public function update_userbyadmin_password($data, $id) 
-	{ 
-		$current_employee_password = $this->test_form_input_data(md5($data['employee_password'])); 
-		
-		
-		try { 
-		$update_user_password = $this->db->prepare("UPDATE tbl_admin SET password = :x WHERE user_id = :id "); 
-		
-		$update_user_password->bindparam(':x', $current_employee_password); 
-		$update_user_password->bindparam(':id', $id); 
-		
-		$update_user_password->execute(); 
-		
-		$_SESSION['update_user_pass'] = 'update_user_pass'; 
-		} catch (PDOException $e) { 
-		echo $e->getMessage(); 
-		} 
+	public function update_userbyadmin_password($data, $id)
+	{
+		$current_employee_password = $this->test_form_input_data(md5($data['employee_password']));
+
+
+		try {
+			$update_user_password = $this->db->prepare("UPDATE tbl_admin SET password = :x WHERE user_id = :id ");
+
+			$update_user_password->bindparam(':x', $current_employee_password);
+			$update_user_password->bindparam(':id', $id);
+
+			$update_user_password->execute();
+
+			$_SESSION['update_user_pass'] = 'update_user_pass';
+		} catch (PDOException $e) {
+			echo $e->getMessage();
+		}
 	}
-	
+
 
 
 	/* -------------------- Admin Logout ----------------------------------- */
@@ -188,6 +186,8 @@ class Admin_Class
 		$user_fullname  = $this->test_form_input_data($data['em_fullname']);
 		$user_username = $this->test_form_input_data($data['em_username']);
 		$user_email = $this->test_form_input_data($data['em_email']);
+
+		$user_school = $this->test_form_input_data($data['em_school']);
 		$temp_password = rand(000000001, 10000000);
 		$user_password = $this->test_form_input_data(md5($temp_password));
 		$user_role = 2;
@@ -223,8 +223,9 @@ class Admin_Class
 				$message = "Email Already Taken";
 				return $message;
 			} else {
-				$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, username, email, password, temp_password, user_role, position, profileimg) VALUES (:x, :y, :z, :a, :b, :c, :d, :e) ");
+				$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, school, username, email, password, temp_password, user_role, position, profileimg) VALUES (:x, :f, :y, :z, :a, :b, :c, :d, :e) ");
 				$add_user->bindparam(':x', $user_fullname);
+				$add_user->bindparam(':f', $user_school);
 				$add_user->bindparam(':y', $user_username);
 				$add_user->bindparam(':z', $user_email);
 				$add_user->bindparam(':a', $user_password);
@@ -340,7 +341,6 @@ class Admin_Class
 					$_SESSION['update_user_pass'] = 'update_user_pass';
 					// header('Location: userprofile-info.php');
 					echo "<script>alert('Change Password Successfully');</script>";
-
 				} catch (PDOException $e) {
 					echo $e->getMessage();
 				}
@@ -415,7 +415,7 @@ class Admin_Class
 		$task_description = $this->test_form_input_data($data['task_description']);
 		$t_start_time = $this->test_form_input_data($data['t_start_time']);
 		$t_end_time = $this->test_form_input_data($data['t_end_time']);
-		$assign_to = isset($data['assign_to'])? $data['assign_to'] : [];
+		$assign_to = isset($data['assign_to']) ? $data['assign_to'] : [];
 
 		// Process image upload
 		$target_dir = "task_image/";
@@ -428,7 +428,7 @@ class Admin_Class
 			$target_file = $default_image;
 		}
 
-		foreach ($assign_to as $intern_id){
+		foreach ($assign_to as $intern_id) {
 			try {
 				$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, t_end_time, t_user_id, task_img) VALUES (:x, :y, :z, :a, :b, :c) ");
 
@@ -460,7 +460,7 @@ class Admin_Class
 		$t_start_time = $this->test_form_input_data($data['t_start_time']);
 		$t_end_time = $this->test_form_input_data($data['t_end_time']);
 		$assign_to = $this->test_form_input_data($data['assign_to']);
-		
+
 
 		try {
 			$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, 	t_end_time, t_user_id) VALUES (:x, :y, :z, :a, :b) ");
@@ -505,11 +505,11 @@ class Admin_Class
 			$assign_to = $row['t_user_id'];
 		}
 
-		  // If no new proof image is uploaded, use the old one
+		// If no new proof image is uploaded, use the old one
 		if (empty($_FILES["proof"]["tmp_name"])) {
 			$target_file = $row['proof'];
 		}
-	
+
 		// If no new task image is uploaded, use the old one
 		if (empty($_FILES["task_img"]["tmp_name"])) {
 			$target_file1 = $row['task_img'];
@@ -519,16 +519,16 @@ class Admin_Class
 			$target_dir = "uploads/";
 			$target_file = $target_dir . basename($_FILES["proof"]["name"]);
 			move_uploaded_file($_FILES["proof"]["tmp_name"], $target_file);
-		} 
+		}
 
 		if (!empty($_FILES["task_img"]["tmp_name"])) {
 			$target_dir = "uploads/";
 			$target_file1 = $target_dir . basename($_FILES["task_img"]["name"]);
 			move_uploaded_file($_FILES["task_img"]["tmp_name"], $target_file1);
-		} 
+		}
 
 		try {
-			
+
 			$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c, proof = :d, task_img = :e WHERE task_id = :id ");
 			$update_task->bindparam(':x', $task_title);
 			$update_task->bindparam(':y', $task_description);
@@ -542,13 +542,13 @@ class Admin_Class
 
 			$update_task->execute();
 
-			if ($user_role == 2) { 
-				$formatted_t_end_datetime = new DateTime($t_end_time); 
-				if ($current_datetime > $formatted_t_end_datetime) { 
-					$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE task_id = :id "); 
-					$updatetaskstatus->bindparam(':id', $task_id); 
-					$updatetaskstatus->execute(); 
-				} 
+			if ($user_role == 2) {
+				$formatted_t_end_datetime = new DateTime($t_end_time);
+				if ($current_datetime > $formatted_t_end_datetime) {
+					$updatetaskstatus = $this->db->prepare("UPDATE task_info SET status = 3 WHERE task_id = :id ");
+					$updatetaskstatus->bindparam(':id', $task_id);
+					$updatetaskstatus->execute();
+				}
 			}
 
 			$formatted_t_end_datetime = new DateTime($t_end_time);
@@ -561,7 +561,6 @@ class Admin_Class
 
 			// header('Location: task-info.php');
 			header("Refresh:0");
-
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 		}
