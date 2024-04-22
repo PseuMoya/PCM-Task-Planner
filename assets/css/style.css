@@ -44,6 +44,47 @@ body {
   display: none;
 }
 
+.on-desktop {
+  display: initial;
+}
+
+#sidebarBtn {
+  z-index: 11;
+  transform: translateX(-10px) translateY(-50%);
+  font-family: var(--primary-font);
+  white-space: nowrap;
+  padding: 0.75em 1em;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: grid;
+  gap: 1em;
+  padding: 1em;
+  border: 2px solid var(--border-color);
+  background-color: var(--panel-color);
+  border-radius: 10px;
+  padding: 0px;
+  background: transparent;
+  border: none;
+  position: fixed;
+  top: 50%;
+  margin-left: var(--sidebar-width);
+  transition: all 0.4s ease;
+  font-size: 2em;
+}
+#sidebarBtn.on-desktop.active {
+  border-radius: 0px 10px 10px 0px;
+  border: 2px solid var(--border-color);
+  background-color: var(--panel-color);
+}
+#sidebarBtn.on-desktop.active i {
+  transform: rotate(180deg);
+}
+#sidebarBtn i {
+  transition: all 0.4s ease;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -54,6 +95,9 @@ body {
   height: 100%;
   background-color: var(--panel-color);
   z-index: 10;
+  overflow: hidden;
+  left: 0%;
+  transition: all 0.4s ease;
   border-right: 2px solid var(--border-color);
 }
 .sidebar .title {
@@ -176,6 +220,7 @@ body {
 .content {
   padding: 1em;
   margin-left: var(--sidebar-width);
+  transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -491,7 +536,6 @@ body {
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
-  right: 10%;
   transition: all 0.2s ease;
 }
 .content .table-container table tbody tr .img-container {
@@ -547,7 +591,8 @@ span.on-phone {
   width: fit-content;
 }
 
-.status-indicator.in-progress, .status-indicator.pending {
+.status-indicator.in-progress,
+.status-indicator.pending {
   color: #d8a642;
   background-color: rgba(255, 185, 46, 0.1490196078);
 }
@@ -557,7 +602,8 @@ span.on-phone {
   background-color: rgba(105, 232, 58, 0.1490196078);
 }
 
-.status-indicator.failedtosub, .status-indicator.incomplete {
+.status-indicator.failedtosub,
+.status-indicator.incomplete {
   color: #b10000;
   background-color: rgba(177, 0, 0, 0.1490196078);
 }
@@ -588,12 +634,14 @@ span.on-phone {
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.3s ease; /* Delay visibility change after opacity transition */
+  transition: all 0.3s ease;
+  /* Delay visibility change after opacity transition */
 }
 #modalBG.show {
   opacity: 1;
   visibility: visible;
-  transform: scale(1); /* Zoom in to full scale (1) */
+  transform: scale(1);
+  /* Zoom in to full scale (1) */
 }
 
 .modal {
@@ -612,8 +660,10 @@ span.on-phone {
   height: fit-content;
   opacity: 0;
   visibility: hidden;
-  transform: scale(0.9); /* Initial scale set to 0.8 */
-  transition: all 0.3s ease-in-out; /* Add transform transition for zoom effect */
+  transform: scale(0.9);
+  /* Initial scale set to 0.8 */
+  transition: all 0.3s ease-in-out;
+  /* Add transform transition for zoom effect */
 }
 .modal.show {
   opacity: 1;
@@ -630,7 +680,9 @@ span.on-phone {
 .modal label {
   font-weight: 600;
 }
-.modal input, .modal textarea, .modal select {
+.modal input,
+.modal textarea,
+.modal select {
   font-family: var(--primary-font);
   width: 100%;
   padding: 10px;
@@ -706,6 +758,22 @@ input[type=file] {
   cursor: pointer;
 }
 
+.file-container a {
+  display: flex;
+  gap: 0.5rem;
+  background-color: rgba(79, 152, 255, 0.1490196078);
+  color: #5b7dac;
+  border-radius: 6px;
+  padding: 5px 7px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  align-items: center;
+  gap: 0.5em;
+  font-size: small;
+  font-weight: 600;
+}
+
 .file-drop-area {
   position: relative;
   padding: 1em;
@@ -753,8 +821,9 @@ input[type=file] {
   text-transform: uppercase;
 }
 .file-drop-area .has-file .file-msg {
-  font-size: smaller;
-  white-space: nowrap;
+  font-size: small;
+  width: 100px;
+  white-space: wrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -844,7 +913,8 @@ input[type=file] {
   display: flex;
   gap: 0.5rem;
 }
-.card.settings .card.personal-info input, .card.settings .card.personal-info select {
+.card.settings .card.personal-info input,
+.card.settings .card.personal-info select {
   border-radius: 12px;
   padding: 1em;
   font-family: var(--primary-font);
@@ -970,6 +1040,9 @@ input[type=file] {
     display: flex;
     flex-direction: column;
   }
+  .on-desktop {
+    display: none !important;
+  }
   .on-phone {
     display: grid !important;
   }
@@ -981,6 +1054,7 @@ input[type=file] {
     font-size: 25px;
   }
   .sidebar {
+    overflow: visible;
     width: 100%;
     height: auto;
     position: fixed;

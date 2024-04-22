@@ -93,39 +93,43 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 		<div class="v-wrapper">
 			<!-- TODO: preview image of what the user has sent -->
 			<label>Attached proof</label>
-			<?php if (!empty($row['proof'])) { 
+			<?php if (!empty($row['proof'])) {
 				$file_info = new finfo(FILEINFO_MIME_TYPE);
 				$mime_type = $file_info->buffer(file_get_contents($row['proof']));
 				if (strstr($mime_type, "image/")) { ?>
-					<a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div></a>
-					<span class="tooltiptext">See attachment</span>
+					<a href="<?php echo $row['proof']; ?>" target="_blank">
+						<div class="img-container" style="width: 100%"><img src="<?php echo $row['proof']; ?>" alt=""></div>
+					</a>
 				<?php } else { ?>
-					<a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['proof']); ?></a>
-					<span class="tooltiptext">See attachment</span>
-				<?php } 
+					<div class="file-container">
+						<a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['proof']); ?></a>
+					</div>
+				<?php }
 			} else { ?>
-				<div class="no-proof"><i class="ri-close-line"></i>No Proof / File</div>
+				<div class="status-indicator failedtosub"><i class="ri-close-line"></i>No attachment is provided.</div>
 			<?php } ?>
 		</div>
 
 
 
-			
+
 		<div class="v-wrapper">
-			<!-- TODO: preview image of what the user has sent -->
+			<!-- TODO: preview of what the supervisor has sent -->
 			<label>Attached Task</label>
-			<?php if (!empty($row['task_img'])) { 
+			<?php if (!empty($row['task_img'])) {
 				$file_info = new finfo(FILEINFO_MIME_TYPE);
 				$mime_type = $file_info->buffer(file_get_contents($row['task_img']));
 				if (strstr($mime_type, "image/")) { ?>
-					<a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div></a>
-					<span class="tooltiptext">See attachment</span>
+					<a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i>
+						<div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div>
+					</a>
 				<?php } else { ?>
-					<a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
-					<span class="tooltiptext">See attachment</span>
-				<?php } 
+					<div class="file-container">
+						<a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
+					</div>
+				<?php }
 			} else { ?>
-				<div class="no-proof"><i class="ri-close-line"></i>No Task / File</div>
+				<p><i class="ri-close-line"></i>No task attachment has been given for this task.</p>
 			<?php } ?>
 		</div>
 		<div class="btnSection">

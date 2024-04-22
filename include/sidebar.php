@@ -84,7 +84,44 @@
     <div class="hamburger-menu" id="hamburger"><i class="ri-menu-line"></i></div>
 </div>
 
+<button id="sidebarBtn" class="on-desktop">
+    <i class="ri-arrow-left-wide-line"></i>
+</button>
+
 <script type="text/javascript">
+    let isOpen = true; // Track the current size state
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarBtn = document.querySelector('#sidebarBtn');
+
+    sidebarBtn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        if (isOpen == true) {
+            document.documentElement.style.setProperty('--sidebar-width', '0px');
+            sidebar.style.left = '-4%';
+            isOpen = false;
+
+        } else {
+            document.documentElement.style.setProperty('--sidebar-width', '275px');
+            sidebar.style.left = '0%';
+            isOpen = true;
+        }
+    });
+
+    // Function to handle window resize
+    function handleResize() {
+        if (!isOpen && window.innerWidth <= 768) {
+            sidebar.style.left = '0%';
+            document.documentElement.style.setProperty('--sidebar-width', '275px');
+            isOpen = true;
+        } 
+    }
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Call handleResize initially
+    handleResize();
+
     let hamburger = document.querySelector('#hamburger');
     let nav = document.querySelector('.sidebar-wrapper');
 

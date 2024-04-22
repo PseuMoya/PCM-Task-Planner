@@ -48,14 +48,24 @@
         border-radius: $radius;
         width: $img-size;
         height: $img-size;
-        
+
         img {
             -o-object-fit: cover;
-               object-fit: cover;
+            object-fit: cover;
             width: 100%;
             height: 100%;
         }
     }
+}
+
+@mixin text-wrapper {
+    background-color: rgba(79, 152, 255, 0.1490196078);
+    color: #5b7dac;
+    border-radius: 6px;
+    padding: 5px 7px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
 }
 
 .h-wrapper {
@@ -101,8 +111,42 @@ body {
     font-family: var(--primary-font);
 }
 
-#hamburger{
+#hamburger {
     display: none;
+}
+
+.on-desktop {
+    display: initial;
+}
+
+#sidebarBtn {
+    z-index: 11;
+    transform: translateX(-10px) translateY(-50%);
+    @include button;
+    @include card;
+    padding: 0px;
+    background: transparent;
+    border: none;
+    position: fixed;
+    top: 50%;
+    margin-left: var(--sidebar-width);
+    transition: all 0.4s ease;
+    font-size: 2em;
+
+    &.on-desktop.active {
+        border-radius: 0px 10px 10px 0px;
+        border: 2px solid var(--border-color);
+        background-color: var(--panel-color);
+
+    }
+
+    &.on-desktop.active i {
+        transform: rotate(180deg);
+    }
+
+    i {
+        transition: all 0.4s ease;
+    }
 }
 
 .sidebar {
@@ -110,13 +154,17 @@ body {
     flex-direction: column;
     gap: 1em;
     position: fixed;
-    
+
     padding: 1em;
     width: var(--sidebar-width);
     height: 100%;
     background-color: var(--panel-color);
     z-index: 10;
-    
+
+    overflow: hidden;
+
+    left: 0%;
+    transition: all 0.4s ease;
     border-right: 2px solid var(--border-color);
 
     .title {
@@ -134,6 +182,7 @@ body {
             font-size: 20px;
             color: #454545;
             text-align: start;
+
             // color of the word Planner
             span {
                 color: var(--accent-color);
@@ -156,9 +205,9 @@ body {
             .h-wrapper {
                 @include h-wrapper;
                 align-items: center;
-                
+
                 @include img-container(50px, 5px);
-                
+
                 .v-wrapper {
                     @include v-wrapper;
                     gap: 0;
@@ -174,7 +223,7 @@ body {
                     }
                 }
             }
-            
+
             a {
                 --red-accent-color: 173, 98, 98;
                 border-radius: 5px;
@@ -193,7 +242,7 @@ body {
             flex-direction: column;
             gap: 10px;
             overflow-y: auto;
-            
+
             li {
                 display: flex;
                 align-items: center;
@@ -205,12 +254,12 @@ body {
                     border-radius: 10px;
                     color: #9896a3;
                     padding: 0.75rem 1em;
-                    
+
                     i {
                         margin-right: 10px;
                     }
                 }
-                
+
                 a.active {
                     background-color: var(--accent-color);
                     color: black;
@@ -226,9 +275,11 @@ body {
 
 .content-title {
     @include v-wrapper;
+
     p {
         font-weight: 500;
     }
+
     span {
         color: var(--lighter-text-color);
         font-size: small;
@@ -240,11 +291,13 @@ body {
     padding: 1em;
     margin-left: var(--sidebar-width);
 
+    transition: all 0.4s ease;
+
     display: flex;
     flex-direction: column;
     gap: 1em;
 
-    .btnSection{
+    .btnSection {
         @include btnSection;
 
         .search-bar {
@@ -255,11 +308,11 @@ body {
             font-family: var(--primary-font);
             background-color: #FAFAFA;
             border: 2px solid var(--border-color);
-            
+
             i {
                 color: var(--accent-color);
             }
-            
+
             input {
                 @include button;
                 cursor: text;
@@ -278,7 +331,7 @@ body {
         form {
             @include btnSection;
             width: 100%;
-            
+
             select {
                 @include button;
                 font-family: var(--primary-font);
@@ -308,15 +361,9 @@ body {
 
         a {
             @include button;
-            background-color: rgba(79, 152, 255, 0.1490196078);
-            color: #5b7dac;
-            border-radius: 6px;
-            padding: 5px 7px;
-            width: -webkit-fit-content;
-            width: -moz-fit-content;
-            width: fit-content;
+            @include text-wrapper;
         }
-            
+
     }
 
     .card.welcome {
@@ -329,7 +376,7 @@ body {
         .v-wrapper {
             @include v-wrapper;
             gap: 0;
-            
+
             p {
                 color: var(--lighter-text-color);
                 font-weight: 500;
@@ -337,9 +384,9 @@ body {
 
             span {
                 background: var(--vibrant-color);
-                
+
                 -webkit-background-clip: text;
-                        background-clip: text;
+                background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
         }
@@ -350,7 +397,7 @@ body {
     .card {
         @include card;
     }
-    
+
     .table-container {
         overflow-x: auto;
         overflow-y: hidden;
@@ -390,7 +437,7 @@ body {
                     border-style: solid;
                     border-top-left-radius: 10px;
                     border-bottom-left-radius: 10px;
-                   }
+                }
 
                 tr td:last-child {
                     border-width: 2px 2px 2px 0px;
@@ -399,13 +446,13 @@ body {
                     border-top-right-radius: 10px;
                     border-bottom-right-radius: 10px;
                 }
-                
-                tr:nth-child(even){
+
+                tr:nth-child(even) {
                     background-color: rgba(var(--even-table-color), 0.025);
                 }
-                
+
                 tr {
-                    
+
                     td {
                         white-space: nowrap;
                         border-width: 2px 0px;
@@ -413,11 +460,11 @@ body {
                         border-color: var(--border-color);
                         padding: 0.5rem 0.85rem;
                     }
-                    
+
                     td .actions {
                         display: flex;
                         gap: 0.5rem;
-                        
+
                         a {
                             color: var(--lighter-text-color);
                         }
@@ -447,7 +494,7 @@ body {
 
                     td .attachment {
                         font-size: 14px;
-                        
+
                         a {
                             background-color: #4f98ff26;
                             padding: 5px 7px;
@@ -458,9 +505,9 @@ body {
                             color: #5b7dac;
                             display: flex;
                             align-items: center;
-                            gap: 0.5rem;  
-                            
-                            
+                            gap: 0.5rem;
+
+
                             @include img-container(20px, 100%)
                         }
 
@@ -480,7 +527,7 @@ body {
                             opacity: 1;
                             visibility: visible;
                             display: block;
-                          }
+                        }
 
                         span.tooltiptext {
                             @include card;
@@ -491,15 +538,15 @@ body {
                             border-radius: 6px;
                             padding: 5px;
                             box-shadow: 1px 1px 1px #00000025;
-                          
+
                             /* Position the tooltip */
                             position: absolute;
                             z-index: 1;
-                            right: 10%;
 
                             transition: all 0.2s ease;
-                          }
+                        }
                     }
+
                     @include img-container(30px, 100%);
                 }
             }
@@ -520,7 +567,7 @@ span.on-phone {
     height: 100%;
     display: grid;
     place-items: center;
-    color : var(--lighter-text-color);
+    color: var(--lighter-text-color);
     text-align: center;
 
     span {
@@ -545,17 +592,20 @@ span.on-phone {
     width: -moz-fit-content;
     width: fit-content;
 }
-.status-indicator.in-progress, .status-indicator.pending{
+
+.status-indicator.in-progress,
+.status-indicator.pending {
     color: #d8a642;
     background-color: #ffb92e26;
 }
-    
+
 .status-indicator.completed {
     color: #60a447;
     background-color: #69e83a26;
 }
 
-.status-indicator.failedtosub, .status-indicator.incomplete {
+.status-indicator.failedtosub,
+.status-indicator.incomplete {
     color: #b10000;
     background-color: #b1000026;
 }
@@ -583,12 +633,14 @@ span.on-phone {
     background-color: rgba(0, 0, 0, 0.4);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease; /* Delay visibility change after opacity transition */
-    
+    transition: all 0.3s ease;
+    /* Delay visibility change after opacity transition */
+
     &.show {
         opacity: 1;
         visibility: visible;
-        transform: scale(1); /* Zoom in to full scale (1) */
+        transform: scale(1);
+        /* Zoom in to full scale (1) */
     }
 }
 
@@ -610,8 +662,10 @@ span.on-phone {
     height: fit-content;
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.9); /* Initial scale set to 0.8 */
-    transition: all 0.3s ease-in-out; /* Add transform transition for zoom effect */
+    transform: scale(0.9);
+    /* Initial scale set to 0.8 */
+    transition: all 0.3s ease-in-out;
+    /* Add transform transition for zoom effect */
 
     &.show {
         opacity: 1;
@@ -628,8 +682,10 @@ span.on-phone {
     label {
         font-weight: 600;
     }
-    
-    input, textarea, select{
+
+    input,
+    textarea,
+    select {
         font-family: var(--primary-font);
         width: 100%;
         padding: 10px;
@@ -640,18 +696,18 @@ span.on-phone {
     }
 
     textarea {
-        height: 100px; 
-        max-height: 100px; 
+        height: 100px;
+        max-height: 100px;
         resize: none;
     }
-    
+
     .btnSection {
         @include btnSection;
-        
+
         button {
             @include button;
         }
-        
+
         button:nth-child(1) {
             background-color: #28a745;
             color: white;
@@ -666,7 +722,7 @@ span.on-phone {
         width: -moz-fit-content;
         width: fit-content;
     }
-    
+
     .h-wrapper {
         @include h-wrapper;
     }
@@ -686,6 +742,18 @@ input[type=file] {
     height: 100%;
     width: 100%;
     cursor: pointer;
+}
+
+.file-container {
+     
+    a {
+        @include h-wrapper;
+        @include text-wrapper;
+        align-items: center;
+        gap: 0.5em;
+        font-size: small;
+        font-weight: 600;
+    }
 }
 
 .file-drop-area {
@@ -741,8 +809,9 @@ input[type=file] {
         }
 
         .file-msg {
-            font-size: smaller;
-            white-space: nowrap;
+            font-size: small;
+            width: 100px;
+            white-space: wrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -762,7 +831,7 @@ input[type=file] {
             font-size: .9em;
         }
     }
-    
+
     .card {
         background: var(--main-bg-color);
     }
@@ -773,7 +842,7 @@ input[type=file] {
 
         .btnSection {
             @include btnSection;
-            
+
             button {
                 @include button;
                 padding: 10px 20px;
@@ -795,7 +864,7 @@ input[type=file] {
 
         .btnSection {
             @include btnSection;
-            
+
             button {
                 @include button;
                 padding: 10px 20px;
@@ -812,7 +881,8 @@ input[type=file] {
             @include h-wrapper;
         }
 
-        input, select {
+        input,
+        select {
             border-radius: 12px;
             padding: 1em;
             font-family: var(--primary-font);
@@ -825,7 +895,7 @@ input[type=file] {
             font-weight: bold;
         }
 
-        
+
     }
 }
 
@@ -853,17 +923,17 @@ input[type=file] {
         overflow: hidden;
         transition: all 0.4s ease;
         height: 100%;
-        
+
         &:hover {
             transform: scale(1.025);
         }
-        
+
         :nth-child(1) {
             font-size: 18px;
             font-weight: bold;
             z-index: 1;
         }
-        
+
         span.how-many {
             color: var(--accent-color);
             font-size: 48px;
@@ -879,13 +949,13 @@ input[type=file] {
                 font-size: 15px;
             }
         }
-        
+
         i {
             color: var(--accent-color);
             position: relative;
             opacity: 0.5;
         }
-        
+
         i::before {
             font-size: 100px;
             position: absolute;
@@ -945,20 +1015,21 @@ input[type=file] {
 }
 
 @media screen and (max-width: 768px) {
+
     .file-drop-area {
-        
+
         .has-file {
             flex-direction: column;
         }
     }
 
-    .card.settings { 
+    .card.settings {
         display: flex;
         flex-direction: column;
+    }
 
-        .card.profile-pic {
-
-        }
+    .on-desktop {
+        display: none !important;
     }
 
     .on-phone {
@@ -969,22 +1040,23 @@ input[type=file] {
         width: unset !important;
     }
 
-    #hamburger{
+    #hamburger {
         display: block;
         font-size: 25px;
     }
 
     .sidebar {
+        overflow: visible;
         width: 100%;
         height: auto;
         position: fixed;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        
+
         border-right: none;
         border-bottom: 2px solid var(--border-color);
-        
+
         .title {
 
             p {
@@ -992,7 +1064,7 @@ input[type=file] {
             }
         }
 
-        .sidebar-wrapper{
+        .sidebar-wrapper {
             height: -webkit-fit-content;
             height: -moz-fit-content;
             height: fit-content;
@@ -1006,12 +1078,12 @@ input[type=file] {
             transition: all 0.4s ease;
             background-color: var(--panel-color);
             border-radius: 12px;
-            
-            ul>li{
+
+            ul>li {
                 flex-direction: column-reverse;
             }
         }
-        
+
         .sidebar-wrapper.open {
             right: 0%;
             z-index: -10;
@@ -1024,7 +1096,7 @@ input[type=file] {
         margin-left: 0;
         padding-top: 6em;
 
-        .dash-cards.home{
+        .dash-cards.home {
             grid-template-columns: unset;
         }
 
@@ -1041,10 +1113,10 @@ input[type=file] {
         flex-direction: column-reverse;
         padding: 2em !important;
         text-align: center;
-        
-        .v-wrapper{
+
+        .v-wrapper {
             align-items: center;
-            
+
             h1 {
                 font-size: 28px;
             }

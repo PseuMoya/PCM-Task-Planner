@@ -288,7 +288,7 @@ include("include/lib_links.php");
                                                     <span class="tooltiptext">See attachment</span>
                                                 <?php } 
                                             } else { ?>
-                                                <div class="no-proof"><i class="ri-close-line"></i>No Task</div>
+                                                <div class="no-proof"><i class="ri-close-line"></i>No task attachment</div>
                                             <?php } ?>
                                         </div>
                                     </td>
