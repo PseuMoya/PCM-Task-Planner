@@ -40,7 +40,7 @@ include("include/lib_links.php");
 </head>
 
 <body>
-    <form role="form" action="" method="post" autocomplete="off">
+<form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
         <div id="modalBG">
             <div class="modal">
                 <div class="modalTitle">
@@ -122,6 +122,28 @@ include("include/lib_links.php");
                     });
                 </script>
 
+                <div class="file-drop-area" style="height: 150px;">
+
+                    <div class="no-file-yet">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
+                            <path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+                            <path d="m14 19.5 3-3 3 3" />
+                            <path d="M17 22v-5.5" />
+                            <circle cx="9" cy="9" r="2" />
+                        </svg>
+                        <p><b>Upload Here</b></p>
+                        <span>You can try again. Make sure it's a Any type File and Image</span>
+                    </div>
+
+                    <div class="has-file">
+                        <span class="fake-btn">Choose another file</span>
+                        <span class="file-msg"></span>
+                    </div>
+
+                    <input class="file-input" type="file" name="task_img">
+                </div>
+
+
 
                 <div class="btnSection">
                     <button type="submit" name="add_task_post" class="btn btn-success-custom">Assign</button>
@@ -180,7 +202,9 @@ include("include/lib_links.php");
                                 <th>Start Time</th>
                                 <th>End Time</th>
                                 <th>Status</th>
-                                <th>Proof Image</th>
+                                <th>Proof Image / File</th>
+                                <th>Task Image / File</th>
+
                                 <th></th>
                             </tr>
                         </thead>
@@ -235,17 +259,39 @@ include("include/lib_links.php");
                                         } ?>
                                     </td>
 
+                                    
+
                                     <td>
                                         <div class="attachment">
-                                            <?php if (!empty($row['proof'])) { ?>
-                                                <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div></a>
-                                                <span class="tooltiptext">See attachment</span>
-                                            <?php } else { ?>
+                                            <?php if (!empty($row['proof'])) { 
+                                                if (@getimagesize($row['proof'])) { ?>
+                                                    <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div></a>
+                                                    <span class="tooltiptext">See attachment</span>
+                                                <?php } else { ?>
+                                                    <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['proof']); ?></a>
+                                                    <span class="tooltiptext">See attachment</span>
+                                                <?php } 
+                                            } else { ?>
                                                 <div class="no-proof"><i class="ri-close-line"></i>No Proof</div>
                                             <?php } ?>
                                         </div>
                                     </td>
-
+                                    
+                                    <td>
+                                        <div class="attachment">
+                                            <?php if (!empty($row['task_img'])) { 
+                                                if (@getimagesize($row['task_img'])) { ?>
+                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div></a>
+                                                    <span class="tooltiptext">See attachment</span>
+                                                <?php } else { ?>
+                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
+                                                    <span class="tooltiptext">See attachment</span>
+                                                <?php } 
+                                            } else { ?>
+                                                <div class="no-proof"><i class="ri-close-line"></i>No Task</div>
+                                            <?php } ?>
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="actions">
                                             <?php if ($row['status'] = 3 && $user_role = 2) { ?>

@@ -18,7 +18,7 @@ $task_id = $_GET['task_id'];
 
 
 if (isset($_POST['update_task_info'])) {
-	$obj_admin->update_task_info($_POST, $task_id, $user_role);
+	$obj_admin->update_task_info($_POST, $task_id, $user_role, $id);
 }
 
 $page_name = "Edit Task";
@@ -89,15 +89,43 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			} ?>
 		</div>
 
+
 		<div class="v-wrapper">
 			<!-- TODO: preview image of what the user has sent -->
 			<label>Attached proof</label>
-			<?php if (!empty($row['proof'])) { ?>
-				<div class="img-container">
-					<img src="<?php echo $row['proof']; ?>" alt="">
-				</div>
-			<?php } else { ?>
-				<div class="no-proof"><i class="ri-close-line"></i>No Proof</div>
+			<?php if (!empty($row['proof'])) { 
+				$file_info = new finfo(FILEINFO_MIME_TYPE);
+				$mime_type = $file_info->buffer(file_get_contents($row['proof']));
+				if (strstr($mime_type, "image/")) { ?>
+					<a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div></a>
+					<span class="tooltiptext">See attachment</span>
+				<?php } else { ?>
+					<a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['proof']); ?></a>
+					<span class="tooltiptext">See attachment</span>
+				<?php } 
+			} else { ?>
+				<div class="no-proof"><i class="ri-close-line"></i>No Task</div>
+			<?php } ?>
+		</div>
+
+
+
+			
+		<div class="v-wrapper">
+			<!-- TODO: preview image of what the user has sent -->
+			<label>Attached Task</label>
+			<?php if (!empty($row['task_img'])) { 
+				$file_info = new finfo(FILEINFO_MIME_TYPE);
+				$mime_type = $file_info->buffer(file_get_contents($row['task_img']));
+				if (strstr($mime_type, "image/")) { ?>
+					<a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div></a>
+					<span class="tooltiptext">See attachment</span>
+				<?php } else { ?>
+					<a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
+					<span class="tooltiptext">See attachment</span>
+				<?php } 
+			} else { ?>
+				<div class="no-proof"><i class="ri-close-line"></i>No Task / File</div>
 			<?php } ?>
 		</div>
 		<div class="btnSection">

@@ -135,6 +135,8 @@ include("include/lib_links.php");
                                 <th>Start Time</th>
                                 <th>End Time</th>
                                 <th>Status</th>
+                                <th>Task Image</th>
+
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -188,6 +190,23 @@ include("include/lib_links.php");
                                             echo "<div class='status-indicator pending'>Pending</div>";
                                         } ?>
                                     </td>
+
+                                    <td>
+                                        <div class="attachment">
+                                            <?php if (!empty($row['task_img'])) { 
+                                                if (@getimagesize($row['task_img'])) { ?>
+                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div></a>
+                                                    <span class="tooltiptext">See attachment</span>
+                                                <?php } else { ?>
+                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
+                                                    <span class="tooltiptext">See attachment</span>
+                                                <?php } 
+                                            } else { ?>
+                                                <div class="no-proof"><i class="ri-close-line"></i>No Task</div>
+                                            <?php } ?>
+                                        </div>
+                                    </td>
+
 
                                     <td>
                                         <div class="actions">

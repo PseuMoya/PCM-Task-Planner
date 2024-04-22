@@ -102,13 +102,20 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				</select>
 			</div>
 
-			<label>Proof Image</label>
 			<?php if ($user_role != 1) { ?>
+				<label>Proof Image / File</label>
+
 				<div class="v-wrapper">
-					<?php if (!empty($row['proof'])) { ?>
+				<?php if (!empty($row['proof'])) { 
+					if (@getimagesize($row['proof'])) { ?>
 						<div class="img-container">
 							<img src="<?php echo $row['proof']; ?>" alt="">
 						</div>
+					<?php } else { ?>
+						<div class="file-container">
+							<a href="<?php echo $row['proof']; ?>" target="_blank"><?php echo basename($row['proof']); ?></a>
+						</div>
+					<?php } ?>
 					<div class="file-drop-area" style="height: 150px;">
 
 						<div class="no-file-yet">
@@ -153,9 +160,69 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				<?php } ?>
 				</div>
 			<?php } else {?>
-				<?php if (!empty($row['proof'])) { ?>
-					<div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div>
+				
+			<?php } ?>
+
+
+			<?php if ($user_role != 2) { ?>
+				<label>Task Image / File</label>
+
+				<div class="v-wrapper">
+				<?php if (!empty($row['task_img'])) { 
+					if (@getimagesize($row['task_img'])) { ?>
+						<div class="img-container">
+							<img src="<?php echo $row['task_img']; ?>" alt="">
+						</div>
+					<?php } else { ?>
+						<div class="file-container">
+							<a href="<?php echo $row['task_img']; ?>" target="_blank"><?php echo basename($row['task_img']); ?></a>
+						</div>
+					<?php } ?>
+					<div class="file-drop-area" style="height: 150px;">
+
+						<div class="no-file-yet">
+							<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
+								<path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+								<path d="m14 19.5 3-3 3 3" />
+								<path d="M17 22v-5.5" />
+								<circle cx="9" cy="9" r="2" />
+							</svg>
+							<p><b>Wrong upload?</b> Don't worry.</p>
+							<span>You can try again. Make sure it's a JPG or a PNG</span>
+						</div>
+
+						<div class="has-file">
+							<span class="fake-btn">Choose another file</span>
+							<span class="file-msg"></span>
+						</div>
+
+						<input class="file-input" type="file" name="task_img">
+					</div>
+					<?php } else { ?>
+						<div class="file-drop-area" style="height: 150px;">
+
+							<div class="no-file-yet">
+								<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
+									<path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+									<path d="m14 19.5 3-3 3 3" />
+									<path d="M17 22v-5.5" />
+									<circle cx="9" cy="9" r="2" />
+								</svg>
+								<p><b>Click to upload</b> or drag and drop</p>
+								<span>JPG, PNG</span>
+							</div>
+
+							<div class="has-file">
+								<span class="fake-btn">Choose another file</span>
+								<span class="file-msg"></span>
+							</div>
+
+							<input class="file-input" type="file" name="task_img">
+						</div>
 				<?php } ?>
+				</div>
+			<?php } else {?>
+			
 			<?php } ?>
 
 			<?php
@@ -247,14 +314,3 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script>
-	document.querySelector('.file-input').addEventListener('change', function(e) {
-		var file = this.files[0];
-		var fileType = file["type"];
-		var validImageTypes = ["image/jpeg", "image/png"];
-		if (!validImageTypes.includes(fileType)) {
-			swal('Invalid file type', 'Please upload a PNG or a JPG image.', 'error');
-			this.value = '';
-		}
-	});
-</script>

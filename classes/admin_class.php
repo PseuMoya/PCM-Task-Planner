@@ -408,8 +408,6 @@ class Admin_Class
 	}
 
 
-	/* =================Task Related===================== */
-
 	public function add_new_task($data)
 	{
 		// data insert   
@@ -419,25 +417,37 @@ class Admin_Class
 		$t_end_time = $this->test_form_input_data($data['t_end_time']);
 		$assign_to = isset($data['assign_to'])? $data['assign_to'] : [];
 
+		// Process image upload
+		$target_dir = "task_image/";
+		$default_image = "uploads/default-img.png"; // Path to your default image
+
+		if (!empty($_FILES["task_img"]["name"])) {
+			$target_file = $target_dir . basename($_FILES["task_img"]["name"]);
+			move_uploaded_file($_FILES["task_img"]["tmp_name"], $target_file);
+		} else {
+			$target_file = $default_image;
+		}
+
 		foreach ($assign_to as $intern_id){
+			try {
+				$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, t_end_time, t_user_id, task_img) VALUES (:x, :y, :z, :a, :b, :c) ");
 
-		try {
-			$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, 	t_end_time, t_user_id) VALUES (:x, :y, :z, :a, :b) ");
+				$add_task->bindparam(':x', $task_title);
+				$add_task->bindparam(':y', $task_description);
+				$add_task->bindparam(':z', $t_start_time);
+				$add_task->bindparam(':a', $t_end_time);
+				$add_task->bindparam(':b', $intern_id);
+				$add_task->bindparam(':c', $target_file);
 
-			$add_task->bindparam(':x', $task_title);
-			$add_task->bindparam(':y', $task_description);
-			$add_task->bindparam(':z', $t_start_time);
-			$add_task->bindparam(':a', $t_end_time);
-			$add_task->bindparam(':b', $intern_id);
+				$add_task->execute();
 
-			$add_task->execute();
+				$_SESSION['Task_msg'] = 'Task Add Successfully';
 
-			$_SESSION['Task_msg'] = 'Task Add Successfully';
-
-			header('Location: task-info.php');
-		} catch (PDOException $e) {
-			echo $e->getMessage();
-		}}
+				header('Location: task-info.php');
+			} catch (PDOException $e) {
+				echo $e->getMessage();
+			}
+		}
 	}
 
 	/* --------------------UPDATE_TASK_USER--------------*/
@@ -450,6 +460,7 @@ class Admin_Class
 		$t_start_time = $this->test_form_input_data($data['t_start_time']);
 		$t_end_time = $this->test_form_input_data($data['t_end_time']);
 		$assign_to = $this->test_form_input_data($data['assign_to']);
+		
 
 		try {
 			$add_task = $this->db->prepare("INSERT INTO task_info (t_title, t_description, t_start_time, 	t_end_time, t_user_id) VALUES (:x, :y, :z, :a, :b) ");
@@ -481,6 +492,10 @@ class Admin_Class
 		$status = $this->test_form_input_data($data['status']);
 		$current_datetime = new DateTime('now');
 
+		$sql = "SELECT * FROM task_info WHERE task_id='$task_id' ";
+		$info = $this->manage_all_info($sql);
+		$row = $info->fetch(PDO::FETCH_ASSOC);
+
 		if ($user_role == 1) {
 			$assign_to = $this->test_form_input_data($data['assign_to']);
 		} else {
@@ -490,24 +505,31 @@ class Admin_Class
 			$assign_to = $row['t_user_id'];
 		}
 
+		  // If no new proof image is uploaded, use the old one
+		if (empty($_FILES["proof"]["tmp_name"])) {
+			$target_file = $row['proof'];
+		}
+	
+		// If no new task image is uploaded, use the old one
+		if (empty($_FILES["task_img"]["tmp_name"])) {
+			$target_file1 = $row['task_img'];
+		}
 
 		if (!empty($_FILES["proof"]["tmp_name"])) {
-			$target_dir = "proof/";
+			$target_dir = "uploads/";
 			$target_file = $target_dir . basename($_FILES["proof"]["name"]);
-			// Check if file is an image
-			$finfo = finfo_open(FILEINFO_MIME_TYPE);
-			$mime = finfo_file($finfo, $_FILES["proof"]["tmp_name"]);
-			if (strpos($mime, 'image') !== false) {
-				// Move the file to your desired directory and save the file name in the database
-				move_uploaded_file($_FILES["proof"]["tmp_name"], $target_file);
-			} else {
-				throw new Exception('Invalid file type. Please upload an image.');
-			}
+			move_uploaded_file($_FILES["proof"]["tmp_name"], $target_file);
+		} 
+
+		if (!empty($_FILES["task_img"]["tmp_name"])) {
+			$target_dir = "uploads/";
+			$target_file1 = $target_dir . basename($_FILES["task_img"]["name"]);
+			move_uploaded_file($_FILES["task_img"]["tmp_name"], $target_file1);
 		} 
 
 		try {
 			
-			$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c, proof = :d WHERE task_id = :id ");
+			$update_task = $this->db->prepare("UPDATE task_info SET t_title = :x, t_description = :y, t_start_time = :z, t_end_time = :a, t_user_id = :b, status = :c, proof = :d, task_img = :e WHERE task_id = :id ");
 			$update_task->bindparam(':x', $task_title);
 			$update_task->bindparam(':y', $task_description);
 			$update_task->bindparam(':z', $t_start_time);
@@ -516,6 +538,8 @@ class Admin_Class
 			$update_task->bindparam(':c', $status);
 			$update_task->bindparam(':id', $task_id);
 			$update_task->bindparam(':d', $target_file);
+			$update_task->bindparam(':e', $target_file1);
+
 			$update_task->execute();
 
 			if ($user_role == 2) { 
