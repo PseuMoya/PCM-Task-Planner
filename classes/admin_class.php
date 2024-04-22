@@ -423,14 +423,14 @@ class Admin_Class
 
 		// Process image upload
 		$target_dir = "task_image/";
-		$default_image = "uploads/default-img.png"; // Path to your default image
 
 		if (!empty($_FILES["task_img"]["name"])) {
 			$target_file = $target_dir . basename($_FILES["task_img"]["name"]);
 			move_uploaded_file($_FILES["task_img"]["tmp_name"], $target_file);
 		} else {
-			$target_file = $default_image;
+			$target_file = "";
 		}
+	
 
 		foreach ($assign_to as $intern_id) {
 			try {
