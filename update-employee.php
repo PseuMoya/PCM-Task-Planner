@@ -111,8 +111,22 @@ include("include/lib_links.php");
                 </div>
             </div>
 
+            
+            <?php
+                function redirect_based_on_role()
+                {
+                    header('Location: admin-manage-user');
+                    exit();
+                }
+
+                if (isset($_POST['update_current_employee']) || isset($_POST['back'])) {
+                    redirect_based_on_role();
+                }
+            ?>
+
             <div class="btnSection">
                 <button type="submit" name="update_current_employee" class="btn btn-success-custom">Update Now</button>
+                <button name="back" onclick="window.history.back();">Back</button>
             </div>
         </div>
     </form>
@@ -122,6 +136,18 @@ include("include/lib_links.php");
             <div class="modalTitle">
                 <h2>Password</h2>
             </div>
+
+            <?php
+                function password_direct()
+                {
+                    header('Location: admin-manage-user');
+                    exit();
+                }
+
+                if (isset($_POST['employee_password']) || isset($_POST['back'])) {
+                    password_direct();
+                }
+            ?>
 
             <div class="v-wrapper">
                 <label for="admin_password">New Password</label>
