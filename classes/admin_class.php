@@ -254,6 +254,8 @@ class Admin_Class
 	public function update_user_data($data, $id)
 	{
 		$user_fullname  = $this->test_form_input_data($data['em_fullname']);
+		$user_school  = $this->test_form_input_data($data['em_school']);
+
 		$user_username = $this->test_form_input_data($data['em_username']);
 		$user_email = $this->test_form_input_data($data['em_email']);
 		$user_position = $this->test_form_input_data($data['position']);
@@ -269,9 +271,11 @@ class Admin_Class
 		}
 
 		try {
-			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x, username = :y, email = :z, position = :p, profileimg = :e WHERE user_id = :id ");
+			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x,  school = :a, username = :y, email = :z, position = :p, profileimg = :e WHERE user_id = :id ");
 
 			$update_user->bindparam(':x', $user_fullname);
+			$update_user->bindparam(':a', $user_school);
+
 			$update_user->bindparam(':y', $user_username);
 			$update_user->bindparam(':z', $user_email);
 			$update_user->bindparam(':p', $user_position);
