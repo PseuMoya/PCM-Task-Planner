@@ -50,7 +50,7 @@ body {
 
 #sidebarBtn {
   z-index: 11;
-  transform: translateX(-10px) translateY(-50%);
+  transform: translateY(-50%);
   font-family: var(--primary-font);
   white-space: nowrap;
   padding: 0.75em 1em;
@@ -218,7 +218,7 @@ body {
 }
 
 .content {
-  padding: 1em;
+  padding: 1em 2em;
   margin-left: var(--sidebar-width);
   transition: all 0.4s ease;
   display: flex;
@@ -912,10 +912,18 @@ input[type=file] {
 .card.settings .card.personal-info .h-wrapper {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
+}
+.card.settings .card.personal-info .h-wrapper .field-icon {
+  position: absolute;
+  right: 75px;
+  font-size: 1em !important;
+  z-index: 2;
 }
 .card.settings .card.personal-info input,
 .card.settings .card.personal-info select {
   border-radius: 12px;
+  width: 100%;
   padding: 1em;
   font-family: var(--primary-font);
   font-weight: 500;
