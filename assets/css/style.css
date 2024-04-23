@@ -90,7 +90,9 @@ body {
   padding: 2em;
   gap: 2em;
   overflow: hidden;
-  height: 60vh;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   width: 50vh;
 }
 .loginModalBG .loginModal .v-wrapper {
@@ -109,7 +111,7 @@ body {
   gap: 0.5rem;
   gap: 1em;
 }
-.loginModalBG .loginModal .v-wrapper .login-form .loginBtn {
+.loginModalBG .loginModal .v-wrapper .login-form .submitBtn {
   font-family: var(--primary-font);
   white-space: nowrap;
   padding: 0.75em 1em;

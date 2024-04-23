@@ -33,7 +33,7 @@ include("include/lib_links.php");
 	</div>
 
 	<div class="loginModalBG">
-		<div class="loginModal">
+		<div class="loginModal" style="height: 70vh;">
 
 			<div class="v-wrapper">
 
@@ -49,7 +49,7 @@ include("include/lib_links.php");
 						<?php } ?>
 						<div class="input-group">
 							<input type="text" class="inputted" name="username" required>
-							<label for="email">Username</label>
+							<label for="username">Username</label>
 						</div>
 						<div class="input-group">
 							<input type="password" name="admin_password" required>
@@ -57,12 +57,10 @@ include("include/lib_links.php");
 							<span toggle="#admin_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						</div>
 
-						<button type="submit" name="login_btn" class="loginBtn">Login</button>
+						<button type="submit" name="login_btn" class="submitBtn">Login</button>
 					</div>
 				</form>
-
 			</div>
-
 		</div>
 	</div>
 

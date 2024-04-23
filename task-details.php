@@ -120,8 +120,8 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				$file_info = new finfo(FILEINFO_MIME_TYPE);
 				$mime_type = $file_info->buffer(file_get_contents($row['task_img']));
 				if (strstr($mime_type, "image/")) { ?>
-					<a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i>
-						<div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div>
+					<a href="<?php echo $row['task_img']; ?>" target="_blank">
+						<div class="img-container" style="width: 100%"><img src="<?php echo $row['task_img']; ?>" alt=""></div>
 					</a>
 				<?php } else { ?>
 					<div class="file-container">

@@ -27,32 +27,49 @@ include("include/lib_links.php");
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Change password - Task Planner</title>
 </head>
 
 <body>
-	<form action="" method="POST">
-		<div id="modalBG" style="visibility: visible; opacity: 1; transition: none; place-items: center;">
-		<div class="modal" style="visibility: visible; opacity: 1; transform: scale(1.0); transition: none; width: 50%; justify-content: center;">
-				<?php if (isset($info)) { ?>
-					<span class="status-indicator incomplete"><?php echo $info; ?></span>
-				<?php } ?>
+	<div class="header-logo">
+		<div class="img-container"><img src="assets/fragranza.png" alt="fragranza olio"></div>
+		<div class="img-container"><img class="invert-logo" src="assets/pcm.png" alt="pcm"></div>
+	</div>
 
-				<div class="modalTitle">
+	<div class="loginModalBG">
+		<div class="loginModal">
+
+			<div class="v-wrapper">
+
+				<div class="login-text">
 					<h2>Create a new password for this account</h2>
 					<span>Great! You're one step closer into acccessing your account. By going here, we assume you have been given a temporary password for this account. Please enter a new password for the temporary password to be replaced with yours.</span>
 				</div>
 
-				<div class="v-wrapper">
-					<input type="hidden" class="form-control" name="user_id" value="<?php echo $user_id; ?>" required />
-					<input type="password" class="form-control" placeholder="Enter new password" name="password" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required />
-					<input type="password" class="form-control" placeholder="Re-type password" name="re_password" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required />
-				</div>
-				<div class="btnSection">
-					<button type="submit" name="change_password_btn" class="btn btn-default pull-right">Create password</button>
-				</div>
+				<form action="" method="POST">
+
+					<div class="login-form">
+						<?php if (isset($info)) { ?>
+							<span class="status-indicator incomplete"><?php echo $info; ?></span>
+						<?php } ?>
+						<input type="hidden" class="form-control" name="user_id" value="<?php echo $user_id; ?>" required />
+						
+						<div class="input-group">
+							<input type="password" name="password" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required>
+							<label for="password">Enter new password</label>
+						</div>
+
+						<div class="input-group">
+							<input type="password" name="re_password" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required>
+							<label for="re_password">Re-type password</label>
+						</div>
+
+						<button type="submit" name="change_password_btn" class="submitBtn">Create password</button>
+					</div>
+				</form>
 			</div>
 		</div>
-	</form>
+	</div>
 </body>
 
 
