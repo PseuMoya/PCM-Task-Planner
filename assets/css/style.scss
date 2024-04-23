@@ -160,7 +160,9 @@ body {
         gap: 2em;
         overflow: hidden;
 
-        height: 60vh;
+        height: -webkit-fit-content;
+        height: -moz-fit-content;
+        height: fit-content;
         width: 50vh;
 
         .v-wrapper {
@@ -176,7 +178,7 @@ body {
                 @include v-wrapper;
                 gap: 1em;
 
-                .loginBtn {
+                .submitBtn {
                     @include button;
                     background-color: var(--accent-color);
                     border-radius: 999px;

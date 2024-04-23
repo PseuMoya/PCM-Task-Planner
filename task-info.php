@@ -87,7 +87,9 @@ include("include/lib_links.php");
                             <option value="<?php echo $position; ?>"><?php echo $position; ?></option>
                         <?php } ?>
                     </select>
-
+                </div>
+                
+                <div>
                     <label for="assign_to">Assign to</label>
                     <select class="form-control" name="assign_to[]" id="assign_to" multiple required>
                         <option value="">Please select an intern...</option>
@@ -122,26 +124,30 @@ include("include/lib_links.php");
                     });
                 </script>
 
-                <div class="file-drop-area" style="height: 150px;">
-
-                    <div class="no-file-yet">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
-                            <path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
-                            <path d="m14 19.5 3-3 3 3" />
-                            <path d="M17 22v-5.5" />
-                            <circle cx="9" cy="9" r="2" />
-                        </svg>
-                        <p><b>Upload Here</b></p>
-                        <span>You can try again. Make sure it's a Any type File and Image</span>
+                <div class="v-wrapper">
+                    <label for="task_img">Task Image / File</label>
+                    <div class="file-drop-area" style="height: 150px;">
+    
+                        <div class="no-file-yet">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
+                                <path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
+                                <path d="m14 19.5 3-3 3 3" />
+                                <path d="M17 22v-5.5" />
+                                <circle cx="9" cy="9" r="2" />
+                            </svg>
+                            <p><b>Upload an image</b> if words aren't enough</p>
+                            <span>It can either be an image, PDF, etc.</span>
+                        </div>
+    
+                        <div class="has-file">
+                            <span class="fake-btn">Choose another file</span>
+                            <span class="file-msg"></span>
+                        </div>
+    
+                        <input class="file-input" type="file" name="task_img">
                     </div>
-
-                    <div class="has-file">
-                        <span class="fake-btn">Choose another file</span>
-                        <span class="file-msg"></span>
-                    </div>
-
-                    <input class="file-input" type="file" name="task_img">
                 </div>
+
 
 
 
@@ -340,6 +346,29 @@ include("include/lib_links.php");
         minDate: currentDate // disable past dates
     });
 </script>
+
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		var fileInput = document.querySelector('.file-input');
+		var droparea = document.querySelector('.file-drop-area');
+		var fileMsg = document.querySelector('.file-msg');
+
+		var noFile = document.querySelector('.no-file-yet');
+		var hasFile = document.querySelector('.has-file');
+
+		fileInput.addEventListener('change', function() {
+			var filesCount = this.files.length;
+
+			if (filesCount === 1) {
+				var fileName = this.files[0].name;
+				fileMsg.textContent = fileName;
+				hasFile.style.display = 'flex';
+				noFile.style.display = 'none';
+			}
+		});
+	});
+</script>
+
 <script type="text/javascript">
     var searchInput = document.getElementById('search');
     searchInput.addEventListener("input", function() {
