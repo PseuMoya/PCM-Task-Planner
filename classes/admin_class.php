@@ -214,14 +214,11 @@ class Admin_Class
 			$total_username = $query_result_for_username->rowCount();
 
 			if ($total_email != 0 && $total_username != 0) {
-				$message = "Email and Password both are already taken";
-				return $message;
+				echo "<script>alert('Email and Username both are already taken');</script>";
 			} elseif ($total_username != 0) {
-				$message = "Username Already Taken";
-				return $message;
+				echo "<script>alert('Username Already Taken');</script>";
 			} elseif ($total_email != 0) {
-				$message = "Email Already Taken";
-				return $message;
+				echo "<script>alert('Email Already Taken');</script>";
 			} else {
 				$add_user = $this->db->prepare("INSERT INTO tbl_admin (fullname, school, username, email, password, temp_password, user_role, position, profileimg) VALUES (:x, :f, :y, :z, :a, :b, :c, :d, :e) ");
 				$add_user->bindparam(':x', $user_fullname);
@@ -269,6 +266,7 @@ class Admin_Class
 		} else {
 			$target_file = $current_profileimg;
 		}
+		
 
 		try {
 			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x,  school = :a, username = :y, email = :z, position = :p, profileimg = :e WHERE user_id = :id ");
