@@ -13,14 +13,14 @@
 }
 
 :root {
-  --main-bg-color: #F9F8FF;
-  --panel-color: #FFFFFF;
-  --border-color: #E6E4F0;
+  --main-bg-color: #f9f8ff;
+  --panel-color: #ffffff;
+  --border-color: #e6e4f0;
   --text-color: #56555c;
-  --lighter-text-color: #82808F;
+  --lighter-text-color: #82808f;
   --accent-color: #ffd600;
   --primary-font: Mi Sans;
-  --vibrant-color: linear-gradient(135deg, #FFDF2B, #FF7A00);
+  --vibrant-color: linear-gradient(135deg, #ffdf2b, #ff7a00);
   --even-table-color: 0, 0, 0;
   --sidebar-width: 275px;
 }
@@ -43,7 +43,13 @@ body {
 #hamburger {
   display: none;
 }
-
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -193,7 +199,7 @@ body {
   padding-left: 0.75em;
   border-radius: 10px;
   font-family: var(--primary-font);
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border: 2px solid var(--border-color);
 }
 .content .btnSection .search-bar i {
@@ -221,7 +227,7 @@ body {
   cursor: pointer;
   font-family: var(--primary-font);
   border: 2px solid var(--border-color);
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 .content .btnSection form {
   display: flex;
@@ -240,7 +246,7 @@ body {
   cursor: pointer;
   font-family: var(--primary-font);
   border: 2px solid var(--border-color);
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 .content .btnSection form button {
   font-family: var(--primary-font);
@@ -547,7 +553,8 @@ span.on-phone {
   width: fit-content;
 }
 
-.status-indicator.in-progress, .status-indicator.pending {
+.status-indicator.in-progress,
+.status-indicator.pending {
   color: #d8a642;
   background-color: rgba(255, 185, 46, 0.1490196078);
 }
@@ -557,7 +564,8 @@ span.on-phone {
   background-color: rgba(105, 232, 58, 0.1490196078);
 }
 
-.status-indicator.failedtosub, .status-indicator.incomplete {
+.status-indicator.failedtosub,
+.status-indicator.incomplete {
   color: #b10000;
   background-color: rgba(177, 0, 0, 0.1490196078);
 }
@@ -630,7 +638,9 @@ span.on-phone {
 .modal label {
   font-weight: 600;
 }
-.modal input, .modal textarea, .modal select {
+.modal input,
+.modal textarea,
+.modal select {
   font-family: var(--primary-font);
   width: 100%;
   padding: 10px;
@@ -696,7 +706,7 @@ span.on-phone {
   height: 100%;
 }
 
-input[type=file] {
+input[type="file"] {
   opacity: 0;
   position: absolute;
   left: 0;
@@ -844,7 +854,8 @@ input[type=file] {
   display: flex;
   gap: 0.5rem;
 }
-.card.settings .card.personal-info input, .card.settings .card.personal-info select {
+.card.settings .card.personal-info input,
+.card.settings .card.personal-info select {
   border-radius: 12px;
   padding: 1em;
   font-family: var(--primary-font);
