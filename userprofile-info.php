@@ -95,6 +95,8 @@ include("include/lib_links.php");
                             <div>
                                 <!-- clever way of actually hiding it without having to display what is needed to be change -->
                                 <input type="text" style="display: none;" value="<?php echo $row['fullname']; ?>" placeholder="Enter Employee Name" name="em_fullname" list="expense" required>
+                                <input type="text" style="display: none;" value="<?php echo $row['school']; ?>" placeholder="Enter School Name" name="em_school" list="expense" required>
+
                                 <input type="text" style="display: none;" value="<?php echo $row['username']; ?>" placeholder="Enter Employee Username" name="em_username" required>
                                 <input type="email" style="display: none;" value="<?php echo $row['email']; ?>" placeholder="Enter employee email" name="em_email" required>
                                 <select style="display: none;" name="position" class="form-control input-custom" required>
@@ -126,6 +128,11 @@ include("include/lib_links.php");
                                 <label>Full name</label>
                                 <input type="text" value="<?php echo $row['fullname']; ?>" name="em_fullname" list="expense" class="form-control" id="default" required>
                                 <span>Your name will appear on tasks. You can change it at any time, but please refrain from abusing it.</span>
+                            </div>
+
+                            <div class="v-wrapper">
+                                <label>School</label>
+                                <input type="text" value="<?php echo $row['school']; ?>" name="em_school" class="form-control" required>
                             </div>
 
                             <div class="v-wrapper">

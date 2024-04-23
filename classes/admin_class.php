@@ -266,7 +266,7 @@ class Admin_Class
 		} else {
 			$target_file = $current_profileimg;
 		}
-		
+
 
 		try {
 			$update_user = $this->db->prepare("UPDATE tbl_admin SET fullname = :x,  school = :a, username = :y, email = :z, position = :p, profileimg = :e WHERE user_id = :id ");
@@ -428,7 +428,7 @@ class Admin_Class
 		} else {
 			$target_file = "";
 		}
-	
+
 
 		foreach ($assign_to as $intern_id) {
 			try {

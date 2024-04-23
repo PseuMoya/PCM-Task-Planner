@@ -41,7 +41,7 @@ include("include/lib_links.php");
 					<h1>Login</h1>
 					<p>Enter your account details.</p>
 				</div>
-				
+
 				<form class="form-login" action="" method="POST">
 					<div class="login-form">
 						<?php if (isset($info)) { ?>
@@ -52,8 +52,8 @@ include("include/lib_links.php");
 							<label for="email">Username</label>
 						</div>
 						<div class="input-group">
-							<input type="password" name="admin_password" required>
-							<label id="admin_password" for="admin_password" name="admin_password">Password</label>
+							<input type="password" id="admin_password" name="admin_password" required>
+							<label for="admin_password" name="admin_password">Password</label>
 							<span toggle="#admin_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						</div>
 
@@ -66,21 +66,21 @@ include("include/lib_links.php");
 		</div>
 	</div>
 
-	<script>
-		$(document).ready(function() {
-			$(".toggle-password").click(function() {
-				$(this).toggleClass("fa-eye fa-eye-slash");
-				var input = $($(this).attr("toggle"));
-				if (input.attr("type") == "password") {
-					input.attr("type", "text");
-				} else {
-					input.attr("type", "password");
-				}
-			});
-		});
-	</script>
-</body>
 
+</body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".toggle-password").click(function() {
+			$(this).toggleClass("fa-eye fa-eye-slash");
+			var input = $($(this).attr("toggle"));
+			if (input.attr("type") == "password") {
+				input.attr("type", "text");
+			} else {
+				input.attr("type", "password");
+			}
+		});
+	});
+</script>
 <?php
 
 include("include/footer.php");
