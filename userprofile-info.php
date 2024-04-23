@@ -173,15 +173,18 @@ include("include/lib_links.php");
 
                             <div class="v-wrapper">
                                 <label for="new_employee_password">New password</label>
-                                <input type="password" name="new_employee_password" class="form-control input-custom" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" id="new_employee_password" min="8" required>
-                                <span toggle="#new_employee_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                <div class="h-wrapper">
+                                    <input type="password" name="new_employee_password" class="form-control input-custom" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" id="new_employee_password" min="8" required>
+                                    <span toggle="#new_employee_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
                             </div>
 
                             <div class="v-wrapper">
                                 <label for="confirm_employee_password">Confirm password</label>
-                                <input type="password" name="confirm_employee_password" class="form-control input-custom" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" id="confirm_employee_password" min="8" required>
-                                <span toggle="#confirm_employee_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-
+                                <div class="h-wrapper">
+                                    <input type="password" name="confirm_employee_password" class="form-control input-custom" title="Password must be at least 8 characters long and contain at least one letter and one digit." pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" id="confirm_employee_password" min="8" required>
+                                    <span toggle="#confirm_employee_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
                             </div>
 
                             <div class="btnSection">

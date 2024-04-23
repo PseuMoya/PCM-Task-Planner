@@ -40,6 +40,141 @@ body {
   font-family: var(--primary-font);
 }
 
+.invert-logo {
+  transition: all 0.4s ease;
+}
+
+.header-logo {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  padding: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-logo .img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+}
+.header-logo .img-container img {
+  -o-object-fit: contain;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.loginModalBG {
+  background: url(../login-bg.png);
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.loginModalBG .loginModal {
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  display: grid;
+  gap: 1em;
+  padding: 1em;
+  border: 2px solid var(--border-color);
+  background-color: var(--panel-color);
+  border-radius: 10px;
+  padding: 2em;
+  gap: 2em;
+  overflow: hidden;
+  height: 60vh;
+  width: 50vh;
+}
+.loginModalBG .loginModal .v-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  gap: 2em;
+}
+.loginModalBG .loginModal .v-wrapper .login-text {
+  text-align: center;
+}
+.loginModalBG .loginModal .v-wrapper .login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  gap: 1em;
+}
+.loginModalBG .loginModal .v-wrapper .login-form .loginBtn {
+  font-family: var(--primary-font);
+  white-space: nowrap;
+  padding: 0.75em 1em;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  border-radius: 999px;
+  font-size: 1em;
+  text-transform: uppercase;
+  padding: 1em;
+  font-weight: bold;
+}
+.loginModalBG .loginModal .v-wrapper .login-form .input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.loginModalBG .loginModal .v-wrapper .login-form .input-group .toggle-password {
+  position: absolute;
+  right: 16px;
+  font-size: 1em !important;
+}
+.loginModalBG .loginModal .v-wrapper .login-form .input-group label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  pointer-events: none;
+  font-weight: 500;
+  transform: translateY(-50%);
+  transition: all 0.2s ease;
+}
+.loginModalBG .loginModal .v-wrapper .login-form .input-group input {
+  font-family: var(--primary-font);
+  white-space: nowrap;
+  padding: 0.75em 1em;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  cursor: text;
+  height: 4em;
+  width: 100%;
+  padding: 1em;
+  font-weight: 500;
+  border: 2px solid var(--border-color);
+}
+.loginModalBG .loginModal .v-wrapper .login-form .input-group input:is(:focus, :valid) ~ label {
+  font-size: 0.75rem;
+  transform: translateY(-120%);
+}
+
+@media screen and (max-width: 448px) {
+  .invert-logo {
+    -webkit-filter: brightness(-100%);
+    filter: brightness(-100%);
+  }
+  .loginModalBG .loginModal {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+  }
+}
 #hamburger {
   display: none;
 }
@@ -914,9 +1049,9 @@ input[type=file] {
   gap: 0.5rem;
   align-items: center;
 }
-.card.settings .card.personal-info .h-wrapper .field-icon {
+.card.settings .card.personal-info .h-wrapper .toggle-password {
   position: absolute;
-  right: 75px;
+  right: 90px;
   font-size: 1em !important;
   z-index: 2;
 }

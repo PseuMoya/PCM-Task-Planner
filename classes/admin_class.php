@@ -89,7 +89,7 @@ class Admin_Class
 					header('Location: changePasswordForEmployee.php');
 				}
 			} else {
-				$message = 'Invalid user name or Password';
+				$message = 'Invalid username or password. Please try again.';
 				return $message;
 			}
 		} catch (PDOException $e) {

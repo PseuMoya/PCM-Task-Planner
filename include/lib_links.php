@@ -7,10 +7,14 @@
 <link rel="stylesheet" href="assets/css/style.css">
 
 <script src="assets/js/jquery.min.js"></script>
+
 <!-- <script src="assets/js/bootstrap.min.js"></script> -->
 <script src="assets/js/custom.js"></script>
 <script src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="assets/bootstrap-datepicker/js/datepicker-custom.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
 
