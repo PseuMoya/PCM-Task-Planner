@@ -33,7 +33,7 @@ include("include/lib_links.php");
 	</div>
 
 	<div class="loginModalBG">
-		<div class="loginModal" style="height: 70vh;">
+		<div class="loginModal">
 
 			<div class="v-wrapper">
 
@@ -45,7 +45,7 @@ include("include/lib_links.php");
 				<form class="form-login" action="" method="POST">
 					<div class="login-form">
 						<?php if (isset($info)) { ?>
-							<div class="status-indicator failedtosub"><?php echo $info; ?></div>
+							<div class="status-indicator failedtosub" style="white-space: wrap;"><?php echo $info; ?></div>
 						<?php } ?>
 						<div class="input-group">
 							<input type="text" class="inputted" name="username" required>
