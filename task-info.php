@@ -40,7 +40,7 @@ include("include/lib_links.php");
 </head>
 
 <body>
-<form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
+    <form role="form" action="" enctype="multipart/form-data" method="post" autocomplete="off">
         <div id="modalBG">
             <div class="modal">
                 <div class="modalTitle">
@@ -88,7 +88,7 @@ include("include/lib_links.php");
                         <?php } ?>
                     </select>
                 </div>
-                
+
                 <div>
                     <label for="assign_to">Assign to</label>
                     <select class="form-control" name="assign_to[]" id="assign_to" multiple required>
@@ -127,7 +127,7 @@ include("include/lib_links.php");
                 <div class="v-wrapper">
                     <label for="task_img">Task Image / File</label>
                     <div class="file-drop-area" style="height: 150px;">
-    
+
                         <div class="no-file-yet">
                             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-image-up">
                                 <path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21" />
@@ -138,16 +138,15 @@ include("include/lib_links.php");
                             <p><b>Upload an image</b> if words aren't enough</p>
                             <span>It can either be an image, PDF, etc.</span>
                         </div>
-    
+
                         <div class="has-file">
                             <span class="fake-btn">Choose another file</span>
                             <span class="file-msg"></span>
                         </div>
-    
-                        <input class="file-input" type="file" name="task_img">
+
+                        <input class="file-input" type="file" name="task_img[]" multiple onchange="limitFiles(this)">
                     </div>
                 </div>
-
 
 
 
@@ -171,7 +170,7 @@ include("include/lib_links.php");
                 <h1>Reports</h1>
                 <p>Oversee each intern's task. You may assign a task to an intern, or to all of them.</p>
             </div>
-            
+
             <div class="btnSection">
                 <div class="search-bar">
                     <i class="ri-search-line"></i>
@@ -188,7 +187,7 @@ include("include/lib_links.php");
                             <option value="In progress">In progress</option>
                             <option value="Completed">Completed</option>
                         </select>
-                        <?php if($user_role == 1){ ?>
+                        <?php if ($user_role == 1) { ?>
                             <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
                         <?php } ?>
                     </div>
@@ -196,7 +195,7 @@ include("include/lib_links.php");
             </div>
 
             <span class="on-phone">Tip: Scroll right to see more information.</span>
-            
+
             <div class="card with-table">
                 <div class="table-container">
                     <table id="internTable">
@@ -265,61 +264,85 @@ include("include/lib_links.php");
                                         } ?>
                                     </td>
 
-                                    
+
 
                                     <td>
                                         <div class="attachment">
-                                            <?php if (!empty($row['proof'])) { 
+                                            <?php if (!empty($row['proof'])) {
                                                 if (@getimagesize($row['proof'])) { ?>
-                                                    <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div></a>
+                                                    <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i>
+                                                        <div class="img-container"><img src="<?php echo $row['proof']; ?>" alt=""></div>
+                                                    </a>
                                                     <span class="tooltiptext">See attachment</span>
                                                 <?php } else { ?>
                                                     <a href="<?php echo $row['proof']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['proof']); ?></a>
                                                     <span class="tooltiptext">See attachment</span>
-                                                <?php } 
+                                                <?php }
                                             } else { ?>
                                                 <div class="no-proof"><i class="ri-close-line"></i>No Proof</div>
                                             <?php } ?>
                                         </div>
                                     </td>
-                                    
                                     <td>
                                         <div class="attachment">
-                                            <?php if (!empty($row['task_img'])) { 
-                                                if (@getimagesize($row['task_img'])) { ?>
-                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div></a>
-                                                    <span class="tooltiptext">See attachment</span>
-                                                <?php } else { ?>
-                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
-                                                    <span class="tooltiptext">See attachment</span>
-                                                <?php } 
-                                            } else { ?>
+                                            <?php
+                                            if (!empty($row['task_img'])) {
+                                                $images = json_decode($row['task_img'], true);
+
+                                                if (is_array($images)) {
+                                                    $fileCount = count($images);
+                                                    echo "<span>$fileCount files attached</span>";
+
+                                                    foreach ($images as $filename) {
+                                                        $fileUrl = "http://localhost/PCM-Task-Planner/task_image/$filename";
+
+                                                        if (@getimagesize($fileUrl)) {
+                                                            echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i><div class=\"img-container\"><img src=\"$fileUrl\" alt=\"\"></div></a>";
+                                                        } else {
+                                                            echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i>" . basename($fileUrl) . "</a>";
+                                                        }
+                                                    }
+                                                } else {
+                                                    $fileUrl = "http://localhost/PCM-Task-Planner/task_image/" . $row['task_img'];
+
+                                                    if (@getimagesize($fileUrl)) {
+                                                        echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i><div class=\"img-container\"><img src=\"$fileUrl\" alt=\"\"></div></a>";
+                                                    } else {
+                                                        echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i>" . basename($fileUrl) . "</a>";
+                                                    }
+                                                }
+                                            } else {
+                                            ?>
                                                 <div class="no-proof"><i class="ri-close-line"></i>No task attachment</div>
                                             <?php } ?>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div class="actions">
-                                            <?php if ($row['status'] = 3 && $user_role = 2) { ?>
-                                                <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a>
-                                            <?php } ?>
-                                            <a title=" View" href="task-details.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-folder-open-fill"></i></a>
-                                            <?php if ($user_role = 1) { ?>
-                                                <a title="Delete" href="?delete_task=delete_task&task_id=<?php echo $row['task_id']; ?>" onclick=" return check_delete();"><i class="ri-delete-bin-6-fill"></i></a>
-                                            <?php } ?>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+
                 </div>
+                </td>
+
+                <td>
+                    <div class="actions">
+                        <?php if ($row['status'] = 3 && $user_role = 2) { ?>
+                            <a title="Update Task" href="edit-task.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-edit-2-fill"></i></a>
+                        <?php } ?>
+                        <a title=" View" href="task-details.php?task_id=<?php echo $row['task_id']; ?>"><i class="ri-folder-open-fill"></i></a>
+                        <?php if ($user_role = 1) { ?>
+                            <a title="Delete" href="?delete_task=delete_task&task_id=<?php echo $row['task_id']; ?>" onclick=" return check_delete();"><i class="ri-delete-bin-6-fill"></i></a>
+                        <?php } ?>
+                    </div>
+                </td>
+                </tr>
+            <?php } ?>
+            </tbody>
+            </table>
             </div>
         </div>
-        <!-- include the sidebar -->
-        <?php
-        include("include/footer.php");
-        ?>
+    </div>
+    <!-- include the sidebar -->
+    <?php
+    include("include/footer.php");
+    ?>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -347,27 +370,48 @@ include("include/lib_links.php");
     });
 </script>
 
+<!-- <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        var fileInput = document.querySelector('.file-input');
+        var droparea = document.querySelector('.file-drop-area');
+        var fileMsg = document.querySelector('.file-msg');
+
+        var noFile = document.querySelector('.no-file-yet');
+        var hasFile = document.querySelector('.has-file');
+
+        fileInput.addEventListener('change', function() {
+            var filesCount = this.files.length;
+
+            if (filesCount === 1) {
+                var fileName = this.files[0].name;
+                fileMsg.textContent = fileName;
+                hasFile.style.display = 'flex';
+                noFile.style.display = 'none';
+            }
+        });
+    });
+</script> -->
 <script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() {
-		var fileInput = document.querySelector('.file-input');
-		var droparea = document.querySelector('.file-drop-area');
-		var fileMsg = document.querySelector('.file-msg');
+    document.addEventListener('DOMContentLoaded', function() {
+        var fileInput = document.querySelector('.file-input');
+        var droparea = document.querySelector('.file-drop-area');
+        var fileMsg = document.querySelector('.file-msg');
 
-		var noFile = document.querySelector('.no-file-yet');
-		var hasFile = document.querySelector('.has-file');
+        var noFile = document.querySelector('.no-file-yet');
+        var hasFile = document.querySelector('.has-file');
 
-		fileInput.addEventListener('change', function() {
-			var filesCount = this.files.length;
+        fileInput.addEventListener('change', function() {
+            var filesCount = this.files.length;
 
-			if (filesCount === 1) {
-				var fileName = this.files[0].name;
-				fileMsg.textContent = fileName;
-				hasFile.style.display = 'flex';
-				noFile.style.display = 'none';
-			}
-		});
-	});
+            if (filesCount > 0) {
+                fileMsg.textContent = filesCount + ' file(s) selected';
+                hasFile.style.display = 'flex';
+                noFile.style.display = 'none';
+            }
+        });
+    });
 </script>
+
 
 <script type="text/javascript">
     var searchInput = document.getElementById('search');
@@ -435,6 +479,15 @@ include("include/lib_links.php");
                     row.style.display = "none";
                 }
             }
+        }
+    }
+
+    function limitFiles(input) {
+        if (input.files.length > 20) {
+            alert("You can only select up to 20 files.");
+            input.value = '';
+        } else if (input.files.length === 21) {
+            input.disabled = true;
         }
     }
 </script>

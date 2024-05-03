@@ -418,17 +418,31 @@ class Admin_Class
 		$t_start_time = $this->test_form_input_data($data['t_start_time']);
 		$t_end_time = $this->test_form_input_data($data['t_end_time']);
 		$assign_to = isset($data['assign_to']) ? $data['assign_to'] : [];
+		$filesArray = array();
+		$totalFiles = count($_FILES['task_img']["name"]);
 
 		// Process image upload
 		$target_dir = "task_image/";
 
 		if (!empty($_FILES["task_img"]["name"])) {
-			$target_file = $target_dir . basename($_FILES["task_img"]["name"]);
-			move_uploaded_file($_FILES["task_img"]["tmp_name"], $target_file);
+
+
+			for ($i = 0; $i < $totalFiles; $i++) {
+				$imageName = $_FILES["task_img"]["name"][$i];
+				$tmpName = $_FILES["task_img"]["tmp_name"][$i];
+				$imageExtension = pathinfo($imageName, PATHINFO_EXTENSION);
+				$newImageName = uniqid() . '.' . $imageExtension;
+				$target_file = $target_dir . $newImageName;
+
+				if (move_uploaded_file($tmpName, $target_file)) {
+					$filesArray[] = $newImageName;
+				}
+			}
 		} else {
 			$target_file = "";
 		}
 
+		$filesArray = json_encode($filesArray);
 
 		foreach ($assign_to as $intern_id) {
 			try {
@@ -439,7 +453,8 @@ class Admin_Class
 				$add_task->bindparam(':z', $t_start_time);
 				$add_task->bindparam(':a', $t_end_time);
 				$add_task->bindparam(':b', $intern_id);
-				$add_task->bindparam(':c', $target_file);
+				$add_task->bindparam(':c', $filesArray);
+
 
 				$add_task->execute();
 

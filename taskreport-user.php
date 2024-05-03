@@ -72,16 +72,16 @@ include("include/lib_links.php");
                 <div class="v-wrapper">
                     <label for="assign_to">Assign to</label>
                     <?php
-                        $sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_id = $user_id";
-                        $info = $obj_admin->manage_all_info($sql);
-                        $row = $info->fetch(PDO::FETCH_ASSOC);
+                    $sql = "SELECT user_id, fullname FROM tbl_admin WHERE user_id = $user_id";
+                    $info = $obj_admin->manage_all_info($sql);
+                    $row = $info->fetch(PDO::FETCH_ASSOC);
                     ?>
 
                     <input type="text" class="form-control" id="assign_to" value="<?php echo $row['fullname']; ?>" disabled>
                     <input type="hidden" name="assign_to" value="<?php echo $row['user_id']; ?>">
                 </div>
 
-                
+
 
                 <div class="btnSection">
                     <button type="submit" name="add_new_task_user_input" class="btn btn-success-custom">Assign</button>
@@ -107,21 +107,21 @@ include("include/lib_links.php");
 
             <div class="btnSection">
 
-                <?php if($user_role == 2){ ?>
+                <?php if ($user_role == 2) { ?>
                     <div class="btnSection">
                         <select name="status" id="status" required>
-                                    <option value="">Select status</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Failed to submit">Failed to submit</option>
-                                    <option value="In progress">In progress</option>
-                                    <option value="Completed">Completed</option>
+                            <option value="">Select status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Failed to submit">Failed to submit</option>
+                            <option value="In progress">In progress</option>
+                            <option value="Completed">Completed</option>
                         </select>
                         <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
                     </div>
                 <?php } ?>
             </div>
 
-            
+
             <span class=on-phone>Tip: Scroll right to see more information.</span>
 
             <div class="card with-table">
@@ -193,14 +193,16 @@ include("include/lib_links.php");
 
                                     <td>
                                         <div class="attachment">
-                                            <?php if (!empty($row['task_img'])) { 
+                                            <?php if (!empty($row['task_img'])) {
                                                 if (@getimagesize($row['task_img'])) { ?>
-                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div></a>
+                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i>
+                                                        <div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div>
+                                                    </a>
                                                     <span class="tooltiptext">See attachment</span>
                                                 <?php } else { ?>
                                                     <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
                                                     <span class="tooltiptext">See attachment</span>
-                                                <?php } 
+                                                <?php }
                                             } else { ?>
                                                 <div class="no-proof"><i class="ri-close-line"></i>No task attachment</div>
                                             <?php } ?>
@@ -238,7 +240,7 @@ include("include/lib_links.php");
 
 <script type="text/javascript">
     let currentDate = new Date();
-    
+
     flatpickr('#t_start_time', {
         enableTime: true,
         minTime: "9:00",
@@ -247,7 +249,7 @@ include("include/lib_links.php");
         time_24hr: false,
         minDate: currentDate // disable past dates
     });
-    
+
     flatpickr('#t_end_time', {
         enableTime: true,
         minTime: "9:00",
@@ -256,11 +258,8 @@ include("include/lib_links.php");
         time_24hr: false,
         minDate: currentDate // disable past dates
     });
-
-   
-</script>   
-<script type = "text/javascript">
-
+</script>
+<script type="text/javascript">
     function getUrlParams() {
         var params = {};
         window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) {
@@ -281,10 +280,11 @@ include("include/lib_links.php");
     }
 
     var statusSelect = document.getElementById('status');
-    statusSelect.addEventListener("change", function(){
+    statusSelect.addEventListener("change", function() {
         filterTableByStatus(this.value);
     });
-    function filterTableByStatus(status){
+
+    function filterTableByStatus(status) {
         console.log("filter select called");
         var table = document.getElementById('internTable');
         var rows = table.getElementsByTagName('tr');
@@ -292,7 +292,7 @@ include("include/lib_links.php");
             var row = rows[i];
             row.style.display = "table-row";
             var cells = row.getElementsByTagName('td');
-    
+
             if (cells.length >= 4) {
                 var rowStatus = cells[3].innerText;
                 if (status === '' || rowStatus === status) {
@@ -303,7 +303,4 @@ include("include/lib_links.php");
             }
         }
     }
-    
 </script>
-
-
