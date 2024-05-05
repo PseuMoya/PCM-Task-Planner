@@ -193,17 +193,34 @@ include("include/lib_links.php");
 
                                     <td>
                                         <div class="attachment">
-                                            <?php if (!empty($row['task_img'])) {
-                                                if (@getimagesize($row['task_img'])) { ?>
-                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i>
-                                                        <div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div>
-                                                    </a>
-                                                    <span class="tooltiptext">See attachment</span>
-                                                <?php } else { ?>
-                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
-                                                    <span class="tooltiptext">See attachment</span>
-                                                <?php }
-                                            } else { ?>
+                                            <?php
+                                            if (!empty($row['task_img'])) {
+                                                $images = json_decode($row['task_img'], true);
+
+                                                if (is_array($images)) {
+                                                    $fileCount = count($images);
+                                                    echo "<span>$fileCount files attached</span>";
+
+                                                    foreach ($images as $filename) {
+                                                        $fileUrl = "http://localhost/PCM-Task-Planner/task_image/$filename";
+
+                                                        if (@getimagesize($fileUrl)) {
+                                                            echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i><div class=\"img-container\"><img src=\"$fileUrl\" alt=\"\"></div></a>";
+                                                        } else {
+                                                            echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i>" . basename($fileUrl) . "</a>";
+                                                        }
+                                                    }
+                                                } else {
+                                                    $fileUrl = "http://localhost/PCM-Task-Planner/task_image/" . $row['task_img'];
+
+                                                    if (@getimagesize($fileUrl)) {
+                                                        echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i><div class=\"img-container\"><img src=\"$fileUrl\" alt=\"\"></div></a>";
+                                                    } else {
+                                                        echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i>" . basename($fileUrl) . "</a>";
+                                                    }
+                                                }
+                                            } else {
+                                            ?>
                                                 <div class="no-proof"><i class="ri-close-line"></i>No task attachment</div>
                                             <?php } ?>
                                         </div>
