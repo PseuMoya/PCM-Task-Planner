@@ -116,7 +116,7 @@ include("include/lib_links.php");
                             <option value="In progress">In progress</option>
                             <option value="Completed">Completed</option>
                         </select>
-                        <button id="openModal"><i class="ri-add-large-line"></i>Assign a new task</button>
+                        <button id="openModal"><i class="ri-add-large-line"></i>Add a new task</button>
                     </div>
                 <?php } ?>
             </div>
@@ -193,19 +193,66 @@ include("include/lib_links.php");
 
                                     <td>
                                         <div class="attachment">
-                                            <?php if (!empty($row['task_img'])) {
-                                                if (@getimagesize($row['task_img'])) { ?>
-                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i>
-                                                        <div class="img-container"><img src="<?php echo $row['task_img']; ?>" alt=""></div>
-                                                    </a>
-                                                    <span class="tooltiptext">See attachment</span>
-                                                <?php } else { ?>
-                                                    <a href="<?php echo $row['task_img']; ?>" target="_blank"><i class="ri-external-link-line"></i><?php echo basename($row['task_img']); ?></a>
-                                                    <span class="tooltiptext">See attachment</span>
-                                                <?php }
-                                            } else { ?>
-                                                <div class="no-proof"><i class="ri-close-line"></i>No task attachment</div>
-                                            <?php } ?>
+                                            <?php
+                                            if (!empty($row['task_img'])) {
+                                                $images = json_decode($row['task_img'], true);
+
+                                                if (is_array($images)) {
+                                                    $fileCount = count($images);
+                                                    if ($fileCount == 0) {
+                                                        echo "<div class=\"no-proof\"><i class=\"ri-close-line\"></i>No task attachment</div>";
+                                                    } else {
+                                                        echo "<button class=\"open-attach-modal\"><i class=\"ri-attachment-2\"></i>$fileCount files attached</button>";
+                                            ?>
+                                                        <div id="attachment-modalBG">
+                                                            <div class="attachment-modal">
+                                                                <div class="modalTitle">
+                                                                    <h2>Attached files</h2>
+                                                                    <span class="close">&times;</span>
+                                                                </div>
+
+                                                                <?php
+                                                                $images = json_decode($row['task_img'], true);
+                                                                $fileCount = count($images);
+                                                                echo "<span>$fileCount files attached</span>";
+                                                                ?>
+
+                                                                <div class="list-file">
+                                                                    <?php
+                                                                    if (!empty($row['task_img'])) {
+
+                                                                        if (is_array($images)) {
+
+
+                                                                            foreach ($images as $filename) {
+                                                                                $fileUrl = "http://localhost/PCM-Task-Planner/task_image/$filename";
+
+                                                                                if (@getimagesize($fileUrl)) {
+                                                                                    echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i><div class=\"img-container\"><img src=\"$fileUrl\" alt=\"\"></div></a>";
+                                                                                } else {
+                                                                                    echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i>" . basename($fileUrl) . "</a>";
+                                                                                }
+                                                                            }
+                                                                        } else {
+                                                                            $fileUrl = "http://localhost/PCM-Task-Planner/task_image/" . $row['task_img'];
+
+                                                                            if (@getimagesize($fileUrl)) {
+                                                                                echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i><div class=\"img-container\"><img src=\"$fileUrl\" alt=\"\"></div></a>";
+                                                                            } else {
+                                                                                echo "<a href=\"$fileUrl\" target=\"_blank\"><i class=\"ri-external-link-line\"></i>" . basename($fileUrl) . "</a>";
+                                                                            }
+                                                                        }
+                                                                    } else {
+                                                                    ?>
+                                                                        <div class="no-proof"><i class="ri-close-line"></i>No task attachment</div>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                            <?php
+                                                    }
+                                                }
+                                            } ?>
                                         </div>
                                     </td>
 
@@ -235,6 +282,36 @@ include("include/lib_links.php");
         </div>
 
 </body>
+<script type="text/javascript">
+    // Get references to modal elements
+    var attachModalItself = document.querySelector(".attachment-modal");
+    var attachModal = document.getElementById("attachment-modalBG");
+
+    // Get references to modal elements
+    var exitModals = document.querySelectorAll(".close");
+
+    var btnOpenAttachModal = document.querySelectorAll(".open-attach-modal");
+    btnOpenAttachModal.forEach(function(btn) {
+        btn.onclick = function() {
+            // Find the closest modal to the clicked button
+            var modal = btn.closest(".attachment").querySelector("#attachment-modalBG");
+
+            // Show the modal
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+    });
+
+    exitModals.forEach(function(closeBtn) {
+        closeBtn.onclick = function() {
+            var modal = closeBtn.closest("#attachment-modalBG");
+
+            // Hide the modal
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        };
+    });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 

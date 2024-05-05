@@ -569,7 +569,7 @@ body {
   border-width: 2px 0px;
   border-style: solid;
   border-color: var(--border-color);
-  padding: 0.5rem 0.85rem;
+  padding: 0.5rem 0.5rem;
 }
 .content .table-container table tbody tr td .actions {
   display: flex;
@@ -611,15 +611,18 @@ body {
   font-family: monospace;
 }
 .content .table-container table tbody tr td .attachment {
+  display: flex;
   font-size: 14px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
 }
 .content .table-container table tbody tr td .attachment a {
   background-color: rgba(79, 152, 255, 0.1490196078);
   padding: 5px 7px;
   border-radius: 6px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
   color: #5b7dac;
   display: flex;
   align-items: center;
@@ -650,30 +653,6 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-.content .table-container table tbody tr td .attachment a:hover ~ .tooltiptext {
-  opacity: 1;
-  visibility: visible;
-  display: block;
-}
-.content .table-container table tbody tr td .attachment span.tooltiptext {
-  display: grid;
-  gap: 1em;
-  padding: 1em;
-  border: 2px solid var(--border-color);
-  background-color: var(--panel-color);
-  border-radius: 10px;
-  opacity: 0;
-  visibility: hidden;
-  display: none;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1450980392);
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  transition: all 0.2s ease;
 }
 .content .table-container table tbody tr .img-container {
   display: flex;
@@ -743,6 +722,86 @@ span.on-phone {
 .status-indicator.incomplete {
   color: #b10000;
   background-color: rgba(177, 0, 0, 0.1490196078);
+}
+
+.open-attach-modal {
+  background-color: rgba(79, 152, 255, 0.1490196078);
+  padding: 5px 7px;
+  border-radius: 6px;
+  color: #5b7dac;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border: none;
+  font-family: var(--primary-font);
+  cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+#attachment-modalBG {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+}
+#attachment-modalBG.show {
+  display: grid;
+}
+
+.attachment-modal {
+  background-color: var(--panel-color);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 500px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.attachment-modal .list-file {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.attachment-modal .btnSection {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 100%;
+}
+.attachment-modal .btnSection button {
+  font-family: var(--primary-font);
+  white-space: nowrap;
+  padding: 0.75em 1em;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.attachment-modal .modalTitle {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.attachment-modal .modalTitle span {
+  cursor: default;
+  font-size: 1.5em;
 }
 
 #openModal {
@@ -1237,6 +1296,8 @@ input[type=file] {
   }
   .content {
     margin-left: 0;
+    padding-left: 1em;
+    padding-right: 1em;
     padding-top: 6em;
   }
   .content .dash-cards.home {

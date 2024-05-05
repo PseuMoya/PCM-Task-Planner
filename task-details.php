@@ -44,7 +44,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <div id="modalBG" style="visibility: visible; opacity: 1; transition: none">
-	<div class="modal" style="visibility: visible; opacity: 1; transform: scale(1.0); transition: none">
+	<div class="modal" style="visibility: visible; opacity: 1; transform: scale(1.0); transition: none; max-width: 500px;">
 		<div class="modalTitle">
 			<h2>Task details</h2>
 		</div>
@@ -109,9 +109,6 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 				<div class="status-indicator failedtosub"><i class="ri-close-line"></i>No attachment is provided.</div>
 			<?php } ?>
 		</div>
-
-
-
 
 		<div class="v-wrapper">
 			<!-- TODO: preview of what the supervisor has sent -->
