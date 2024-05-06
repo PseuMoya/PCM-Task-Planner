@@ -75,6 +75,14 @@
                         <span><?php echo $row['position']; ?></span>
                     </div>
                 </div>
+                <?php
+                $user_role = $_SESSION['user_role'];
+                if ($user_role == 2) {
+                ?>
+                    <li><a href="INTERN-USER-MANUAL.pdf" target="_blank" class="manual"><i class="ri-book-fill"></i>User Manual</a></li>
+                <?php } else { ?>
+                    <li><a href="ADMIN-USER-MANUAL.pdf" target="_blank" class="manual"><i class="ri-book-fill"></i>Admin Manual</a></li>
+                <?php } ?>
                 <li><a href="?logout=logout"><i class="ri-logout-box-r-line"></i>Logout</a></li>
             <?php } ?>
         </ul>
@@ -111,7 +119,7 @@
             sidebar.style.left = '0%';
             document.documentElement.style.setProperty('--sidebar-width', '275px');
             isOpen = true;
-        } 
+        }
     }
 
     // Add event listener for window resize

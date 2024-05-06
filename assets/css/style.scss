@@ -360,17 +360,27 @@ body {
                 }
             }
 
+            a.manual {
+                background-color: rgba(79, 152, 255, 0.1490196078);
+                color: #5b7dac;
+
+                &:hover {
+                    background-color: rgba(79, 152, 255, 0.1490196078) !important;
+                }
+            }
+
             a {
                 --red-accent-color: 173, 98, 98;
                 border-radius: 5px;
                 background-color: rgba(var(--red-accent-color), 0.15);
                 color: rgb(var(--red-accent-color));
+                
+                &:hover:not(.active) {
+                    --red-accent-color: 173, 98, 98;
+                    background-color: rgba(var(--red-accent-color), 0.25);
+                }
             }
 
-            a:hover:not(.active) {
-                --red-accent-color: 173, 98, 98;
-                background-color: rgba(var(--red-accent-color), 0.25);
-            }
         }
 
         ul {

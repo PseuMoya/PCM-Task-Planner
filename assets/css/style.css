@@ -301,6 +301,13 @@ body {
   color: var(--lighter-text-color);
   font-size: 14px;
 }
+.sidebar .sidebar-wrapper ul:nth-child(2) a.manual {
+  background-color: rgba(79, 152, 255, 0.1490196078);
+  color: #5b7dac;
+}
+.sidebar .sidebar-wrapper ul:nth-child(2) a.manual:hover {
+  background-color: rgba(79, 152, 255, 0.1490196078) !important;
+}
 .sidebar .sidebar-wrapper ul:nth-child(2) a {
   --red-accent-color: 173, 98, 98;
   border-radius: 5px;
