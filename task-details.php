@@ -110,8 +110,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			<?php } ?>
 		</div>
 
-		<div class="v-wrapper">
-			<!-- TODO: preview of what the supervisor has sent -->
+		<!-- <div class="v-wrapper">
 			<label>Attached Task</label>
 			<?php if (!empty($row['task_img'])) {
 				$file_info = new finfo(FILEINFO_MIME_TYPE);
@@ -128,7 +127,7 @@ $row = $info->fetch(PDO::FETCH_ASSOC);
 			} else { ?>
 				<p><i class="ri-close-line"></i>No task attachment has been given for this task.</p>
 			<?php } ?>
-		</div>
+		</div> -->
 		<div class="btnSection">
 			<button onclick="window.history.back();">Back</button>
 		</div>
