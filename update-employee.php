@@ -111,17 +111,17 @@ include("include/lib_links.php");
                 </div>
             </div>
 
-            
-            <?php
-                function redirect_based_on_role()
-                {
-                    header('Location: admin-manage-user');
-                    exit();
-                }
 
-                if (isset($_POST['update_current_employee']) || isset($_POST['back'])) {
-                    redirect_based_on_role();
-                }
+            <?php
+            function redirect_based_on_role()
+            {
+                header('Location: admin-manage-user');
+                exit();
+            }
+
+            if (isset($_POST['update_current_employee']) || isset($_POST['back'])) {
+                redirect_based_on_role();
+            }
             ?>
 
             <div class="btnSection">
@@ -138,20 +138,20 @@ include("include/lib_links.php");
             </div>
 
             <?php
-                function password_direct()
-                {
-                    header('Location: admin-manage-user');
-                    exit();
-                }
+            function password_direct()
+            {
+                header('Location: admin-manage-user');
+                exit();
+            }
 
-                if (isset($_POST['employee_password']) || isset($_POST['back'])) {
-                    password_direct();
-                }
+            if (isset($_POST['employee_password']) || isset($_POST['back'])) {
+                password_direct();
+            }
             ?>
 
             <div class="v-wrapper">
                 <label for="admin_password">New Password</label>
-                <input type="password" name="employee_password" id="employee_password" min="8" required>
+                <input type="password" name="employee_password" id="employee_password" title="Password must be at least 8 characters long and contain at least one letter and one digit." min="8" pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" required>
             </div>
 
             <div class="btnSection">
